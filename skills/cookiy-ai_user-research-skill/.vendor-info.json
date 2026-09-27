@@ -1,0 +1,8 @@
+{
+  "source_url": "https://github.com/cookiy-ai/user-research-skill",
+  "source_commit": "21eea10a34d3c9b4e711e3d19f0457603dd33e19",
+  "vendored_at": "2026-08-04T00:00:00Z",
+  "verified_at": "2026-09-07T00:00:00Z",
+  "security_scan": "clean (0 HIGH, 0 INFO)",
+  "notes": "Already installed and up to date as of the request; verified byte-identical to upstream HEAD, no re-vendor needed."
+}

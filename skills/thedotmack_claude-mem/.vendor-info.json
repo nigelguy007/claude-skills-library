@@ -1,0 +1,7 @@
+{
+  "source_url": "https://github.com/thedotmack/claude-mem",
+  "source_commit": "7d0355413c2aaa3fa57fe6788b2ba2717fa7ff6f",
+  "vendored_at": "2026-09-27T00:00:00Z",
+  "security_scan": "clean (0 HIGH, 0 INFO) via scripts/scan_skill_source.py",
+  "notes": "Only the 8 plugin skills with no dependency on the claude-mem worker/database vendored (babysit, design-is, do, learn-codebase, make-plan, pathfinder, what-the, wowerpoint). The memory feature itself is a plugin with a local worker + DB and is wiped with every ephemeral cloud container; install it on a persistent machine with `npx claude-mem install`."
+}

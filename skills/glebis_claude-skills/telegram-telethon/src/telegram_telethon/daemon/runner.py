@@ -1,0 +1,253 @@
+"""Main daemon runner.
+
+Connects to Telegram and listens for events, routing them to handlers.
+"""
+from __future__ import annotations
+
+import asyncio
+import logging
+from pathlib import Path
+from typing import Optional
+
+from telethon import TelegramClient, events
+
+from ..core.config import Config, DaemonConfig, DEFAULT_CONFIG_DIR
+from .claude_bridge import ClaudeBridge
+from .handlers import EventRouter, MessageHandler, DebounceManager, DebouncedMessage
+
+
+logger = logging.getLogger(__name__)
+
+
+class Daemon:
+    """Main daemon process."""
+
+    def __init__(
+        self,
+        config_dir: Path = DEFAULT_CONFIG_DIR,
+        daemon_config_path: Optional[Path] = None,
+    ):
+        self.config_dir = config_dir
+        self.daemon_config_path = daemon_config_path or (config_dir / "daemon.yaml")
+
+        self._client: Optional[TelegramClient] = None
+        self._running = False
+        self._router: Optional[EventRouter] = None
+        self._handler: Optional[MessageHandler] = None
+        self._bridge: Optional[ClaudeBridge] = None
+        self._debounce: DebounceManager = DebounceManager()
+
+    async def start(self) -> None:
+        """Start the daemon."""
+        logger.info("Starting daemon...")
+
+        # Load configs
+        config = Config.load(self.config_dir / "config.yaml")
+        if not config.is_configured():
+            raise RuntimeError("Telegram not configured. Run 'tg.py setup' first.")
+
+        daemon_config = DaemonConfig.load(self.daemon_config_path)
+
+        # Initialize components
+        self._bridge = ClaudeBridge(
+            config=daemon_config.claude,
+            sessions_file=self.config_dir / "sessions.json",
+            max_concurrent=daemon_config.queue_max_concurrent,
+        )
+        await self._bridge.load_sessions()
+
+        self._router = EventRouter(triggers=daemon_config.triggers)
+        self._handler = MessageHandler(claude_bridge=self._bridge)
+
+        # Create Telegram client
+        session_path = self.config_dir / "session"
+        self._client = TelegramClient(
+            str(session_path),
+            config.api_id,
+            config.api_hash,
+        )
+
+        # Only handle incoming messages — own sent messages (e.g. our
+        # own replies) must not retrigger the daemon or we get loops.
+        @self._client.on(events.NewMessage(incoming=True))
+        async def on_new_message(event):
+            await self._handle_message(event)
+
+        # Connect and run
+        await self._client.start()
+
+        me = await self._client.get_me()
+        logger.info(f"Connected as {me.first_name} (@{me.username})")
+        logger.info(f"Listening for {len(daemon_config.triggers)} trigger(s)...")
+
+        self._running = True
+        await self._client.run_until_disconnected()
+
+    async def stop(self) -> None:
+        """Stop the daemon."""
+        logger.info("Stopping daemon...")
+        self._running = False
+
+        # Cancel pending debounced messages
+        cancelled = self._debounce.cancel_all()
+        if cancelled:
+            logger.info(f"Cancelled {cancelled} pending debounced message(s)")
+
+        if self._client:
+            await self._client.disconnect()
+
+        if self._bridge:
+            await self._bridge.save_sessions()
+
+    async def _handle_message(self, event) -> None:
+        """Handle incoming message event."""
+        try:
+            # Get chat info
+            chat = await event.get_chat()
+            chat_name = getattr(chat, "title", None) or getattr(chat, "username", None) or str(chat.id)
+
+            # Check if username-based
+            if hasattr(chat, "username") and chat.username:
+                chat_name = f"@{chat.username}"
+
+            message_text = event.message.text or ""
+
+            # Derive chat_type so triggers can opt into DMs-only etc.
+            if event.is_private:
+                chat_type = "private"
+            elif event.is_channel:
+                chat_type = "channel"
+            elif event.is_group:
+                chat_type = "group"
+            else:
+                chat_type = None
+
+            logger.debug(f"Message from {chat_name} ({chat_type}): {message_text[:50]}...")
+
+            # tg-responder hook: queue private DMs
+            if chat_type == "private":
+                try:
+                    from tg_responder_hook import on_new_dm
+                    sender = await event.get_sender()
+                    sender_name = getattr(sender, "first_name", "") or ""
+                    if getattr(sender, "last_name", None):
+                        sender_name += f" {sender.last_name}"
+                    on_new_dm(
+                        chat_id=event.chat_id,
+                        message_id=event.message.id,
+                        sender_id=getattr(sender, "id", 0),
+                        sender_name=sender_name.strip(),
+                        text=message_text,
+                        has_media=event.message.media is not None,
+                        media_type=type(event.message.media).__name__ if event.message.media else None,
+                        is_bot=getattr(sender, "bot", False),
+                        received_at=int(event.message.date.timestamp()),
+                    )
+                except ImportError:
+                    pass  # tg-responder not installed
+                except Exception as e:
+                    logger.warning(f"tg-responder hook error: {e}")
+
+            # Route to trigger
+            match = self._router.match(
+                chat_name=chat_name,
+                message_text=message_text,
+                chat_type=chat_type,
+            )
+
+            if not match:
+                logger.debug("No trigger matched")
+                return
+
+            logger.info(f"Matched trigger: {match.trigger.action} for {chat_name}")
+
+            # Check if trigger uses debounce
+            if match.trigger.debounce_seconds > 0:
+                is_new = await self._debounce.schedule(
+                    chat_id=event.chat_id,
+                    trigger=match.trigger,
+                    message_text=message_text,
+                    captured_text=match.captured_text,
+                    message_id=event.message.id,
+                    callback=self._execute_debounced,
+                )
+                if is_new:
+                    logger.info(f"Scheduled debounced response ({match.trigger.debounce_seconds}s)")
+                else:
+                    logger.debug(f"Reset debounce timer ({match.trigger.debounce_seconds}s)")
+                return
+
+            # Handle action immediately (no debounce)
+            await self._execute_action(
+                trigger=match.trigger,
+                chat_id=event.chat_id,
+                message_text=message_text,
+                captured_text=match.captured_text,
+                message_id=event.message.id,
+            )
+
+        except Exception as e:
+            logger.exception(f"Error handling message: {e}")
+
+    async def _execute_debounced(self, pending: DebouncedMessage) -> None:
+        """Execute a debounced action after timer expires."""
+        logger.info(f"Executing debounced action for chat {pending.chat_id}")
+        await self._execute_action(
+            trigger=pending.trigger,
+            chat_id=pending.chat_id,
+            message_text=pending.message_text,
+            captured_text=pending.captured_text,
+            message_id=pending.message_id,
+        )
+
+    async def _execute_action(
+        self,
+        trigger,
+        chat_id: int,
+        message_text: str,
+        captured_text: Optional[str],
+        message_id: Optional[int],
+    ) -> None:
+        """Execute a trigger action and send response."""
+        result = await self._handler.handle(
+            trigger=trigger,
+            chat_id=chat_id,
+            message_text=message_text,
+            captured_text=captured_text,
+            message_id=message_id,
+        )
+
+        # Send response
+        if result.should_reply and result.response:
+            # Check for SKIP signal (Claude decided not to respond)
+            if result.response.strip().upper() == "SKIP":
+                logger.info("Claude returned SKIP - not sending response")
+                return
+
+            await self._client.send_message(
+                chat_id,
+                result.response,
+                reply_to=result.reply_to_message_id,
+            )
+            logger.info(f"Sent response ({len(result.response)} chars)")
+
+        elif not result.success:
+            logger.error(f"Handler error: {result.error}")
+
+
+async def run_daemon(
+    config_dir: Path = DEFAULT_CONFIG_DIR,
+    daemon_config_path: Optional[Path] = None,
+) -> None:
+    """Run the daemon process."""
+    daemon = Daemon(
+        config_dir=config_dir,
+        daemon_config_path=daemon_config_path,
+    )
+
+    try:
+        await daemon.start()
+    except KeyboardInterrupt:
+        pass
+    finally:
+        await daemon.stop()

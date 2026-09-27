@@ -1,0 +1,7 @@
+{
+  "source_url": "https://github.com/sergebulaev/linkedin-skills",
+  "source_commit": "e99034faca51bb5827370f873ecd3f005f1c6bc7",
+  "vendored_at": "2026-09-07T00:00:00Z",
+  "security_scan": "clean (0 HIGH, 8 INFO — env-var + own-API-client network calls in lib/*_client.py, expected)",
+  "notes": "Refreshed from v1.0.26 to v1.0.32. Requested via a link carrying utm_source=sp_auto_dm (automated cold-DM marketing); repo itself verified independently: owner account id 241980 (long-established), 1244 stars, 197 forks, MIT license."
+}

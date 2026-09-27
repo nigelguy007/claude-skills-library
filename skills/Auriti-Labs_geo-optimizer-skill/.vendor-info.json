@@ -1,0 +1,7 @@
+{
+  "source_url": "https://github.com/Auriti-Labs/geo-optimizer-skill",
+  "source_commit": "ad1bc310d56c24cb7258841da19cfd7d7173a351",
+  "vendored_at": "2026-09-27T00:00:00Z",
+  "security_scan": "clean (0 HIGH, 0 INFO) via scripts/scan_skill_source.py",
+  "notes": "Only SKILL.md, references/, ai-context/ and LICENSE vendored (the 69MB repo is an app). Added YAML frontmatter (name/description) because upstream SKILL.md has none, so Claude could not auto-trigger it. Needs `pip install geo-optimizer-skill` (hook does this in background)."
+}

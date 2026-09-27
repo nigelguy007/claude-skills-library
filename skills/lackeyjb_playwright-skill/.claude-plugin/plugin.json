@@ -1,0 +1,21 @@
+{
+  "name": "playwright-skill",
+  "version": "5.0.0",
+  "description": "Agent Skill for general-purpose Playwright browser automation. Detects dev servers and helps coding agents write, execute, and preserve reusable browser scripts.",
+  "author": {
+    "name": "lackeyjb"
+  },
+  "license": "MIT",
+  "repository": "https://github.com/lackeyjb/playwright-skill",
+  "keywords": [
+    "claude-skill",
+    "claude-code",
+    "playwright",
+    "browser-automation",
+    "testing",
+    "e2e",
+    "web-testing",
+    "automation",
+    "model-invoked"
+  ]
+}

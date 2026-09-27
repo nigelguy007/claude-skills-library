@@ -1,0 +1,7 @@
+{
+  "source_url": "https://github.com/rampstackco/claude-skills",
+  "source_commit": "a67dd34c609f034c0cfd736a348659bbdf1605bf",
+  "vendored_at": "2026-09-07T00:00:00Z",
+  "security_scan": "clean (0 HIGH, 0 INFO)",
+  "notes": "Reputation checked before vendoring: org account, 828 stars, 117 forks, MIT license. Vendored the full repo (103 skills covering brand/design/content/SEO/dev/ops/growth/research), not just the single requested content-repurposing skill, matching this library's convention of vendoring whole source collections."
+}

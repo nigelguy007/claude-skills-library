@@ -1,0 +1,7 @@
+{
+  "source_url": "https://github.com/D4Vinci/Scrapling",
+  "source_commit": "e0d4d7563207b70c2cb38487c4e0dcbe0e2f04ca",
+  "vendored_at": "2026-09-27T00:00:00Z",
+  "security_scan": "clean (0 HIGH, 0 INFO) via scripts/scan_skill_source.py",
+  "notes": "Only agent-skill/Scrapling-Skill vendored. Needs `pip install \"scrapling[all]\"` + `scrapling install` for browser fetchers; session-start hook installs the base package in the background."
+}

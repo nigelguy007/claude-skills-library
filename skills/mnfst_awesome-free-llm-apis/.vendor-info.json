@@ -1,0 +1,7 @@
+{
+  "source_url": "https://github.com/mnfst/awesome-free-llm-apis",
+  "source_commit": "167013ff729e30f3a92bb8d416062d6c34a84507",
+  "vendored_at": "2026-09-27T00:00:00Z",
+  "security_scan": "clean (0 HIGH, 0 INFO) via scripts/scan_skill_source.py",
+  "notes": "free-llm-apis skill vendored."
+}

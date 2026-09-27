@@ -1,0 +1,7 @@
+{
+  "source_url": "https://github.com/conorbronsdon/avoid-ai-writing",
+  "source_commit": "a465548fe813969dc7006c2e042efa305c09c96f",
+  "vendored_at": "2026-09-07T00:00:00Z",
+  "security_scan": "clean (0 HIGH, 0 INFO) after fixing scripts/scan_skill_source.py's exec( pattern to exclude JS/Python .exec( method calls, which this repo's detector/patterns.js triggered ~70 false positives on",
+  "notes": "Reputation checked before vendoring: owner account long-established, 4175 stars, 354 forks, MIT license. Vendored the full repo (7 skills: avoid-ai-writing, avoid-ai-writing-router, ai-writing-detector, false-positive-reviewer, file-edit-in-place, preservation-verifier, voice-preserving-rewriter), not just the single requested skill, matching this library's convention of vendoring whole source collections."
+}

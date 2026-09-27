@@ -1,0 +1,7 @@
+{
+  "source_url": "https://github.com/addyosmani/agent-skills",
+  "source_commit": "2686b620fc1fed2e8f60c704839c766b8594c6b6",
+  "vendored_at": "2026-09-27T00:00:00Z",
+  "security_scan": "clean (0 HIGH, 0 INFO) via scripts/scan_skill_source.py",
+  "notes": "skills/ vendored. Upstream links to a shared repo-root references/ dir (../../references/*.md) which breaks once the installer flattens skills into ~/.claude/skills, so each referenced checklist was copied into the using skill's own references/ and links rewritten."
+}

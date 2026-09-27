@@ -1,0 +1,7 @@
+{
+  "source_url": "https://github.com/Panniantong/Agent-Reach",
+  "source_commit": "a19a171fa980a0785849596492e0af4db800c82f",
+  "vendored_at": "2026-09-27T00:00:00Z",
+  "security_scan": "clean (0 HIGH, 0 INFO) via scripts/scan_skill_source.py",
+  "notes": "Only agent_reach/skill vendored (SKILL.md is the Chinese/English original, SKILL_en.md the English one). Needs the `agent-reach` CLI; session-start hook pip-installs it in the background."
+}

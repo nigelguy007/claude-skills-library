@@ -1,0 +1,77 @@
+{
+  "autonomy-review": {
+    "file": "autonomy-review.md",
+    "sha256": "015327accc407228b7fd0cf0dc9a12f86052c66f043ba7a55becf3c2bfe65c61",
+    "status": "template"
+  },
+  "ci-prove-gate-wiring": {
+    "file": "ci-prove-gate-wiring.md",
+    "sha256": "be2b7a529de74940af780c345b49ae3a439832f59b18fc4ef579be8f296604b2",
+    "status": "template"
+  },
+  "content-pipeline-prove-gates": {
+    "file": "content-pipeline-prove-gates.md",
+    "sha256": "2b8c6d13282f0fdc0c8e36bd5e5f2152ab4b33a98fda0e94a1c91877cd5805da",
+    "status": "validated"
+  },
+  "conversion-by-source-diagnosis": {
+    "file": "conversion-by-source-diagnosis.md",
+    "sha256": "3f29afdecf1066ef1e82494da01810cf0f38b458356b1742a067ebb57a1f8c70",
+    "status": "template"
+  },
+  "corpus-integrity-and-correction": {
+    "file": "corpus-integrity-and-correction.md",
+    "sha256": "6eb19ad829dc1f786717e594dd51cf569955eda3ff3d827b0636b2aed066e0fd",
+    "status": "template"
+  },
+  "data-surface-integrity": {
+    "file": "data-surface-integrity.md",
+    "sha256": "9fdc0f3d652a99d3272f8ce8488450c58ddad3b9c30d1e7cd75df8a28dbd48dc",
+    "status": "template"
+  },
+  "experiment-loop-with-pre-registered-gates": {
+    "file": "experiment-loop-with-pre-registered-gates.md",
+    "sha256": "a384e8f1ea7ce427c532fc5ded30f6f42853cbdea5b5255d6eccd6098236398c",
+    "status": "template"
+  },
+  "incident-response-and-lane-demotion": {
+    "file": "incident-response-and-lane-demotion.md",
+    "sha256": "1273f53fa1e3f6f64ff16795f871958ef6a96e01551677febbbb82a9d13e35df",
+    "status": "template"
+  },
+  "link-graph-and-metadata-parity-audit": {
+    "file": "link-graph-and-metadata-parity-audit.md",
+    "sha256": "7c070e24a87f7216d02c2e1a497c459eaaeb7165cbe59fb04d6b0bd4f1adfbdc",
+    "status": "template"
+  },
+  "migration-with-verification": {
+    "file": "migration-with-verification.md",
+    "sha256": "230b0492e040de69850b1c71609a6ee6155461d5e2e6bafc37ad05cda4ac96a1",
+    "status": "template"
+  },
+  "post-deploy-live-verification": {
+    "file": "post-deploy-live-verification.md",
+    "sha256": "6552a022380d9dd8f76d9dfb81c48f712b96e4c605fabe9d988752595bca6013",
+    "status": "template"
+  },
+  "regulated-content-compliance-gate": {
+    "file": "regulated-content-compliance-gate.md",
+    "sha256": "9547ff05cc30d66874d986a96da68c3a201b274c1c47be6a5d2143d74c30e111",
+    "status": "template"
+  },
+  "revenue-tracking-integrity": {
+    "file": "revenue-tracking-integrity.md",
+    "sha256": "97a9484f79a7c29ea20f10d56c9f0340a9e4682dbe7a48cb5f69e887fca2598b",
+    "status": "template"
+  },
+  "traffic-drop-triage": {
+    "file": "traffic-drop-triage.md",
+    "sha256": "2faf9cced43dc45746d31d2cf94aff0efe35337ed8043bf0ac4f57a5442a92b9",
+    "status": "template"
+  },
+  "warehouse-data-plane-standup": {
+    "file": "warehouse-data-plane-standup.md",
+    "sha256": "0c61cbbc088752ec8083df36a589983d8dcdc1bcd4895bb2e006a4bd22af4ada",
+    "status": "template"
+  }
+}

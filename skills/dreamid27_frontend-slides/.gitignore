@@ -1,0 +1,7 @@
+.DS_Store
+.claude-design/
+node_modules/
+.vercel/
+*.log
+.playwright-mcp
+.claude-plugin
