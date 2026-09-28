@@ -1,0 +1,4 @@
+interface:
+  display_name: "Fundraise Run"
+  short_description: "Run an evidence-led venture raise end to end"
+  default_prompt: "Use $fundraise-run to turn this round brief and investor list into a qualified fundraising process."
