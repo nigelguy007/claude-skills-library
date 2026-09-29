@@ -1,6 +1,6 @@
 # Installed Claude Skills
 
-This repository has **2553 Claude skills** installed under the `skills/` directory, collected from 66 source repositories plus 5 uploaded skill packs.
+This repository has **2560 Claude skills** installed under the `skills/` directory, collected from 67 source repositories plus 5 uploaded skill packs.
 
 Each skill is stored under `skills/<owner>_<repo>/...`, preserving its origin path.
 
@@ -76,6 +76,7 @@ Each skill is stored under `skills/<owner>_<repo>/...`, preserving its origin pa
 | 64 | Strategy engagement skills for consultants (uploaded zip) (`skills/uploads_strategy-engagement-skills`) | 5 |
 | 65 | Fundraising Intelligence (uploaded zip) (`skills/uploads_fundraising-intelligence`) | 21 |
 | 66 | media-gen v3 (uploaded zip) (`skills/uploads_media-gen`) | 1 |
+| 67 | [Shubhamsaboo/awesome-llm-apps](https://github.com/Shubhamsaboo/awesome-llm-apps) | 7 |
 
 ### Source repositories with no installable skills
 
@@ -94,7 +95,7 @@ Each skill is stored under `skills/<owner>_<repo>/...`, preserving its origin pa
 
 - **Google Drive folders** (3 links in the request) — cloud storage, not git repositories; cannot be installed as Claude skills.
 
-## All installed skills (2553)
+## All installed skills (2560)
 
 | Skill | Source repo | Description | Trigger |
 |-------|-------------|-------------|---------|
@@ -2651,3 +2652,10 @@ Each skill is stored under `skills/<owner>_<repo>/...`, preserving its origin pa
 | `vc-outreach-writer` | Fundraising Intelligence (uploaded zip) | Draft evidence-based cold or direct outreach to a specific qualified VC partner. Use when research has established a real fund and partner fit. Do not mass-personalize from weak signals or send… | Use when research has established a real fund and partner fit. Do not mass-personalize from weak signals or send messages without authorization. |
 | `warm-path-mapper` | Fundraising Intelligence (uploaded zip) | Map credible introduction paths from a founder's authorized relationship data to qualified funds and partners. Use to prioritize warm routes without fabricating familiarity. Do not access contacts,… | Model-invoked automatically when a request matches the skill's description. |
 | `media-gen` | media-gen v3 (uploaded zip) | Generate and upscale AI images and videos via Fal.ai using a curated registry of best-in-class models. Use whenever the user asks to create, generate, make, render, or produce a photo, image,… | Use whenever the user asks to create, generate, make, render, or produce a photo, image, picture, or video. Phrases like "make me an image of...", "generate a… |
+| `advisor-orchestrator-worker` | Shubhamsaboo/awesome-llm-apps | Use when a task is too large for one model pass, needs parallel research or generation across many subtasks (like researching a dozen competitors at once), or the user asks to orchestrate multiple models, split work across a model team,… | Use when a task is too large for one model pass, needs parallel research or generation across many subtasks (like researching a dozen competitors at once),… |
+| `commit-archaeologist` | Shubhamsaboo/awesome-llm-apps | Reconstructs why code exists from local git history, including the introducing commit, later changes, current authors, repeated companion files, and likely intent. Use when the user asks "why does this code exist", "who wrote this… | Use when the user asks "why does this code exist", "who wrote this function and why", or to "explain the history of this function" before a rewrite,… |
+| `dependency-doctor` | Shubhamsaboo/awesome-llm-apps | Checks requirements.txt, pyproject.toml, and package.json dependency manifests for surface-level direct-dependency footguns: standard-library shadowing pins, abandoned backports, unpinned dependencies, and obvious intra-manifest… | Use when the user asks to check a manifest for dependency problems, asks why dependencies won't install or whether anything is wrong with their… |
+| `first-reader` | Shubhamsaboo/awesome-llm-apps | Beta readers for any draft, run by simulating how a real reader experiences it, moment by moment. A skim gate, a no-lookahead timed read producing an attention transcript with quit points, a recall test of what a reader remembers the… | Use when the user asks for a beta read, beta readers, test readers, human review, reader review, to read something like a human, to be a first reader,… |
+| `project-graveyard` | Shubhamsaboo/awesome-llm-apps | Scans the developer's machine for dead side projects, autopsies each one from its git history (died at the payments wall, killed by a newer project, finished but never shipped), surfaces their personal death patterns, and picks the… | Use when the user mentions abandoned, unfinished, or old side projects, asks "what should I finish", wants to revive or resurrect a project, says "run the… |
+| `scope-creep-detector` | Shubhamsaboo/awesome-llm-apps | Analyzes git diffs against a stated intent to detect scope creep, unrelated files, broad pull requests, changes that grew beyond a fix, dependency additions, public API renames, config or CI edits, oversized hunks, and formatting-only… | Use when the user asks whether a change grew beyond the fix, a PR is too broad, or what unrelated stuff they touched, and wants keep, split, or justify… |
+| `thinking-out-loud` | Shubhamsaboo/awesome-llm-apps | A contract for what the agent does when a long, messy, stream-of-consciousness ramble arrives (usually voice dictation): act on nothing until the echo brief is approved. The echo audits the entire transfer, mission, locked decisions and… | Use when the user says "let me think out loud" or wants to ramble a bit before building anything, when a message opens with a speech-to-text preamble like… |
