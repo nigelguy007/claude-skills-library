@@ -1,6 +1,6 @@
 # Installed Claude Skills
 
-This repository has **2633 Claude skills** installed under the `skills/` directory, collected from 77 source repositories plus 5 uploaded skill packs.
+This repository has **2634 Claude skills** installed under the `skills/` directory, collected from 78 source repositories plus 5 uploaded skill packs.
 
 Each skill is stored under `skills/<owner>_<repo>/...`, preserving its origin path.
 
@@ -92,6 +92,7 @@ Each skill is stored under `skills/<owner>_<repo>/...`, preserving its origin pa
 | 80 | [vercel-labs/agent-skills](https://github.com/vercel-labs/agent-skills) | 9 |
 | 81 | [vercel-labs/skills](https://github.com/vercel-labs/skills) | 1 |
 | 82 | [ybouane/liquidglass](https://github.com/ybouane/liquidglass) | 1 |
+| 83 | [nigelguy007/verified-journalist](https://github.com/nigelguy007/verified-journalist) | 1 |
 
 ### Source repositories with no installable skills
 
@@ -110,7 +111,7 @@ Each skill is stored under `skills/<owner>_<repo>/...`, preserving its origin pa
 
 - **Google Drive folders** (3 links in the request) — cloud storage, not git repositories; cannot be installed as Claude skills.
 
-## All installed skills (2633)
+## All installed skills (2634)
 
 | Skill | Source repo | Description | Trigger |
 |-------|-------------|-------------|---------|
@@ -2407,6 +2408,7 @@ Each skill is stored under `skills/<owner>_<repo>/...`, preserving its origin pa
 | `ui-styling` | nextlevelbuilder/ui-ux-pro-max-skill | Create beautiful, accessible user interfaces with shadcn/ui components (built on Radix UI + Tailwind), Tailwind CSS utility-first styling, and canvas-based visual designs. Use when building user interfaces, implementing design… | Use when building user interfaces, implementing design systems, creating responsive layouts, adding accessible components (dialogs, dropdowns, forms, tables), customizing themes and colors, implementing dark mode, generating visual designs and… |
 | `ui-ux-pro-max` | nextlevelbuilder/ui-ux-pro-max-skill | UI/UX design intelligence for web and mobile. Includes 50+ styles, 161 color palettes, 57 font pairings, 161 product types, 99 UX guidelines, and 25 chart types across 10 stacks (React, Next.js, Vue, Svelte, SwiftUI, React Native,… | Model-invoked automatically when a request matches the skill's description. |
 | `prompt-master` | nidhinjs/prompt-master | Generates optimized prompts for AI tools. Activates only when the user explicitly asks to write, fix, improve, or adapt a prompt for a specific AI tool (LLM, Cursor, Midjourney, image AI, video AI, coding agents, etc.). Does not activate… | Activates only when the user explicitly asks to write, fix, improve, or adapt a prompt for a specific AI tool (LLM, Cursor, Midjourney, image AI, video AI, coding agents, etc. |
+| `verified-journalist` | nigelguy007/verified-journalist | Research and write a sourced, fact-checked article on a topic, where every quote is verified verbatim against fetched sources and every factual sentence carries a citation. Use when asked to write a news story, explainer, feature or… | Use when asked to write a news story, explainer, feature or analysis that must be accurate and attributable. |
 | `brainstorming` | obra/superpowers | You MUST use this before any creative work - creating features, building components, adding functionality, or modifying behavior. Explores user intent, requirements and design before implementation. | Model-invoked automatically when a request matches the skill's description. |
 | `dispatching-parallel-agents` | obra/superpowers | Use when facing 2+ independent tasks that can be worked on without shared state or sequential dependencies | Model-invoked automatically when a request matches the skill's description. |
 | `executing-plans` | obra/superpowers | Use when you have a written implementation plan to execute in a separate session with review checkpoints | Model-invoked automatically when a request matches the skill's description. |
