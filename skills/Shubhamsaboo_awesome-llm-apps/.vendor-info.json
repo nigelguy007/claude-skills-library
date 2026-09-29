@@ -1,0 +1,7 @@
+{
+  "source_url": "https://github.com/Shubhamsaboo/awesome-llm-apps",
+  "source_commit": "4bf51ab704fb2c5b3803cd5191b30d7dcdb51dc2",
+  "vendored_at": "2026-09-29T00:00:00Z",
+  "security_scan": "clean (0 HIGH, 1 INFO) via scripts/scan_skill_source.py. INFO is first-reader/scripts/feed.py, a server bound to 127.0.0.1 only. dependency-doctor's PyPI lookup is opt-in.",
+  "notes": "The repo is mostly ~160 MB of example LLM apps (Python/JS), which are not skills and were not vendored. Vendored the 7 skills in agent_skills/. Left out: the evals/ harness; the self-improving-agent-skills app (no SKILL.md); and 3 mcp-use skills under generative_ui_agents/ai-mcp-app-builder/.../.agent/skills. Two of those (mcp-builder, chatgpt-app-builder) are DEPRECATED stubs that tell the agent to `npx skills install`. The third (mcp-apps-builder) declares itself 'MANDATORY for ALL MCP server work' and would take over MCP requests for the mcp-use framework. Apache-2.0."
+}

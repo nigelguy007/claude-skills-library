@@ -1,6 +1,6 @@
 # claude-skills-library
 
-About 2,600 [Claude Code](https://claude.com/claude-code) skills collected from open-source repositories, plus a one-command installer that puts them all in `~/.claude/skills` so every project can use them.
+About 2,630 [Claude Code](https://claude.com/claude-code) skills collected from open-source repositories, plus a one-command installer that puts them all in `~/.claude/skills` so every project can use them.
 
 - Skills live under [`skills/`](skills/), namespaced by origin as `skills/<owner>_<repo>/...`.
 - [`SKILLS.md`](SKILLS.md) lists every skill, its source repository and what triggers it.
@@ -25,6 +25,8 @@ Restart Claude Code afterwards. Run the same command again to update.
 - Skills already in `~/.claude/skills` are never overwritten. Name collisions are installed as `<owner>_<repo>_<name>`.
 - To install a single collection: `./install.sh --source <owner>_<repo>`.
 - To search what's installed: `./find-skill.sh <keyword>`.
+- Collections with a router `SKILL.md` at their root (gstack, avoid-ai-writing, linkedin-skills) also get the skills nested under it installed. If a skill with that name is already there from another install, such as gstack's own setup, that copy is kept.
+- After adding or removing skills, run `python3 scripts/build_skills_index.py` to rebuild `SKILLS.md` from what's on disk.
 
 ## Claude Code on the web (cloud sessions)
 
