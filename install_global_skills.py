@@ -28,6 +28,7 @@ Override the destination with the ``CLAUDE_SKILLS_DIR`` environment variable
 import argparse
 import json
 import os
+import re
 import shutil
 import sys
 from pathlib import Path
@@ -59,6 +60,39 @@ def find_top_level_skills(src_root: Path) -> List[Path]:
         if is_top:
             top.append(d)
     return sorted(top)
+
+
+def find_router_children(src_root: Path, top: List[Path]) -> List[Path]:
+    """Skills nested under a collection-root SKILL.md.
+
+    Some sources (gstack, avoid-ai-writing, linkedin-skills) put a router
+    SKILL.md at the repo root with the real skills below it. Only the root
+    would be installed otherwise, so those nested skills (the top-most ones
+    beneath the root, skipping plugin copies of the root skill itself) are
+    installed too. Nesting deeper inside an ordinary skill (translations,
+    per-platform variants, fixtures) is left alone.
+    """
+    roots = [d for d in top if d.parent == src_root]
+    children: List[Path] = []
+    for root in roots:
+        nested = {p.parent for p in root.rglob("SKILL.md")} - {root}
+        for d in nested:
+            anc = d.parent
+            while anc != root and anc not in nested:
+                anc = anc.parent
+            if anc == root and skill_name(d) != skill_name(root):
+                children.append(d)
+    return sorted(children)
+
+
+def skill_name(skill_dir: Path) -> str:
+    """The ``name:`` from SKILL.md front-matter, falling back to the dir name."""
+    try:
+        head = (skill_dir / "SKILL.md").read_text(errors="ignore")[:2000]
+    except OSError:
+        return skill_dir.name
+    m = re.search(r"^name:\s*['\"]?([^'\"\n]+)", head, re.M)
+    return m.group(1).strip() if m else skill_dir.name
 
 
 def owner_repo(skill_dir: Path) -> str:
@@ -125,6 +159,8 @@ def main(argv: Optional[List[str]] = None) -> int:
             shutil.rmtree(target)
 
     top = find_top_level_skills(SRC_ROOT)
+    children = set(find_router_children(SRC_ROOT, top))
+    top = sorted(set(top) | children)
 
     if wanted is not None:
         top = [d for d in top if owner_repo(d) in wanted]
@@ -137,9 +173,16 @@ def main(argv: Optional[List[str]] = None) -> int:
 
     installed: dict = {}
     namespaced = 0
+    duplicates = 0
     for skill_dir in top:
         base = skill_dir.name
         name = base
+        if skill_dir in children and name in used and name not in installed:
+            # A router's sub-skill whose name is already taken by something this
+            # installer didn't write is that same skill installed another way
+            # (e.g. gstack's own setup, often a newer version). Keep that one.
+            duplicates += 1
+            continue
         if name in used:
             name = f"{owner_repo(skill_dir)}_{base}"
             namespaced += 1
@@ -166,6 +209,8 @@ def main(argv: Optional[List[str]] = None) -> int:
 
     print(f"Installed {len(installed)} skills into {DEST_ROOT}")
     print(f"  {namespaced} namespaced by source repo to avoid name collisions")
+    if duplicates:
+        print(f"  {duplicates} skipped: already installed by other means")
     if wanted is not None:
         print(f"  scope: {', '.join(sorted(wanted))}")
     print(f"  manifest: {INSTALL_MANIFEST}")
