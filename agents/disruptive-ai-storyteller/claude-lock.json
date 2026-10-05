@@ -1,0 +1,11 @@
+{
+  "version": 1,
+  "resources": {
+    "./agents/disruptive-ai-storyteller.md": {
+      "kind": "agent",
+      "id": "agent_011SjQXYc6xfG7yBZnzxjEtS",
+      "version": "1",
+      "hash": ""
+    }
+  }
+}
