@@ -1,0 +1,45 @@
+name: "Multi-Agent Content Pipeline"
+description: "Chain multiple agents to research, write, and format content"
+
+steps:
+  - name: "Research topic"
+    agent: "web_search"
+    input:
+      query: "Latest trends in AI and workplace automation"
+
+  - name: "Generate article outline"
+    agent: "agent:AGENT_ID_1"
+    input:
+      research: "{{ steps[0].output }}"
+      article_type: "thought leadership"
+
+  - name: "Write full article"
+    agent: "agent:AGENT_ID_2"
+    input:
+      outline: "{{ steps[1].output }}"
+      word_count: 800
+      tone: "professional but conversational"
+
+  - name: "Create LinkedIn version"
+    agent: "agent:AGENT_ID_3"
+    input:
+      article: "{{ steps[2].output }}"
+      length: "short"
+      add_cta: true
+
+  - name: "Fetch Twitter size limits"
+    agent: "web_fetch"
+    input:
+      url: "https://help.twitter.com/en/using-x/posts"
+
+  - name: "Create Twitter version"
+    agent: "agent:AGENT_ID_4"
+    input:
+      article: "{{ steps[2].output }}"
+      max_chars: 280
+      add_hashtags: true
+
+output:
+  article: "{{ steps[2].output }}"
+  linkedin_version: "{{ steps[3].output }}"
+  twitter_version: "{{ steps[5].output }}"

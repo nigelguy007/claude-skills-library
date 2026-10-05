@@ -1,0 +1,33 @@
+name: "Daily Disruptive AI LinkedIn Post"
+description: "Automatically generate and post a LinkedIn story about AI disruption"
+
+variables:
+  topic_query: "AI disruption and innovation trends today"
+  max_retries: 2
+
+steps:
+  - name: "Search for trending AI topics"
+    agent: "web_search"
+    input:
+      query: "{{ variables.topic_query }}"
+
+  - name: "Write LinkedIn post"
+    agent: "agent:REPLACE_WITH_AGENT_ID"
+    input:
+      topic: "{{ steps[0].output }}"
+      tone: "insightful and forward-thinking"
+      format: "LinkedIn post (150-300 words)"
+
+  - name: "Format and add hashtags"
+    agent: "web_fetch"
+    input:
+      url: "https://example.com/format-post"
+
+schedule:
+  cron: "0 9 * * *"  # Daily at 9am UTC
+  timezone: "UTC"
+
+notifications:
+  on_success: "Post published successfully"
+  on_failure: "Failed to publish post"
+  webhook: "{{ env.WEBHOOK_URL }}"
