@@ -1,0 +1,376 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>MVP Meeting Listener</title>
+<style>
+/* Layout: two columns — live transcript (left), running MVP brief (right); stacks on narrow screens */
+:root {
+  --bg: #f6f7f9; --panel: #ffffff; --fg: #1b1f27; --muted: #5d6675; --line: #dde1e8;
+  --accent: #2f5bd3; --accent-fg: #ffffff; --rec: #d13a3a; --warn: #a15c00; --ok: #1f7a4d;
+  --mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  --sans: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root { --bg: #12151b; --panel: #1a1e26; --fg: #e6e9ef; --muted: #98a1b0; --line: #2c323d;
+    --accent: #7b9cff; --accent-fg: #0d1018; --rec: #ff6b6b; --warn: #f0b35a; --ok: #5fd39a; color-scheme: dark; }
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--fg); font: 14px/1.5 var(--sans); }
+header { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; padding: 12px 16px; border-bottom: 1px solid var(--line); background: var(--panel); position: sticky; top: 0; z-index: 2; }
+header h1 { font-size: 16px; margin: 0 12px 0 0; }
+button { font: inherit; border: 1px solid var(--line); background: var(--panel); color: var(--fg); padding: 6px 12px; border-radius: 6px; cursor: pointer; }
+button:hover { border-color: var(--accent); }
+button:focus-visible, input:focus-visible, textarea:focus-visible, select:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+button.primary { background: var(--accent); color: var(--accent-fg); border-color: var(--accent); }
+button.rec { background: var(--rec); color: #fff; border-color: var(--rec); }
+button:disabled { opacity: .5; cursor: default; }
+input, select, textarea { font: inherit; color: var(--fg); background: var(--bg); border: 1px solid var(--line); border-radius: 6px; padding: 6px 8px; }
+.status { color: var(--muted); font-size: 13px; margin-left: auto; }
+.dot { display: inline-block; width: 9px; height: 9px; border-radius: 50%; background: var(--muted); margin-right: 6px; vertical-align: middle; }
+.dot.on { background: var(--rec); animation: pulse 1.2s infinite; }
+@keyframes pulse { 50% { opacity: .3; } }
+@media (prefers-reduced-motion: reduce) { .dot.on { animation: none; } }
+main { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr); gap: 16px; padding: 16px; }
+@media (max-width: 900px) { main { grid-template-columns: minmax(0, 1fr); } }
+section.card { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 14px; min-width: 0; display: flex; flex-direction: column; gap: 10px; }
+h2 { font-size: 13px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); margin: 0; }
+#transcript { height: 52vh; overflow-y: auto; font-size: 13.5px; border: 1px solid var(--line); border-radius: 6px; padding: 8px 10px; background: var(--bg); }
+#transcript p { margin: 0 0 6px; }
+#transcript time { font-family: var(--mono); color: var(--muted); font-size: 11.5px; margin-right: 6px; }
+#interim { color: var(--muted); font-style: italic; min-height: 1.4em; }
+.row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.row > input, .row > textarea { flex: 1 1 200px; min-width: 0; }
+textarea { width: 100%; resize: vertical; }
+#brief h3 { font-size: 14px; margin: 14px 0 4px; }
+#brief h3:first-child { margin-top: 0; }
+#brief ul { margin: 0; padding-left: 20px; }
+#brief li { margin-bottom: 3px; }
+#brief .empty { color: var(--muted); }
+#brief .push li { color: var(--warn); }
+#brief .dec li { color: var(--ok); }
+#answer { white-space: pre-wrap; border-left: 3px solid var(--accent); padding-left: 10px; }
+details summary { cursor: pointer; color: var(--muted); }
+.settings { display: grid; gap: 8px; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); margin-top: 8px; }
+.settings label { display: flex; flex-direction: column; gap: 3px; font-size: 12.5px; color: var(--muted); }
+.note { font-size: 12.5px; color: var(--muted); }
+.err { color: var(--rec); }
+</style>
+</head>
+<body>
+<header>
+  <h1>MVP Meeting Listener</h1>
+  <button id="listenBtn" class="primary">Start listening</button>
+  <button id="analyzeBtn">Update brief now</button>
+  <label class="row note"><input type="checkbox" id="autoChk" checked> Auto-update every <input id="intervalIn" type="number" min="20" value="60" style="width:64px"> s</label>
+  <button id="exportBtn">Download .md</button>
+  <button id="copyBtn">Copy brief</button>
+  <button id="clearBtn">New meeting</button>
+  <span class="status"><span id="dot" class="dot"></span><span id="status">Idle</span></span>
+</header>
+
+<main>
+  <section class="card">
+    <h2>Live transcript</h2>
+    <div id="transcript" aria-live="polite"></div>
+    <div id="interim"></div>
+    <div class="row">
+      <textarea id="addTxt" rows="2" placeholder="Paste captions or type a note (e.g. DECISION: web only for v1). Ctrl+Enter to add."></textarea>
+      <button id="addBtn">Add</button>
+    </div>
+    <details id="setup">
+      <summary>Setup — API key, model, meeting context</summary>
+      <div class="settings">
+        <label>Anthropic API key (kept in this browser only)
+          <input id="keyIn" type="password" placeholder="sk-ant-..." autocomplete="off"></label>
+        <label>Model
+          <select id="modelSel">
+            <option value="claude-sonnet-5-5">Sonnet 5.5 (fast, recommended)</option>
+            <option value="claude-opus-5-5">Opus 5.5 (deeper, slower)</option>
+            <option value="claude-haiku-5-5">Haiku 5.5 (cheapest)</option>
+          </select></label>
+        <label>Speech language
+          <select id="langSel">
+            <option value="en-GB">English (UK)</option>
+            <option value="en-US">English (US)</option>
+            <option value="en-IN">English (India)</option>
+            <option value="en-AU">English (Australia)</option>
+          </select></label>
+      </div>
+      <label class="note" style="display:block;margin-top:8px">Meeting context (what the product is, who's in the room, the goal of this session)
+        <textarea id="ctxIn" rows="3" placeholder="e.g. Scoping the MVP for a B2B invoice-chasing tool. Attendees: Nigel (founder), Sam (eng). Goal: agree v1 scope and the first 3 customers."></textarea></label>
+      <p class="note">The key is sent only to api.anthropic.com. Use a key with a spend limit. Everyone in the meeting should know it's being transcribed.</p>
+    </details>
+  </section>
+
+  <section class="card">
+    <h2>Running MVP brief <span id="briefTime" class="note" style="text-transform:none;letter-spacing:0"></span></h2>
+    <div id="brief"><p class="empty">The brief appears here once there's about a minute of discussion. Open Setup and add your API key first.</p></div>
+    <h2 style="margin-top:8px">Ask about the discussion</h2>
+    <div class="row">
+      <input id="askIn" placeholder="e.g. What have we not decided about pricing? What's the riskiest assumption?">
+      <button id="askBtn">Ask</button>
+    </div>
+    <div id="answer" hidden></div>
+  </section>
+</main>
+
+<script>
+(() => {
+  const $ = id => document.getElementById(id);
+  const store = {
+    get(k, d) { try { const v = localStorage.getItem('mml.' + k); return v === null ? d : JSON.parse(v); } catch { return d; } },
+    set(k, v) { try { localStorage.setItem('mml.' + k, JSON.stringify(v)); } catch {} }
+  };
+
+  let lines = store.get('lines', []);      // [{t: ms offset, text}]
+  let brief = store.get('brief', null);
+  let briefAt = store.get('briefAt', null);
+  let startedAt = store.get('startedAt', null);
+  let lastAnalyzedLen = store.get('lastLen', 0);
+  let lastRun = 0, busy = false, listening = false, rec = null;
+
+  $('keyIn').value = store.get('key', '');
+  $('modelSel').value = store.get('model', 'claude-sonnet-5-5');
+  $('langSel').value = store.get('lang', 'en-GB');
+  $('ctxIn').value = store.get('ctx', '');
+  if (!$('keyIn').value) $('setup').open = true;
+  ['keyIn', 'modelSel', 'langSel', 'ctxIn'].forEach(id =>
+    $(id).addEventListener('change', () => store.set({ keyIn: 'key', modelSel: 'model', langSel: 'lang', ctxIn: 'ctx' }[id], $(id).value)));
+
+  const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+  const fmt = ms => { const s = Math.floor(ms / 1000); return String(Math.floor(s / 60)).padStart(2, '0') + ':' + String(s % 60).padStart(2, '0'); };
+  const setStatus = (msg, cls) => { $('status').textContent = msg; $('status').className = cls || ''; };
+  const transcriptText = () => lines.map(l => `[${fmt(l.t)}] ${l.text}`).join('\n');
+
+  function renderTranscript() {
+    const el = $('transcript');
+    const atBottom = el.scrollHeight - el.scrollTop - el.clientHeight < 40;
+    el.innerHTML = lines.length ? lines.map(l => `<p><time>${fmt(l.t)}</time>${esc(l.text)}</p>`).join('')
+      : '<p class="note">Nothing yet. Press Start listening, or paste captions below.</p>';
+    if (atBottom) el.scrollTop = el.scrollHeight;
+  }
+
+  function addLine(text) {
+    text = text.trim();
+    if (!text) return;
+    if (!startedAt) { startedAt = Date.now(); store.set('startedAt', startedAt); }
+    lines.push({ t: Date.now() - startedAt, text });
+    store.set('lines', lines);
+    renderTranscript();
+  }
+
+  // ---- Speech recognition ----
+  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  function startRec() {
+    if (!SR) { setStatus('Live speech needs Chrome or Edge. You can still paste captions.', 'err'); return; }
+    rec = new SR();
+    rec.continuous = true; rec.interimResults = true; rec.lang = $('langSel').value;
+    rec.onresult = e => {
+      let interim = '';
+      for (let i = e.resultIndex; i < e.results.length; i++) {
+        const r = e.results[i];
+        if (r.isFinal) addLine(r[0].transcript); else interim += r[0].transcript;
+      }
+      $('interim').textContent = interim;
+    };
+    rec.onerror = e => {
+      if (e.error === 'not-allowed' || e.error === 'service-not-allowed') {
+        listening = false; updateListenUI();
+        setStatus('Microphone blocked. Allow mic access for this page, then press Start again.', 'err');
+      } else if (e.error !== 'no-speech' && e.error !== 'aborted') {
+        setStatus('Speech error: ' + e.error + ' (auto-retrying)', 'err');
+      }
+    };
+    rec.onend = () => { if (listening) setTimeout(() => { try { rec.start(); } catch {} }, 250); };
+    try { rec.start(); } catch {}
+  }
+  function updateListenUI() {
+    $('listenBtn').textContent = listening ? 'Stop listening' : 'Start listening';
+    $('listenBtn').className = listening ? 'rec' : 'primary';
+    $('dot').className = 'dot' + (listening ? ' on' : '');
+    if (listening) setStatus('Listening…');
+  }
+  $('listenBtn').onclick = () => {
+    listening = !listening;
+    if (listening) startRec(); else { try { rec && rec.stop(); } catch {} $('interim').textContent = ''; setStatus('Paused'); }
+    updateListenUI();
+  };
+
+  // ---- Claude ----
+  async function callClaude(prompt, maxTokens) {
+    const key = $('keyIn').value.trim();
+    if (!key) { $('setup').open = true; throw new Error('Add your Anthropic API key in Setup.'); }
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: {
+        'content-type': 'application/json',
+        'x-api-key': key,
+        'anthropic-version': '2023-06-01',
+        'anthropic-dangerous-direct-browser-access': 'true'
+      },
+      body: JSON.stringify({ model: $('modelSel').value, max_tokens: maxTokens, messages: [{ role: 'user', content: prompt }] })
+    });
+    if (!res.ok) {
+      let msg = await res.text();
+      try { msg = JSON.parse(msg).error.message; } catch {}
+      throw new Error(`API ${res.status}: ${msg}`);
+    }
+    const j = await res.json();
+    return (j.content || []).filter(b => b.type === 'text').map(b => b.text).join('');
+  }
+
+  function parseJSON(text) {
+    try { return JSON.parse(text); } catch {}
+    const fence = text.match(/```(?:json)?\s*([\s\S]*?)```/);
+    if (fence) { try { return JSON.parse(fence[1]); } catch {} }
+    const a = text.indexOf('{'), b = text.lastIndexOf('}');
+    if (a >= 0 && b > a) return JSON.parse(text.slice(a, b + 1));
+    throw new Error('Could not read the brief from the reply.');
+  }
+
+  const SECTIONS = [
+    ['problem', 'Problem being solved'],
+    ['target_users', 'Target users'],
+    ['mvp_in', 'MVP scope: in'],
+    ['mvp_out', 'MVP scope: out / later'],
+    ['decisions', 'Decisions made', 'dec'],
+    ['open_questions', 'Open questions'],
+    ['risky_assumptions', 'Riskiest assumptions (untested)'],
+    ['pushback', 'Pushback: what the room may be missing', 'push'],
+    ['success_metrics', 'How we will know the MVP worked'],
+    ['action_items', 'Action items']
+  ];
+
+  function renderBrief() {
+    if (!brief) return;
+    let html = brief.summary ? `<h3>Where we are</h3><p>${esc(brief.summary)}</p>` : '';
+    for (const [k, label, cls] of SECTIONS) {
+      let v = brief[k];
+      if (v == null || (Array.isArray(v) && !v.length) || v === '') { html += `<h3>${label}</h3><p class="empty">Not discussed yet.</p>`; continue; }
+      if (!Array.isArray(v)) v = [v];
+      html += `<h3>${label}</h3><ul class="${cls || ''}">` + v.map(x =>
+        `<li>${esc(typeof x === 'object' ? [x.owner && x.owner + ':', x.task || x.item || JSON.stringify(x), x.due && '(' + x.due + ')'].filter(Boolean).join(' ') : x)}</li>`).join('') + '</ul>';
+    }
+    $('brief').innerHTML = html;
+    $('briefTime').textContent = briefAt ? '· updated ' + new Date(briefAt).toLocaleTimeString() : '';
+  }
+
+  async function analyze() {
+    if (busy) return;
+    const tx = transcriptText();
+    if (!tx.trim()) { setStatus('Nothing to analyse yet.'); return; }
+    busy = true; lastRun = Date.now(); $('analyzeBtn').disabled = true;
+    const prev = listening ? 'Listening… updating brief' : 'Updating brief…';
+    setStatus(prev);
+    const prompt =
+`You are a sharp product strategist silently listening to a live meeting where the team is solutionising an MVP. The transcript comes from browser speech recognition: no speaker labels, some misheard words. Infer sensibly and never invent decisions that were not made.
+
+Meeting context from the user:
+${$('ctxIn').value.trim() || '(none given)'}
+
+Previous brief (update it; keep items that still hold, revise or drop ones the discussion overturned):
+${brief ? JSON.stringify(brief) : '(none yet)'}
+
+Transcript so far (most recent part, timestamps mm:ss):
+${tx.slice(-60000)}
+
+Reply with ONLY one JSON object, no prose, in this shape:
+{"summary": "2-3 sentences: where the discussion is right now",
+ "problem": "the problem as currently framed",
+ "target_users": ["..."],
+ "mvp_in": ["features/capabilities agreed or leaning in for v1"],
+ "mvp_out": ["explicitly deferred or cut"],
+ "decisions": ["only things actually agreed"],
+ "open_questions": ["unresolved questions raised or implied"],
+ "risky_assumptions": ["assumptions the plan depends on that nobody has tested"],
+ "pushback": ["direct, specific challenges: weak logic, scope creep, missing validation, blind spots. Do not flatter."],
+ "success_metrics": ["..."],
+ "action_items": [{"owner": "name or ?", "task": "...", "due": "if stated"}]}
+Keep every item short (under 20 words). Use empty arrays where nothing has been said.`;
+    try {
+      const out = await callClaude(prompt, 3000);
+      brief = parseJSON(out); briefAt = Date.now();
+      lastAnalyzedLen = tx.length;
+      store.set('brief', brief); store.set('briefAt', briefAt); store.set('lastLen', lastAnalyzedLen);
+      renderBrief();
+      setStatus(listening ? 'Listening…' : 'Brief updated');
+    } catch (e) {
+      setStatus(e.message, 'err');
+    } finally { busy = false; $('analyzeBtn').disabled = false; }
+  }
+  $('analyzeBtn').onclick = analyze;
+
+  setInterval(() => {
+    if (!$('autoChk').checked || busy) return;
+    const secs = Math.max(20, Number($('intervalIn').value) || 60);
+    const len = transcriptText().length;
+    if (len - lastAnalyzedLen > 250 && Date.now() - lastRun > secs * 1000 && $('keyIn').value.trim()) analyze();
+  }, 5000);
+
+  $('askBtn').onclick = async () => {
+    const q = $('askIn').value.trim();
+    if (!q) return;
+    const ans = $('answer'); ans.hidden = false; ans.textContent = 'Thinking…';
+    $('askBtn').disabled = true;
+    try {
+      ans.textContent = await callClaude(
+`You are a direct, sceptical product advisor listening to a live MVP solutioning meeting. Answer the question in under 150 words, grounded in the transcript. If the transcript doesn't cover it, say so and give your own view, clearly marked. Lead with the weakest point, not agreement.
+
+Meeting context: ${$('ctxIn').value.trim() || '(none)'}
+Current brief: ${brief ? JSON.stringify(brief) : '(none yet)'}
+Transcript:
+${transcriptText().slice(-60000)}
+
+Question: ${q}`, 800);
+    } catch (e) { ans.textContent = e.message; }
+    finally { $('askBtn').disabled = false; }
+  };
+  $('askIn').addEventListener('keydown', e => { if (e.key === 'Enter') $('askBtn').click(); });
+
+  // ---- Manual add, export, reset ----
+  $('addBtn').onclick = () => { addLine($('addTxt').value); $('addTxt').value = ''; };
+  $('addTxt').addEventListener('keydown', e => { if (e.key === 'Enter' && (e.ctrlKey || e.metaKey)) $('addBtn').click(); });
+
+  function toMarkdown() {
+    const d = new Date(startedAt || Date.now());
+    let md = `# MVP meeting brief — ${d.toLocaleDateString()} ${d.toLocaleTimeString()}\n\n`;
+    if ($('ctxIn').value.trim()) md += `**Context:** ${$('ctxIn').value.trim()}\n\n`;
+    if (brief) {
+      if (brief.summary) md += `## Where we landed\n${brief.summary}\n\n`;
+      for (const [k, label] of SECTIONS) {
+        let v = brief[k]; if (v == null || v === '' || (Array.isArray(v) && !v.length)) continue;
+        if (!Array.isArray(v)) v = [v];
+        md += `## ${label}\n` + v.map(x => '- ' + (typeof x === 'object' ? `${x.owner || '?'}: ${x.task || ''}${x.due ? ' (' + x.due + ')' : ''}` : x)).join('\n') + '\n\n';
+      }
+    }
+    md += `## Transcript\n\n` + lines.map(l => `[${fmt(l.t)}] ${l.text}`).join('\n') + '\n';
+    return md;
+  }
+  $('exportBtn').onclick = () => {
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(new Blob([toMarkdown()], { type: 'text/markdown' }));
+    a.download = `mvp-meeting-${new Date(startedAt || Date.now()).toISOString().slice(0, 16).replace(/[:T]/g, '-')}.md`;
+    a.click(); setTimeout(() => URL.revokeObjectURL(a.href), 2000);
+  };
+  $('copyBtn').onclick = async () => {
+    try { await navigator.clipboard.writeText(toMarkdown()); setStatus('Copied brief and transcript'); }
+    catch { setStatus('Copy blocked by the browser. Use Download .md instead.', 'err'); }
+  };
+  let clearArmed = false;
+  $('clearBtn').onclick = () => {
+    if (!clearArmed) { clearArmed = true; $('clearBtn').textContent = 'Click again to clear'; setTimeout(() => { clearArmed = false; $('clearBtn').textContent = 'New meeting'; }, 3000); return; }
+    lines = []; brief = null; briefAt = null; startedAt = null; lastAnalyzedLen = 0;
+    ['lines', 'brief', 'briefAt', 'startedAt', 'lastLen'].forEach(k => store.set(k, k === 'lines' ? [] : null));
+    $('brief').innerHTML = '<p class="empty">Cleared. Ready for a new meeting.</p>'; $('briefTime').textContent = '';
+    clearArmed = false; $('clearBtn').textContent = 'New meeting';
+    renderTranscript(); setStatus('Cleared');
+  };
+
+  renderTranscript(); renderBrief();
+  if (!SR) setStatus('Live speech needs Chrome or Edge. You can still paste captions.', 'err');
+})();
+</script>
+</body>
+</html>
