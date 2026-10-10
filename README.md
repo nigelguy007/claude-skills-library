@@ -41,6 +41,21 @@ git clone --depth 1 https://github.com/nigelguy007/claude-skills-library.git ~/c
 
 The `pip` line installs the command-line tools that some skills (Scrapling, Agent-Reach, GEO Optimizer) call. It runs in the background.
 
+## Subagents
+
+[`agents/`](agents/) holds Claude Code subagents, namespaced the same way as `agents/<owner>_<repo>/<division>/<agent>.md`. Currently that's the 282 agents from [msitarzewski/agency-agents](https://github.com/msitarzewski/agency-agents) (MIT), in 18 divisions: engineering, design, marketing, sales, testing and so on.
+
+They are **not** installed by default. Every installed agent's description goes into every Claude Code session, so 282 of them cost context and make Claude pick the wrong one more often. Install only the divisions you use:
+
+```bash
+./install.sh --agents --division engineering --division testing   # into ~/.claude/agents
+./install.sh --agents                                              # all of them
+```
+
+- Agents already in `~/.claude/agents` are never overwritten. An agent whose file name or `name:` is already taken is skipped and listed.
+- Re-running replaces the previous agent install. A `--division` run replaces it with just those divisions.
+- For cloud sessions, add `bash ~/claude-skills-library/install.sh --agents --division <name> || true` to the setup script after the skills line. Agents load when a session starts.
+
 ## claude.ai chat and the Desktop chat app
 
 Chat can't read `~/.claude/skills`. Skills there are uploaded as zips in claude.ai → Settings → Capabilities → Skills. Build upload-ready zips with:
