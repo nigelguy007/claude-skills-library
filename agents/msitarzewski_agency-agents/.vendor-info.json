@@ -1,0 +1,7 @@
+{
+  "source_url": "https://github.com/msitarzewski/agency-agents",
+  "source_commit": "f99f6aa910a442b0197b768ce0ea7751e35e2060",
+  "vendored_at": "2026-10-10T00:00:00Z",
+  "security_scan": "clean (0 HIGH, 0 INFO). Only agent prompt .md files were vendored; upstream scripts/ and integrations/ were not.",
+  "notes": "282 agents across 18 divisions (the divisions.json set), plus strategy/ (NEXUS playbooks, not agents). MIT license. Installed with install_global_agents.py into ~/.claude/agents."
+}
