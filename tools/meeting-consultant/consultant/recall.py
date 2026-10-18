@@ -114,5 +114,11 @@ class RecallClient:
     async def output_audio(self, bot_id: str, mp3: bytes) -> None:
         await self._post(f"/bot/{bot_id}/output_audio/", {"kind": "mp3", "b64_data": base64.b64encode(mp3).decode()})
 
+    async def get_bot(self, bot_id: str) -> Dict[str, Any]:
+        resp = await self.http.get(f"{self.base}/bot/{bot_id}/")
+        if resp.status_code >= 400:
+            raise RuntimeError(f"Recall get bot failed ({resp.status_code}): {resp.text[:300]}")
+        return resp.json()
+
     async def leave(self, bot_id: str) -> None:
         await self._post(f"/bot/{bot_id}/leave_call/", {})

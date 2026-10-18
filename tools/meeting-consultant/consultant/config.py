@@ -68,6 +68,7 @@ class Settings:
     voice_silence_s: float = field(default_factory=lambda: _float("VOICE_SILENCE_S", 3))
     skill_refresh_s: float = field(default_factory=lambda: _float("SKILL_REFRESH_S", 900))
     max_skills: int = field(default_factory=lambda: _int("MAX_SKILLS", 4))
+    status_poll_s: float = field(default_factory=lambda: _float("STATUS_POLL_S", 60))
     inactivity_finish_s: float = field(default_factory=lambda: _float("INACTIVITY_FINISH_S", 900))
 
     # Voice (optional)

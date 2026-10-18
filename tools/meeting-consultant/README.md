@@ -29,7 +29,7 @@ Chat commands: `/brief` `/questions` `/research <question>` `/agents` `/quiet` `
    - **Render (easiest):** New → Blueprint → this repo, and pick the branch that has `render.yaml`. Fill in the keys it asks for. `WEBHOOK_TOKEN` and `ADMIN_TOKEN` are generated for you, and the public URL is detected automatically.
    - **Any Docker host:** from the repo root, `docker build -f tools/meeting-consultant/Dockerfile -t meeting-consultant .`, then run it with the variables from `.env.example` and a volume on `/data`.
    - **Your laptop:** `pip install -r requirements.txt`, then `python -m consultant serve`. Expose it with `cloudflared tunnel --url http://localhost:8000` (or ngrok) and use that URL as `PUBLIC_BASE_URL`.
-3. **Recall dashboard → Webhooks:** add `PUBLIC_BASE_URL/webhook/recall/status?token=<WEBHOOK_TOKEN>` and subscribe to `bot.done` and `bot.call_ended`. This lets it write up as soon as the call ends. Without this step it writes up after 15 minutes of silence, or when you click "Leave and write up now".
+3. **No Recall dashboard webhook is needed.** The bot checks each meeting's status with Recall every minute and writes up when the call ends. (If your Recall plan includes dashboard webhooks, you can optionally add `PUBLIC_BASE_URL/webhook/recall/status?token=<WEBHOOK_TOKEN>` for `bot.done` / `bot.call_ended` to make it instant.)
 4. Open `PUBLIC_BASE_URL/?key=<ADMIN_TOKEN>` once to sign in. Check `PUBLIC_BASE_URL/healthz`: `config_problems` should be empty.
 
 ## Using it

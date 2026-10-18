@@ -35,6 +35,11 @@ class FakeRecall:
     async def leave(self, bot_id):
         self.left.append(bot_id)
 
+    status = "in_call_recording"
+
+    async def get_bot(self, bot_id):
+        return {"id": bot_id, "status_changes": [{"code": "joining_call"}, {"code": self.status}]}
+
 
 ANALYSIS = {
     "profile": {"domain": "B2B invoicing SaaS", "expert_persona": "fintech product strategist",
@@ -289,3 +294,17 @@ async def test_assistant_join_tool(tmp_path):
     job = await a._start_research("Chaser pricing")
     await c.researcher.drain()
     assert a.events_after(0)[-1]["kind"] == "research"
+
+
+@pytest.mark.asyncio
+async def test_status_polling_notices_call_end_without_dashboard_webhook(tmp_path):
+    s, c, llm, recall = make(tmp_path, status_poll_s=0)
+    m = await c.join("https://zoom.us/j/1", "MVP")
+    await c.tick()
+    await c.drain()
+    assert m.status == "live"
+    await c.on_realtime(utter(m.id, "Nigel", "hello"))
+    recall.status = "call_ended"
+    await c.tick()
+    await c.drain()
+    assert m.status == "done" and m.report_path

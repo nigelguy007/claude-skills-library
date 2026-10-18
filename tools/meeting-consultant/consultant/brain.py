@@ -103,6 +103,7 @@ class Consultant:
         self._sent: Dict[str, Deque[str]] = {}
         self._last_save: Dict[str, float] = {}
         self._dirty: Set[str] = set()
+        self._last_poll: Dict[str, float] = {}
         words = [w for w in settings.wake_words if w] or [settings.short_name]
         self._wake = re.compile(r"\b(" + "|".join(re.escape(w) for w in words) + r")\b", re.I)
 
@@ -364,6 +365,9 @@ class Consultant:
         for m in list(self.meetings.values()):
             if m.id in self._dirty:
                 self.save(m)
+            if m.status in ("joining", "live") and now - self._last_poll.get(m.id, 0) >= self.s.status_poll_s:
+                self._last_poll[m.id] = now
+                self._spawn(self.poll_status(m))
             if m.status != "live":
                 continue
             if m.pending_voice:
@@ -374,6 +378,20 @@ class Consultant:
                 self._spawn(self.analyze(m))
             if m.utterances and now - m.last_utterance_wall >= self.s.inactivity_finish_s:
                 self._spawn(self.finish(m, leave=True))
+
+    async def poll_status(self, m: Meeting) -> None:
+        """Ask Recall how the bot is doing, so the end of a call is noticed without the
+        dashboard status webhook (which needs a paid Recall plan)."""
+        try:
+            bot = await self.recall.get_bot(m.id)
+        except Exception as e:  # noqa: BLE001
+            log.warning("status poll failed for %s: %s", m.id, e)
+            return
+        changes = bot.get("status_changes") or []
+        if changes:
+            latest = changes[-1]
+            await self.on_status({"event": f"bot.{latest.get('code', '')}",
+                                  "data": {"bot": {"id": m.id}, "data": latest}})
 
     async def analyze(self, m: Meeting) -> None:
         if m.id in self._analysing:
