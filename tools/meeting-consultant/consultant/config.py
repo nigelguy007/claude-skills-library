@@ -39,7 +39,9 @@ class Settings:
     recall_region: str = field(default_factory=lambda: _env("RECALL_REGION", "us-east-1"))
 
     # Where Recall can reach this server, and the shared secrets that guard it
-    public_base_url: str = field(default_factory=lambda: _env("PUBLIC_BASE_URL", "http://localhost:8000"))
+    # Render sets RENDER_EXTERNAL_URL automatically, so on Render this needs no setting.
+    public_base_url: str = field(default_factory=lambda: _env("PUBLIC_BASE_URL")
+                                 or _env("RENDER_EXTERNAL_URL", "http://localhost:8000"))
     webhook_token: str = field(default_factory=lambda: _env("WEBHOOK_TOKEN", "change-me"))
     admin_token: Optional[str] = field(default_factory=lambda: _env("ADMIN_TOKEN"))
 

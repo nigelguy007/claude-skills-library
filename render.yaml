@@ -18,8 +18,6 @@ services:
         sync: false
       - key: RECALL_REGION
         value: eu-central-1
-      - key: PUBLIC_BASE_URL
-        sync: false
       - key: WEBHOOK_TOKEN
         generateValue: true
       - key: ADMIN_TOKEN
