@@ -1,0 +1,30 @@
+# One-click deploy on Render: New > Blueprint > pick this repo.
+services:
+  - type: web
+    name: meeting-consultant
+    runtime: docker
+    dockerfilePath: tools/meeting-consultant/Dockerfile
+    dockerContext: .
+    plan: starter
+    healthCheckPath: /healthz
+    disk:
+      name: data
+      mountPath: /data
+      sizeGB: 1
+    envVars:
+      - key: ANTHROPIC_API_KEY
+        sync: false
+      - key: RECALL_API_KEY
+        sync: false
+      - key: RECALL_REGION
+        value: us-east-1
+      - key: PUBLIC_BASE_URL
+        sync: false
+      - key: WEBHOOK_TOKEN
+        generateValue: true
+      - key: ADMIN_TOKEN
+        generateValue: true
+      - key: OPENAI_API_KEY
+        sync: false
+      - key: PERPLEXITY_API_KEY
+        sync: false
