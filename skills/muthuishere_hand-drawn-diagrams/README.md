@@ -4,7 +4,7 @@ AI skill for turning ideas, notes, systems, and flows into hand-drawn diagrams �
 
 **Jump to:** [What this is](#what-this-is) · [Output](#output) · [Quick start](#quick-start) · [Credits](#credits-and-acknowledgements)
 
-![Demo](assets/demo.gif)
+Demo GIF removed: its Git LFS object was never uploaded, which broke clones. See the upstream repo for the demo.
 
 ### Example output
 
