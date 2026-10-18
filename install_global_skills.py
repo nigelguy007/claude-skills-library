@@ -30,7 +30,9 @@ import json
 import os
 import re
 import shutil
+import subprocess
 import sys
+import tempfile
 from pathlib import Path
 from typing import List, Optional
 
@@ -41,6 +43,47 @@ DEST_ROOT = Path(
 )
 # Sidecar manifest tracking the skills THIS installer created (for idempotency).
 INSTALL_MANIFEST = DEST_ROOT / ".collection-install.json"
+# Sources whose licence allows installing but not redistributing, so they are
+# cloned from upstream at install time instead of being committed here.
+EXTERNAL_SOURCES = REPO_ROOT / "external_sources.json"
+# Official upstream sources installed first, so they get the bare skill names
+# and third-party copies of the same skill are the ones namespaced.
+PREFERRED_SOURCES = (
+    "pbakaus_impeccable",
+    "jakubkrehel_make-interfaces-feel-better",
+    "greensock_gsap-skills",
+    "Jakubantalik_transitions.dev",
+)
+
+
+def fetch_external_sources() -> None:
+    """Clone each external source's skills into ``skills/<owner>_<repo>``.
+
+    Those directories are gitignored. If a clone fails (offline, GitHub down)
+    the copy from the last successful run is kept and installed instead.
+    """
+    if not EXTERNAL_SOURCES.exists():
+        return
+    for entry in json.loads(EXTERNAL_SOURCES.read_text()):
+        repo, subdir = entry["repo"], entry.get("path", ".")
+        dest = SRC_ROOT / repo.replace("/", "_")
+        with tempfile.TemporaryDirectory() as tmp:
+            result = subprocess.run(
+                ["git", "clone", "--quiet", "--depth", "1",
+                 f"https://github.com/{repo}.git", tmp],
+                capture_output=True,
+                text=True,
+            )
+            src = Path(tmp) / subdir
+            if result.returncode != 0 or not src.is_dir():
+                print(f"warning: could not fetch {repo}; using cached copy if any",
+                      file=sys.stderr)
+                continue
+            if dest.exists():
+                shutil.rmtree(dest)
+            shutil.copytree(src, dest)
+            for lic in Path(tmp).glob("LICENSE*"):
+                shutil.copy(lic, dest / lic.name)
 
 
 def find_top_level_skills(src_root: Path) -> List[Path]:
@@ -141,6 +184,7 @@ def main(argv: Optional[List[str]] = None) -> int:
         return 1
 
     DEST_ROOT.mkdir(parents=True, exist_ok=True)
+    fetch_external_sources()
 
     wanted = set(args.source) if args.source else None
     previous = load_previous_install()
@@ -160,7 +204,10 @@ def main(argv: Optional[List[str]] = None) -> int:
 
     top = find_top_level_skills(SRC_ROOT)
     children = set(find_router_children(SRC_ROOT, top))
-    top = sorted(set(top) | children)
+    top = sorted(
+        set(top) | children,
+        key=lambda d: (owner_repo(d) not in PREFERRED_SOURCES, d),
+    )
 
     if wanted is not None:
         top = [d for d in top if owner_repo(d) in wanted]

@@ -26,6 +26,8 @@ Restart Claude Code afterwards. Run the same command again to update.
 - To install a single collection: `./install.sh --source <owner>_<repo>`.
 - To search what's installed: `./find-skill.sh <keyword>`.
 - Collections with a router `SKILL.md` at their root (gstack, avoid-ai-writing, linkedin-skills) also get the skills nested under it installed. If a skill with that name is already there from another install, such as gstack's own setup, that copy is kept.
+- Sources listed in [`external_sources.json`](external_sources.json) (currently [transitions.dev](https://github.com/Jakubantalik/transitions.dev)) are cloned from upstream each time you install. Their licences don't allow redistributing them, so they aren't committed here.
+- The official design sources (impeccable, make-interfaces-feel-better, GSAP, transitions.dev) are installed first and keep the bare skill names. Third-party copies of the same skills are namespaced.
 - After adding or removing skills, run `python3 scripts/build_skills_index.py` to rebuild `SKILLS.md` from what's on disk.
 
 ## Claude Code on the web (cloud sessions)

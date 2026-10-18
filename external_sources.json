@@ -1,0 +1,7 @@
+[
+  {
+    "repo": "Jakubantalik/transitions.dev",
+    "path": "skills",
+    "why": "Licence allows installing the skills but not redistributing them, so they are fetched from upstream at install time."
+  }
+]

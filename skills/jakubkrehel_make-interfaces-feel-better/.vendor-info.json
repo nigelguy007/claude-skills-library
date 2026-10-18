@@ -1,0 +1,7 @@
+{
+  "source_url": "https://github.com/jakubkrehel/make-interfaces-feel-better",
+  "source_commit": "35545ea1512ad59fa463e6b1f95ca9c052981fe6",
+  "vendored_at": "2026-10-18T00:00:00Z",
+  "security_scan": "clean (0 HIGH, 0 INFO) via scripts/scan_skill_source.py",
+  "notes": "skills/ vendored (MIT)."
+}

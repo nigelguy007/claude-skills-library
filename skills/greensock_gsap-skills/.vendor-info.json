@@ -1,0 +1,7 @@
+{
+  "source_url": "https://github.com/greensock/gsap-skills",
+  "source_commit": "aed9cfd3277740755f6bfc1155c7aa645403b760",
+  "vendored_at": "2026-10-18T00:00:00Z",
+  "security_scan": "clean (0 HIGH, 0 INFO) via scripts/scan_skill_source.py",
+  "notes": "Official GSAP skills, skills/ vendored (MIT)."
+}

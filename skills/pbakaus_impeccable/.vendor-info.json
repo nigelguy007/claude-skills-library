@@ -1,0 +1,7 @@
+{
+  "source_url": "https://github.com/pbakaus/impeccable",
+  "source_commit": "2f46b7a8b059af00d20dd13b64dbe165e7c6a742",
+  "vendored_at": "2026-10-18T00:00:00Z",
+  "security_scan": "clean (0 HIGH, 0 INFO) via scripts/scan_skill_source.py",
+  "notes": "Refreshed from upstream .claude/skills/impeccable (Apache-2.0)."
+}
