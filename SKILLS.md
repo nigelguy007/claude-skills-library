@@ -1,6 +1,6 @@
 # Installed Claude Skills
 
-This repository has **2633 Claude skills** installed under the `skills/` directory, collected from 77 source repositories plus 5 uploaded skill packs.
+This repository has **2634 Claude skills** installed under the `skills/` directory, collected from 77 source repositories plus 6 uploaded skill packs.
 
 Each skill is stored under `skills/<owner>_<repo>/...`, preserving its origin path.
 
@@ -92,6 +92,7 @@ Each skill is stored under `skills/<owner>_<repo>/...`, preserving its origin pa
 | 80 | [vercel-labs/agent-skills](https://github.com/vercel-labs/agent-skills) | 9 |
 | 81 | [vercel-labs/skills](https://github.com/vercel-labs/skills) | 1 |
 | 82 | [ybouane/liquidglass](https://github.com/ybouane/liquidglass) | 1 |
+| 83 | AI value strategy (authored in this repo) (`skills/local_ai-value-strategy`) | 1 |
 
 ### Source repositories with no installable skills
 
@@ -110,7 +111,7 @@ Each skill is stored under `skills/<owner>_<repo>/...`, preserving its origin pa
 
 - **Google Drive folders** (3 links in the request) — cloud storage, not git repositories; cannot be installed as Claude skills.
 
-## All installed skills (2633)
+## All installed skills (2634)
 
 | Skill | Source repo | Description | Trigger |
 |-------|-------------|-------------|---------|
@@ -2358,6 +2359,7 @@ Each skill is stored under `skills/<owner>_<repo>/...`, preserving its origin pa
 | `stitch-design-taste` | leonxlnx/taste-skill | Semantic Design System Skill for Google Stitch. Generates agent-friendly DESIGN.md files that enforce premium, anti-generic UI standards — strict typography, calibrated color, asymmetric layouts, perpetual micro-motion, and… | Model-invoked automatically when a request matches the skill's description. |
 | `design-taste-frontend` | leonxlnx/taste-skill | Anti-slop frontend skill for landing pages, portfolios, and redesigns. The agent reads the brief, infers the right design direction, and ships interfaces that do not look templated. Real design systems when applicable, audit-first on… | Model-invoked automatically when a request matches the skill's description. |
 | `design-taste-frontend-v1` | leonxlnx/taste-skill | The original v1 taste-skill, preserved for projects depending on its exact behavior. The current default is `design-taste-frontend` (v2 experimental), which is a substantial rewrite. Use this v1 install name only if you need exact… | Use this v1 install name only if you need exact backward compatibility. |
+| `ai-value-strategist` | AI value strategy (authored in this repo) | Runs an evidence-backed AI-economy strategy review for one named business. Maps it against the Signals at Scale value map (7 functions, 14 zones, 70 categories), challenges the owner's framing, compares options, sizes the threat from… | Use when someone asks how AI changes their business, where value will move in an AI-mediated market, whether to reposition, or how to apply the Signals at… |
 | `ask-matt` | mattpocock/skills | Ask which skill or flow fits your situation. A router over the skills in this repo. | Invoked via `/ask-matt` only — model-invocation disabled. |
 | `code-review` | mattpocock/skills | Review the changes since a fixed point (commit, branch, tag, or merge-base) along two axes: Standards (does the code follow this repo's documented coding standards?) and Spec (does the code match what the originating… | Use when the user wants to review a branch, a PR, work-in-progress changes, or asks to "review since X". |
 | `codebase-design` | mattpocock/skills | Shared vocabulary for designing deep modules. Use when the user wants to design or improve a module's interface, find deepening opportunities, decide where a seam goes, make code more testable or AI-navigable, or when… | Use when the user wants to design or improve a module's interface, find deepening opportunities, decide where a seam goes, make code more testable or AI-navigable, or when another skill needs the deep-module vocabulary. |
