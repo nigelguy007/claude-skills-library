@@ -20,3 +20,10 @@ From Sheet 08 of the spec, plus what came up while building. Each has a default 
 3. **The deck's "Jarvis-style" conductor promise.** If sales material shows a chat-style conductor, it must not imply an LLM decides what gets published. C0 is fixed routes.
 4. **LinkedIn publish reconciliation.** The Action Gate needs the LinkedIn adapter to find an existing post by idempotency marker after a crash; otherwise every mid-publish crash becomes a manual check. Confirm what the current Posts API allows before Day 10.
 5. **Model prices.** Cost per approved post uses placeholder prices (`DAIN_GBP_PER_MTOK_IN/OUT`). Set real ones before reading that dashboard number.
+
+## Raised by the full Drive read (19 Oct)
+6. **Edit-time promise.** `Speaker_Growth_Platform` slide 5 says "15 minutes a week"; every other deck says under 15 minutes per post (about 45 a week). The build measures per post.
+7. **Speaker approval.** The Validation deck (slide 6) and the brainstorm images show only the agent's sign-off. The build keeps the speaker's approval mandatory.
+8. **Articles and talk ideas.** Named in five sources' architecture, in no price tier, and cut from the Bookable Engine MVP. Price them into the Engine tier or drop them from the slides.
+9. **Pilot length.** 14 days, a 4-week trial, or 30 days, depending on the deck. Renewal and kill criteria need one.
+10. **Relevance from day one.** The Tier 1 relevance check and the Engine's relevance radar are sold from launch; B1 is built in Days 16–29. Default: the specialist writes the relevance note by hand in the pilot.

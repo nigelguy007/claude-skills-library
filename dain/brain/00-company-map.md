@@ -19,10 +19,10 @@ Every box reads the Canon and writes the Chronicle.
 |---|---|---|---|---|---|---|---|
 | C0 | Conductor | Agentic OS | conductor | code | – | Days 1–14 | routing → autonomous |
 | AG | Action Gate + publishers | Agentic OS | publisher | code | – | Days 1–14 | publish, send → **human-assisted** (token) |
-| B3 | Review module | Agentic OS | gate | UI + code | – | Days 1–14 | review → human-led |
-| GK | Groundskeeper | Agentic OS | groundskeeper | code | – | Days 1–14 | sweeps, cap → autonomous |
-| A1 | Voice-Interview & Blueprint | Content | analyst | agent | ✓ | Days 1–14 | draft → autonomous; confirm → human-led |
-| A2 | Content & Drafting | Content | builder | loop | ✓ | Days 1–14 | drafts → human-assisted |
+| B3 | Review module | Agentic OS | gate | UI + code | – | Days 1–14 | review → human-led (screen, email reply or form) |
+| GK | Groundskeeper | Agentic OS | groundskeeper | code | – | Days 1–14 | sweeps, cap, 4 h review ceiling → autonomous |
+| A1 | Voice-Interview & Blueprint | Content | analyst | agent | ✓ | Days 1–14 | draft → autonomous; claims + boundaries confirmed → human-led; Blueprint document → autonomous |
+| A2 | Content & Drafting | Content | builder | loop | ✓ | Days 1–14 | drafts → human-assisted (blocked on unconfirmed claims or boundary breaches) |
 | B2 | Bookability Scoring | Bookability | analyst | node | ✓ | Days 1–14 | scoring → autonomous; rubric → human-led |
 | P1 | Lead Capture & Pipeline | Pipeline | analyst | node | ✓ | Days 1–14 | capture → autonomous; reply → assisted; fees/dates → human-led |
 | B1 | Relevance Radar | Bookability | scout | agent | ✓ | Days 16–29 | collect → autonomous; promote → human-led |
@@ -51,10 +51,22 @@ Every box reads the Canon and writes the Chronicle.
 | # | Component | Days | Status here |
 |---|---|---|---|
 | 1 | C0 + shared setup | 1–5 | built: state machines, durable runner semantics, budgets, event log; production engine still to choose (R9) |
-| 2 | B3 review | 2–10 | service and rules built; **review screen not built** |
-| 3 | A1 | 3–8 | Blueprint writer, checker, coverage loop built; **voice transport not connected** |
+| 2 | B3 review | 2–10 | service and rules built, plus approve / edit / reject by email reply or form; **review screen and inbound mail provider not built** |
+| 3 | A1 | 3–8 | Blueprint writer, checker, coverage loop, operational boundaries and the speaker's Blueprint document built; **voice transport not connected** |
 | 4 | A2 + B2 | 6–11 | built |
 | 5 | P1 | 9–14 | extraction, reply, guard built; **inbound email parser and form not connected** |
 | 6 | B1 | 16–24 | built; **fetcher not connected**; source list to curate |
 | 7 | P2 | 20–26 | built (HTML one-sheet; print to PDF) |
 | – | P3, L1 | post-launch | entry gates and calibration maths built; agents deferred |
+
+## Updates after the full Drive read (19 Oct)
+
+Every file in the Project Dain Drive folder was read: five image-only decks (67 slides), five images and three documents. Five gaps were small enough to build at once:
+
+1. **Blueprint document** (`src/agents/blueprint-doc.ts`): the Tier 1 (£995) deliverable, rendered from the Canon when the speaker approves.
+2. **Operational boundaries** (deck BP6): topics to avoid and names never to use, captured in the interview, confirmed or rewritten by the speaker, and enforced by a code check in A2.
+3. **Speaker's desk by email or form** (deck BE8): `review.reply`, sender-checked; untimed reviews are kept out of the edit-time median.
+4. **Approval target 70%** (decks BE8 and the launch blueprint) replaces the spec's 66%: `checkLaunchGates` in `src/events.ts`.
+5. **Review ceiling**: the groundskeeper flags specialist review above 4 hours per speaker in 30 days (decks BE13, VS12).
+
+Still open, for the client (see `decisions/open-decisions.md`): the edit-time promise (15 min a week in the Speaker Growth Platform deck, under 15 min per post elsewhere); whether the speaker approves (missing from the Validation deck); articles and talk ideas (in the architecture, in no price tier); pilot length (14 days, 4 weeks or 30 days); and when relevance checking arrives (sold from day one, built in Days 16–29).
