@@ -29,6 +29,9 @@ Item text, claims used, B2 reasons (labelled "Provisional score" while the rubri
 3. Approve: closes the session (edit time = active time, idle gaps over 2 min excluded; "copied out" logged), moves the state, and on the final approval issues the token.
 4. Request change → back to A2 (specialist) or to the specialist (speaker). Reject → closed with a reason code.
 
+### Speaker's desk without the portal (deck BE8)
+`review.reply` takes an email reply or the simple form: **APPROVE**, **EDIT** followed by the new text, or **REJECT** and a reason. Quoted history and signatures are ignored; anything unclear is refused and the speaker is asked again. Only the speaker's own address may answer for their item, and the inbound mail provider must verify SPF/DKIM first, because a From header can be forged. Email and form reviews have no screen timer: they are counted as untimed (`untimed_review_share`), never as 0-minute edits.
+
 ## 5 · Handoffs
 Token → C0 → Action Gate. Data for L1: edit time, reject reasons by criterion, draft-vs-published diff, specialist-vs-B2 verdicts.
 

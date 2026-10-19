@@ -4,7 +4,7 @@ import type { Blueprint, Draft, ScoreResult, Slot } from "../contracts.js";
 import type { EventLog } from "../events.js";
 import type { NodeContext } from "../llm.js";
 import { MAX_REVISE_PASSES } from "../state.js";
-import { claimFlags, draftPost, isBlocked } from "./a2.js";
+import { blockingFlags, draftPost, isBlocked } from "./a2.js";
 import { scoreDraft, type Rubric } from "./b2.js";
 
 export interface LoopPass {
@@ -41,9 +41,9 @@ export async function runContentLoop(ctx: NodeContext, log: EventLog, input: Loo
     log.emit({ type: "draft.created", draft_id: draft.draft_id, item_id: input.item_id, angle_id: draft.angle_id, pass_no: pass });
 
     if (isBlocked(draft)) {
-      const reason = claimFlags(draft.claim_ids, input.blueprint).join("; ");
+      const reason = blockingFlags(draft).join("; ");
       passes.push({ pass_no: pass, draft, blocked_reason: reason });
-      revision = { previous: draft.text, request: `Remove or replace these: ${reason}. Use only the confirmed claims you were given.` };
+      revision = { previous: draft.text, request: `Remove or replace these: ${reason}. Use only the confirmed claims you were given, and stay inside the speaker's boundaries.` };
       continue;
     }
 

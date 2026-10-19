@@ -24,6 +24,11 @@ ROUND 4 · REPUTATION (about 6 min). What bookers check before they hire.
 - What's a line from a testimonial you're proud of? Who wrote it?
 - What do organisers say about working with you: briefing, timing, prep?
 
+BOUNDARIES (about 3 min). What must never go out in their name.
+- Is there any topic you don't want to be associated with publicly?
+- Any client, employer or person we must never name?
+- Anything else we should never say on your behalf?
+
 RULES
 - Ask one question at a time. Follow the most specific thread, not the script.
 - If an answer is generic ("I help leaders grow"), ask for one real example before you move on.

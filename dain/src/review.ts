@@ -23,8 +23,11 @@ export interface ReviewItem {
   label?: "provisional" | "calibrated";
 }
 
+export type ReviewChannel = "screen" | "email" | "form";
+
 interface Session {
   role: HumanRole;
+  channel: ReviewChannel;
   activity: number[];
   copied_out: boolean;
 }
@@ -81,9 +84,9 @@ export class ReviewService {
       .sort((a, b) => b.waiting_h - a.waiting_h);
   }
 
-  open(id: string, role: HumanRole, atMs: number): void {
+  open(id: string, role: HumanRole, atMs: number, channel: ReviewChannel = "screen"): void {
     this.item(id);
-    this.sessions.set(id, { role, activity: [atMs], copied_out: false });
+    this.sessions.set(id, { role, channel, activity: [atMs], copied_out: false });
     this.log.emit({ type: "review.opened", item_id: id, reviewer_role: role });
   }
 
@@ -140,11 +143,11 @@ export class ReviewService {
   }
 
   private close(id: string, role: HumanRole, atMs: number, outcome: string): void {
-    const s = this.sessions.get(id) ?? { role, activity: [atMs], copied_out: false };
+    const s = this.sessions.get(id) ?? { role, channel: "screen" as const, activity: [atMs], copied_out: false };
     s.activity.push(atMs);
     const { active_ms, idle_excluded_ms } = activeTime(s.activity);
     const item = this.item(id);
-    this.log.emit({ type: "review.closed", item_id: id, reviewer_role: role, active_ms, idle_excluded_ms, diff_chars: diffChars(item.original, item.content), copied_out: s.copied_out, outcome });
+    this.log.emit({ type: "review.closed", item_id: id, speaker_id: item.speaker_id, channel: s.channel, reviewer_role: role, active_ms, idle_excluded_ms, diff_chars: diffChars(item.original, item.content), copied_out: s.copied_out, outcome });
     this.sessions.delete(id);
   }
 }

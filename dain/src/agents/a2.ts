@@ -66,6 +66,7 @@ export async function draftPost(ctx: NodeContext, input: DraftInput, draftId: st
     angle,
     // Only confirmed claims are shown to the drafter at all.
     confirmed_claims: bp.claims.filter((c) => c.status === "speaker_confirmed").map(({ id, text, type }) => ({ id, text, type })),
+    boundaries: bp.boundaries,
     voice: bp.voice,
     voice_samples: input.voice_samples.slice(-5),
     recent_posts: input.recent_posts.slice(-RECENT_WINDOW),
@@ -77,7 +78,21 @@ export async function draftPost(ctx: NodeContext, input: DraftInput, draftId: st
     { node: "A2", system: loadPrompt("content/a2-drafting/draft"), user: JSON.stringify(payload) },
     Draft.omit({ draft_id: true, self_flags: true }).extend({ self_flags: Draft.shape.self_flags.default([]) }),
   );
-  return { ...out, draft_id: draftId, angle_id: input.slot.angle_id, self_flags: [...out.self_flags, ...claimFlags(out.claim_ids, bp)] };
+  return {
+    ...out,
+    draft_id: draftId,
+    angle_id: input.slot.angle_id,
+    self_flags: [...out.self_flags, ...claimFlags(out.claim_ids, bp), ...boundaryFlags(out.text, bp)],
+  };
+}
+
+/** RULE: a draft may not touch a topic the speaker ruled out or name anyone they asked not to be named. */
+export function boundaryFlags(text: string, bp: Blueprint): string[] {
+  const t = text.toLowerCase();
+  return [
+    ...bp.boundaries.avoid_topics.filter((x) => x.trim() && t.includes(x.toLowerCase())).map((x) => `breaks boundary: avoid topic "${x}"`),
+    ...bp.boundaries.do_not_name.filter((x) => x.trim() && t.includes(x.toLowerCase())).map((x) => `breaks boundary: names "${x}"`),
+  ];
 }
 
 /** RULE: every claim used must exist in the Canon with status speaker_confirmed. */
@@ -91,4 +106,6 @@ export function claimFlags(claimIds: string[], bp: Blueprint): string[] {
   return flags;
 }
 
-export const isBlocked = (d: Draft) => d.self_flags.some((f) => f.startsWith("uses "));
+const BLOCKING = (f: string) => f.startsWith("uses ") || f.startsWith("breaks boundary");
+export const isBlocked = (d: Draft) => d.self_flags.some(BLOCKING);
+export const blockingFlags = (d: Draft) => d.self_flags.filter(BLOCKING);

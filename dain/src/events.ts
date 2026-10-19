@@ -8,7 +8,7 @@ export type DainEvent =
   | { type: "draft.created"; draft_id: string; item_id: string; angle_id: string; pass_no: number }
   | { type: "draft.scored"; draft_id: string; item_id: string; rubric_version: string; label: string; scores: Record<string, number>; verdict: string; pass_no: number }
   | { type: "review.opened"; item_id: string; reviewer_role: string }
-  | { type: "review.closed"; item_id: string; reviewer_role: string; active_ms: number; idle_excluded_ms: number; diff_chars: number; copied_out: boolean; outcome: string }
+  | { type: "review.closed"; item_id: string; speaker_id: string; channel: "screen" | "email" | "form"; reviewer_role: string; active_ms: number; idle_excluded_ms: number; diff_chars: number; copied_out: boolean; outcome: string }
   | { type: "approval.token_issued"; item_id: string; content_hash: string; approver: string; expires_at: string }
   | { type: "action.executed"; item_id: string; action: string; token_id: string; idempotency_key: string; result: string }
   | { type: "enquiry.created"; enquiry_id: string; speaker_id: string; channel: string; completeness: string; latency_ms: number }
@@ -61,7 +61,9 @@ export function percentile(xs: number[], p: number): number | null {
 /** The pilot dashboard (R5). Every value is derived from the event log. */
 export function dashboard(log: EventLog) {
   const speakerReviews = log.of("review.closed").filter((e) => e.reviewer_role === "speaker");
-  const editMins = speakerReviews.map((e) => e.active_ms / 60000);
+  // Email and form replies have no screen timer: count them, but never as a 0-minute edit.
+  const timed = speakerReviews.filter((e) => e.channel === "screen");
+  const editMins = timed.map((e) => e.active_ms / 60000);
 
   const items = new Set(log.of("draft.created").map((e) => e.item_id));
   const published = log.of("action.executed").filter((e) => e.action === "publish" && e.result === "ok");
@@ -86,7 +88,8 @@ export function dashboard(log: EventLog) {
   return {
     edit_time_min_median: percentile(editMins, 50),
     edit_time_min_p90: percentile(editMins, 90),
-    copied_out_share: speakerReviews.length ? speakerReviews.filter((e) => e.copied_out).length / speakerReviews.length : null,
+    copied_out_share: timed.length ? timed.filter((e) => e.copied_out).length / timed.length : null,
+    untimed_review_share: speakerReviews.length ? (speakerReviews.length - timed.length) / speakerReviews.length : null,
     keep_rate: items.size ? approvedItems.size / items.size : null,
     b2_first_pass_rate: firstScores.length ? firstPass / firstScores.length : null,
     cost_per_approved_post_gbp: approvedItems.size ? contentCost / approvedItems.size : null,
@@ -95,4 +98,20 @@ export function dashboard(log: EventLog) {
     specialist_minutes_total: specialistMs / 60000,
     escalations: log.of("item.escalated").length,
   };
+}
+
+/**
+ * Pass criteria from the decks (BE8, launch blueprint): ≥ 70% of drafts approved and a
+ * median edit under 15 minutes per post. The spec's 66% keep-rate is superseded by 70%.
+ * The 4 h/speaker/month review ceiling is checked nightly by the groundskeeper.
+ */
+export const LAUNCH_GATES = { keep_rate_min: 0.7, edit_time_median_max_min: 15 } as const;
+
+export function checkLaunchGates(d: ReturnType<typeof dashboard>): { pass: boolean; failures: string[] } {
+  const failures: string[] = [];
+  if (d.keep_rate === null || d.keep_rate < LAUNCH_GATES.keep_rate_min)
+    failures.push(`approval rate ${d.keep_rate === null ? "not measured" : `${Math.round(d.keep_rate * 100)}%`} (need ≥ 70%)`);
+  if (d.edit_time_min_median === null || d.edit_time_min_median >= LAUNCH_GATES.edit_time_median_max_min)
+    failures.push(`median edit ${d.edit_time_min_median === null ? "not measured" : `${d.edit_time_min_median.toFixed(1)} min`} (need < 15 min per post)`);
+  return { pass: failures.length === 0, failures };
 }

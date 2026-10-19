@@ -19,12 +19,13 @@ export interface HealthReport {
   stale_angle_evidence: { speaker_id: string; angle_id: string }[];
   stale_bureau_packs: { speaker_id: string; bureau: string }[];
   rubric_provisional: boolean;
+  review_over_budget: { speaker_id: string; hours_30d: number }[];
 }
 
 /** Nightly sweep: stuck items, stale facts, stale packs. */
 export function nightlySweep(brain: Brain, sm: StateMachines, log: EventLog): HealthReport {
   const now = brain.clock().getTime();
-  const r: HealthReport = { escalated: [], paused_speakers: [], reinterview_due: [], unconfirmed_claims: [], stale_angle_evidence: [], stale_bureau_packs: [], rubric_provisional: false };
+  const r: HealthReport = { escalated: [], paused_speakers: [], reinterview_due: [], unconfirmed_claims: [], stale_angle_evidence: [], stale_bureau_packs: [], rubric_provisional: false, review_over_budget: [] };
 
   for (const item of sm.all()) {
     if (!HUMAN_WAIT_STATES.has(item.state) || item.state === "ESCALATED") continue;
@@ -68,8 +69,22 @@ export function nightlySweep(brain: Brain, sm: StateMachines, log: EventLog): He
   }
 
   r.rubric_provisional = brain.get<{ label: string }>("rubric", "current")?.value.label !== "calibrated";
+  r.review_over_budget = reviewOverBudget(log, now);
   brain.append("groundskeeper.report", null, r);
   return r;
+}
+
+export const REVIEW_HOURS_CEILING = 4; // kill trigger (BE13, VS12): human review > 4 h per speaker per month
+
+/** Specialist review hours per speaker over the last 30 days, flagged above the ceiling. */
+export function reviewOverBudget(log: EventLog, nowMs: number): { speaker_id: string; hours_30d: number }[] {
+  const since = nowMs - 30 * DAY;
+  const ms = new Map<string, number>();
+  for (const e of log.of("review.closed"))
+    if (e.reviewer_role === "specialist" && new Date(e.at).getTime() >= since) ms.set(e.speaker_id, (ms.get(e.speaker_id) ?? 0) + e.active_ms);
+  return [...ms.entries()]
+    .map(([speaker_id, t]) => ({ speaker_id, hours_30d: Math.round((t / 3600000) * 100) / 100 }))
+    .filter((x) => x.hours_30d > REVIEW_HOURS_CEILING);
 }
 
 /** R8: cap = floor(specialist minutes per week × 0.8 ÷ measured specialist minutes per speaker per week). */

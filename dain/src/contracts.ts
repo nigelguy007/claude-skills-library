@@ -44,6 +44,14 @@ export const Blueprint = z
     claims: z.array(Claim),
     voice: Voice,
     bio: z.object({ short_50w: z.string(), medium_150w: z.string(), long_300w: z.string() }),
+    // Operational boundaries the speaker confirms (deck BP6): no content may cross them.
+    boundaries: z
+      .object({
+        avoid_topics: z.array(z.string()),
+        do_not_name: z.array(z.string()),
+        notes: z.array(z.string()),
+      })
+      .default({ avoid_topics: [], do_not_name: [], notes: [] }),
     open_questions: z.array(z.string()),
   })
   .superRefine((bp, ctx) => {

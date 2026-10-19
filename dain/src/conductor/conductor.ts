@@ -16,6 +16,8 @@ import { captureEnquiry, isQualified } from "../agents/p1.js";
 import { runRadar, type Fetcher } from "../agents/b1.js";
 import { changesSince, coverNote, packFor, renderPack, type BureauProfile } from "../agents/p2.js";
 import { nightlySweep } from "../agents/groundskeeper.js";
+import { renderBlueprintDocument } from "../agents/blueprint-doc.js";
+import { parseForm, parseReply, type ReplyDecision } from "../review-reply.js";
 import { COMMANDS, screen, type Command, type Payload, type SpeakerProfile } from "./commands.js";
 import { deliver, runWorkflow, type Run } from "./runner.js";
 
@@ -70,6 +72,28 @@ export class Conductor {
       if (item.entity === "ContentItem") return this.publish(p.item_id, token);
       if (item.entity === "Enquiry") return this.sendReply(p.item_id, token);
       return { status: "approved", token_id: token.id };
+    },
+    "review.reply": async (p) => {
+      const item = this.review.item(p.item_id);
+      const profile = this.profile(item.speaker_id);
+      // Only the speaker's own address may answer for their own item. The inbound mail
+      // provider must also verify SPF/DKIM before this command is called; a From header alone can be forged.
+      if (!profile?.email || profile.email.toLowerCase() !== p.from.toLowerCase())
+        throw new Error("reply refused: sender is not the speaker this item belongs to");
+      if (item.entity !== "ContentItem" || this.sm.get("ContentItem", p.item_id).state !== "SPEAKER_REVIEW")
+        throw new Error(`reply refused: ${p.item_id} is not waiting for the speaker`);
+      const channel = p.form ? "form" : "email";
+      const d: ReplyDecision | null = p.form ? parseForm(p.form) : parseReply(p.body!);
+      if (!d) return { status: "unclear", ask: "Reply with APPROVE, EDIT followed by your new text, or REJECT and a reason." };
+      const approval = { approver: profile.name, role: "speaker" as const };
+      this.review.open(p.item_id, "speaker", p.at_ms, channel);
+      if (d.decision === "reject") {
+        this.review.reject(p.item_id, "speaker", d.reason, p.at_ms);
+        return { status: "rejected", reason: d.reason };
+      }
+      if (d.decision === "edit") this.review.edit(p.item_id, d.text, p.at_ms);
+      const token = this.review.approve(p.item_id, approval, p.at_ms)!;
+      return this.publish(p.item_id, token);
     },
     "enquiry.capture": (p) => runWorkflow(this.brain, `enquiry:${p.enquiry_id}`, (run) => this.enquiry(run, p)),
     "radar.weekly": (p) => runWorkflow(this.brain, `radar:${p.week}`, (run) => this.radar(run, p)),
@@ -157,10 +181,14 @@ export class Conductor {
     const c = run.waitFor<Payload<"blueprint.confirm">>("blueprint.confirmation");
     return run.step("approve", () => {
       if (c.approval.role !== "speaker") throw new Error("the speaker, not the team, confirms their own Blueprint");
-      const bp = applyConfirmation(draft!.bp, c.decisions);
+      const confirmed = applyConfirmation(draft!.bp, c.decisions);
+      // The speaker's own edits to their boundaries replace whatever the interview recorded.
+      const bp = c.boundaries ? { ...confirmed, boundaries: c.boundaries } : confirmed;
       const rec = this.brain.promote("blueprint", speakerId, { ...bp, blueprint_version: `v${(this.brain.get("blueprint", speakerId)?.version ?? 0) + 1}` }, c.approval);
       this.sm.transition("Speaker", speakerId, "BLUEPRINT_APPROVED", c.approval);
       this.sm.transition("Speaker", speakerId, "ACTIVE");
+      const html = renderBlueprintDocument(this.profile(speakerId)!.name, rec.value, rec.version, rec.approved_at);
+      this.brain.append("blueprint.document", speakerId, { version: rec.version, html });
       return { status: "active", blueprint_version: rec.version };
     });
   }

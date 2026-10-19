@@ -4,7 +4,7 @@ The agents from the *Dain Agent Specification* (Rev 3), built as an AI company: 
 
 ```bash
 cd dain && npm install
-npm test                 # 80 tests: contracts, gate chaos test, loops, guards, end-to-end flows, register rules
+npm test                 # 89 tests: contracts, gate chaos test, loops, guards, end-to-end flows, register rules
 npm run demo             # whole company, offline, with a scripted model (fictional speaker "Helen Marsh")
 npm run demo -- --live   # same flow against Claude (needs ANTHROPIC_API_KEY; DAIN_MODEL to override)
 npm run dain -- map      # print the org chart from the register

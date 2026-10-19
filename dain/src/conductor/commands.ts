@@ -6,6 +6,7 @@ const ApprovalIn = z.object({ approver: z.string().min(1), role: z.enum(["speake
 
 export const SpeakerProfile = z.object({
   name: z.string().min(1),
+  email: z.string().email().optional(),
   fee_band: z.string(),
   tier: z.enum(["T1", "T2", "T3"]),
   voice_samples: z.array(z.string()),
@@ -48,12 +49,25 @@ export const COMMANDS = {
   "blueprint.confirm": z.object({
     speaker_id: z.string(),
     decisions: z.record(z.enum(["speaker_confirmed", "needs_evidence", "rejected"])),
+    boundaries: z.object({ avoid_topics: z.array(z.string()), do_not_name: z.array(z.string()), notes: z.array(z.string()) }).optional(),
     approval: ApprovalIn,
   }),
   "content.weekly": z.object({ speaker_id: z.string(), week: z.string() }),
   "review.open": z.object({ item_id: z.string(), role: ApprovalIn.shape.role, at_ms: z.number() }),
   "review.edit": z.object({ item_id: z.string(), content: z.string().min(1), at_ms: z.number() }),
   "review.approve": z.object({ item_id: z.string(), approval: ApprovalIn, at_ms: z.number() }),
+  // The speaker's desk without the portal (deck BE8): an email reply, or the simple form.
+  "review.reply": z
+    .object({
+      item_id: z.string(),
+      from: z.string().email(),
+      at_ms: z.number(),
+      body: z.string().optional(),
+      form: z
+        .object({ decision: z.enum(["approve", "edit", "reject"]), text: z.string().optional(), reason: z.string().optional() })
+        .optional(),
+    })
+    .refine((p) => Boolean(p.body) !== Boolean(p.form), "send either an email body or a form, not both"),
   "enquiry.capture": z.object({ speaker_id: z.string(), enquiry_id: z.string(), raw: RawEnquiry }),
   "radar.weekly": z.object({
     week: z.string(),

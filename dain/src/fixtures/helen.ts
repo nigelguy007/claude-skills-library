@@ -21,6 +21,8 @@ export const helenTranscript: TranscriptSegment[] = [
   { ts: "00:33:15", speaker: "speaker", text: "The CIPD regional group has had me back three years running." },
   { ts: "00:35:50", speaker: "agent", text: "Any testimonial you're proud of?" },
   { ts: "00:36:02", speaker: "speaker", text: "One HR director wrote: 'Helen gave my managers three things they used the next morning.'" },
+  { ts: "00:38:00", speaker: "agent", text: "Anything we must never say or name on your behalf?" },
+  { ts: "00:38:12", speaker: "speaker", text: "Stay out of NHS pay disputes, and never name St Aldric's, my old trust." },
 ];
 
 export function helenBlueprint(): Blueprint {
@@ -58,6 +60,7 @@ export function helenBlueprint(): Blueprint {
       medium_150w: "Helen Marsh spent eleven years as director of operations at an NHS trust. She now helps public-sector and healthcare leaders cut burnout and agency costs with practical rota and handover changes.",
       long_300w: "Helen Marsh spent eleven years as director of operations at an NHS trust, where she learned that the rota, not the people, is usually the problem. She now speaks to NHS trusts, housing associations and HR groups on resilience in overstretched teams, with changes managers can start the next morning.",
     },
+    boundaries: { avoid_topics: ["pay disputes"], do_not_name: ["St Aldric's"], notes: [] },
     open_questions: ["Can C4 be cited publicly, or only as 'a large NHS trust'?"],
   };
 }
@@ -67,6 +70,7 @@ export const helenDecisions = { C1: "speaker_confirmed", C2: "speaker_confirmed"
 
 export const helenProfile = {
   name: "Helen Marsh",
+  email: "helen@example.com",
   fee_band: "£5k–£8k",
   tier: "T2" as const,
   voice_samples: ["The rota was the problem, not the people.", "Try one change on Monday. Just one."],

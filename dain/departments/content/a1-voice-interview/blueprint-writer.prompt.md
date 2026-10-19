@@ -10,6 +10,7 @@ OUTPUT: one JSON object, no prose, with exactly these fields:
   "claims": [{ "id": "C1"…, "text", "type": "credential"|"metric"|"story"|"client"|"testimonial"|"rebooking", "status": "needs_evidence", "source_quote_ts": "hh:mm:ss" }],
   "voice": { "traits": 3–5 words, "do": [phrases and habits to keep], "dont": [phrases and habits to avoid], "sample_sentences": exactly 5 sentences in their voice, taken or closely adapted from the transcript or writing samples },
   "bio": { "short_50w", "medium_150w", "long_300w" },
+  "boundaries": { "avoid_topics": [topics the speaker said to stay away from], "do_not_name": [clients, employers or people they asked not to be named], "notes": [anything else they said must never be said for them] },
   "open_questions": [anything you could not fill, and anything the speaker should decide, such as whether a client can be named]
 }
 
@@ -22,3 +23,4 @@ RULES
 - An angle is a talk a booker could programme: a specific room, that room's problem, and what attendees leave with. "Leadership" is not an angle. "Three rota and handover changes overstretched NHS teams can start on Monday" is.
 - If you cannot fill a field from what was said, leave it as short as the evidence allows and add an open question. Do not invent.
 - Bios use only claims you recorded.
+- Record every boundary the speaker stated, in their words. If they named none, leave the lists empty. Never invent a boundary.

@@ -13,7 +13,7 @@ owner: PL
 - **Role:** the speaker's ghostwriter, who only writes what the Canon can back.
 - **Goal:** three posts a week the speaker approves in under 15 minutes.
 - **For:** the speaker (who approves) and the event organiser (who reads).
-- **Success:** median speaker edit time < 15 min, keep-rate ≥ 66%, B2 first-pass rate ≥ 60%, zero published unconfirmed claims.
+- **Success:** median speaker edit time < 15 min per post, ≥ 70% of drafts approved (decks BE8 and launch blueprint; replaces the spec's 66%), B2 first-pass rate ≥ 60%, zero published unconfirmed claims, zero boundary breaches.
 
 ## 1 · Name and trigger
 `content.weekly { speaker_id, week }`: Monday 07:00 for every ACTIVE speaker.
@@ -28,7 +28,7 @@ Canon: Blueprint (angles, confirmed claims, voice guide), rubric, approved voice
 ## 4 · Steps
 1. **Plan (code):** three slots, least-recently-used angles first, formats rotated (story, proof, contrarian, lesson), no (angle, format) pair from the last six posts, at least one proof post.
 2. **Draft (parallel):** `draft.prompt.md` for each slot. Only confirmed claims are passed in.
-3. **Claim check (code):** any claim id not in the Canon, or not `speaker_confirmed`, blocks the draft and counts as a pass.
+3. **Claim and boundary check (code):** any claim id not in the Canon or not `speaker_confirmed`, any avoided topic, and any name on the do-not-name list blocks the draft and counts as a pass.
 4. **Score (B2, fresh context):** pass → review queue; revise → fix the single lowest criterion and resend.
 5. **Stop:** pass, or 3 passes → escalate to the specialist with every version and score.
 6. **Learn:** after publishing, the speaker's final text is saved to the Canon as a voice sample.

@@ -30,7 +30,8 @@ State tables, Canon (`blueprint`, `angle_evidence`, `rubric`), Chronicle (`p2.se
 4. Angles without Canon evidence under 90 days → flag for B1 and the specialist.
 5. Bureau packs not sent in 90 days → flag.
 6. Rubric still provisional → reminder on the dashboard.
-7. Report written to the Chronicle (`groundskeeper.report`).
+7. Specialist review above 4 hours per speaker in the last 30 days → flag (`review_over_budget`). This is the decks' margin kill trigger (BE13, VS12): at £40/h the £145 margin is gone well before it.
+8. Report written to the Chronicle (`groundskeeper.report`).
 
 ## 5 · Handoffs
 To the specialist (escalations and chase lists) and the dashboard.
