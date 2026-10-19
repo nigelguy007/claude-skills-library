@@ -1,0 +1,24 @@
+{
+  "name": "dain",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Project Dain: speaker growth platform agents, wired as an AI company map (brain, departments, SOPs, conductor).",
+  "type": "module",
+  "scripts": {
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit",
+    "build": "tsc --noEmit",
+    "demo": "tsx src/cli.ts demo",
+    "dain": "tsx src/cli.ts"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "0.39.0",
+    "zod": "3.23.8"
+  },
+  "devDependencies": {
+    "@types/node": "22.10.2",
+    "tsx": "4.19.2",
+    "typescript": "5.6.3",
+    "vitest": "2.1.8"
+  }
+}
