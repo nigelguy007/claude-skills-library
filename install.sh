@@ -26,6 +26,8 @@ if ! python3 -c 'import sys; sys.exit(0 if sys.version_info >= (3, 6) else 1)'; 
   exit 1
 fi
 
+bash "${SCRIPT_DIR}/scripts/setup_claude_flow.sh"
+
 if [ "${1:-}" = "--agents" ]; then
   shift
   exec python3 "${SCRIPT_DIR}/install_global_agents.py" "$@"
