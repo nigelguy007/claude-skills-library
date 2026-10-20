@@ -43,7 +43,7 @@ git clone --depth 1 https://github.com/nigelguy007/claude-skills-library.git ~/c
 
 The `pip` line installs the command-line tools that some skills (Scrapling, Agent-Reach, GEO Optimizer) call. It runs in the background.
 
-`install.sh` also runs [`scripts/setup_claude_flow.sh`](scripts/setup_claude_flow.sh), which does `npm install -g claude-flow@3.38.20` and `claude mcp add -s user claude-flow -- npx claude-flow@3.38.20 mcp start`. Any setup script that runs `install.sh` therefore gets claude-flow too, so you don't need to add those lines yourself. Cloud containers are rebuilt for every session and the setup script runs each time, so the install happens again in each new session. The first install takes about a minute. Re-runs skip the npm step. Set `SKIP_CLAUDE_FLOW=1` to opt out, or `CLAUDE_FLOW_VERSION` to pin a different version.
+`install.sh` also runs [`scripts/setup_ruflo.sh`](scripts/setup_ruflo.sh), which does `npm install -g ruflo@3.59.1` and `claude mcp add -s user ruflo -- npx ruflo@3.59.1 mcp start`. Ruflo is the new name for claude-flow, and the script removes any `claude-flow` MCP entry an earlier version registered. Any setup script that runs `install.sh` therefore gets ruflo too, so you don't need to add those lines yourself. Cloud containers are rebuilt for every session and the setup script runs each time, so the install happens again in each new session. The first install takes about a minute. Re-runs skip the npm step. Set `SKIP_RUFLO=1` to opt out, or `RUFLO_VERSION` to pin a different version.
 
 ## Subagents
 
