@@ -43,6 +43,8 @@ git clone --depth 1 https://github.com/nigelguy007/claude-skills-library.git ~/c
 
 The `pip` line installs the command-line tools that some skills (Scrapling, Agent-Reach, GEO Optimizer) call. It runs in the background.
 
+`install.sh` also runs [`scripts/setup_claude_flow.sh`](scripts/setup_claude_flow.sh), which does `npm install -g claude-flow@3.38.20` and `claude mcp add -s user claude-flow -- npx claude-flow@3.38.20 mcp start`. Any setup script that runs `install.sh` therefore gets claude-flow too, so you don't need to add those lines yourself. Cloud containers are rebuilt for every session and the setup script runs each time, so the install happens again in each new session. The first install takes about a minute. Re-runs skip the npm step. Set `SKIP_CLAUDE_FLOW=1` to opt out, or `CLAUDE_FLOW_VERSION` to pin a different version.
+
 ## Subagents
 
 [`agents/`](agents/) holds Claude Code subagents, namespaced the same way as `agents/<owner>_<repo>/<division>/<agent>.md`. Currently that's the 282 agents from [msitarzewski/agency-agents](https://github.com/msitarzewski/agency-agents) (MIT), in 18 divisions: engineering, design, marketing, sales, testing and so on.
