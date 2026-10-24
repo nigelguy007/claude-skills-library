@@ -72,4 +72,9 @@ if [ -w /usr/local/bin ]; then
   ln -sf "$DEST/.venv/bin/harvey" /usr/local/bin/harvey
 fi
 
+# State sync commands (see harvey_state.sh and harvey_cycle.sh).
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+ln -sf "$SCRIPT_DIR/harvey_state.sh" "$HOME/.local/bin/harvey-state"
+ln -sf "$SCRIPT_DIR/harvey_cycle.sh" "$HOME/.local/bin/harvey-cycle"
+
 exit 0

@@ -47,6 +47,12 @@ The `pip` line installs the command-line tools that some skills (Scrapling, Agen
 
 `install.sh` also runs [`scripts/setup_harvey.sh`](scripts/setup_harvey.sh), which clones [Harvey](https://github.com/ethanplusai/harvey) to `~/harvey` at a pinned commit, installs it into `~/harvey/.venv` (Python 3.11+) and links `harvey` into `~/.local/bin`. Harvey keeps its database, `.env` and `harvey.local.yaml` inside `~/harvey`, so in cloud sessions that state is gone when the container is rebuilt. Set `SKIP_HARVEY=1` to opt out, or `HARVEY_REF` to use a different commit.
 
+To keep Harvey's state across cloud containers, it is synced to the private repo [`nigelguy007/Harvey`](https://github.com/nigelguy007/Harvey) (override with `HARVEY_STATE_REPO`):
+
+- `harvey-state pull` restores `data/harvey.db`, `harvey.local.yaml` and the training files into `~/harvey`. `harvey-state push` saves a consistent SQLite snapshot and pushes it, and does nothing when nothing changed. `.env` and OAuth token files are never synced. Put credentials (for example `SMTP_*` with an app password) in the cloud environment's variables, which Harvey reads before `.env`.
+- `harvey-cycle` runs `pull`, then `harvey run` for `HARVEY_CYCLE_MINUTES` (default 25), stops it with SIGTERM, then runs `push`. Call it from an hourly scheduled task to keep Harvey prospecting without a machine that stays on.
+- The session needs `nigelguy007/Harvey` attached for git access. Two sessions writing state at the same time is last-writer-wins on `harvey.db`, so don't run `harvey` interactively while a scheduled cycle is running.
+
 ## Subagents
 
 [`agents/`](agents/) holds Claude Code subagents, namespaced the same way as `agents/<owner>_<repo>/<division>/<agent>.md`. Currently that's the 282 agents from [msitarzewski/agency-agents](https://github.com/msitarzewski/agency-agents) (MIT), in 18 divisions: engineering, design, marketing, sales, testing and so on.
