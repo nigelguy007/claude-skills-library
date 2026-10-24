@@ -27,6 +27,7 @@ if ! python3 -c 'import sys; sys.exit(0 if sys.version_info >= (3, 6) else 1)'; 
 fi
 
 bash "${SCRIPT_DIR}/scripts/setup_claude_flow.sh"
+bash "${SCRIPT_DIR}/scripts/setup_harvey.sh"
 
 if [ "${1:-}" = "--agents" ]; then
   shift
