@@ -6,13 +6,25 @@ description: >
 
 # Graphic Designer
 
+## Codex and Claude runtime
+
+- Use this skill in Codex or Claude with the tools actually available in the current task. `AskUserQuestion` examples describe the questions, not a required API: use an available question tool within its limits, or ask in chat. Reuse answers and source material already supplied.
+- Work in the user-selected project. Read its `about-me.md`, `voice.md` and relevant brand files before personalised work. Confirm the intended author if files conflict or contain starter defaults. Ask for missing facts or run `voice-builder`; never inherit the maintainer's identity, accounts or private files.
+- Resolve bundled `references/` relative to this skill folder. For an explicitly requested profile refresh, read and update the canonical `about-me.md`, `voice.md` or `newsletter-voice.md` in place, preserving unrelated user facts and rules. Consumers must reread those canonical files. Use a new filename only for new deliverables that would collide with unrelated existing files. Installation alone never starts an interview or writes files. Do not write persistent learnings unless requested.
+- Use supplied evidence first. Verify external claims through available search/source tools when needed. If a source or integration is unavailable, name the missing capability and offer supplied text/export input. Never invent facts, first-person experience, metrics or a successful tool run.
+- Connect only services needed for the chosen route through the user's existing account. Never print credentials or overwrite connections. Drafting, saving and reviewing do not authorise publishing, sending messages or changing accounts.
+
+## Visual completion state
+
+This skill's image prompts are **prompt-ready**, not generated or visually reviewed assets. Keep its named Gemini workflow unless the user requests another generator. A missing image service does not block writing a prompt. When images are supplied or generated, open and inspect each export at full size and feed size (about 360px wide, 320px for thumbnails). Check exact copy, dimensions, clipping, legibility, brand colours, font appearance, logos and reference fidelity. Fix and re-inspect failed exports. Record any unavailable export or inspection as pending. An image prompt or raster export is not an editable design file.
+
 ## CRITICAL: Auto-start on load
 
 When this skill triggers, go straight to Step 1. Do not summarise. Do not explain options. Start immediately.
 
 ## Step 1. Read the post
 
-Check the project for the most recent post file. If found, read it. If not, say:
+Use the supplied post or exact file named by the user. If only project drafts exist, confirm which one is intended before using it. Otherwise say:
 
 > Paste the post you want a graphic for.
 
@@ -39,7 +51,7 @@ If "You decide": analyse the post. If it contains numbered steps, frameworks, co
 ## Path A: HTML/CSS structured graphic
 
 Design constraints:
-- 1200 x 1400 pixels (LinkedIn optimal)
+- 1200 x 1400 pixels by default for this HTML route; follow an explicit user size
 - Dark background (#1a1a2e or user's brand colour) with high contrast text
 - Clean sans-serif font (Inter, system-ui)
 - White or light text on dark background
@@ -55,9 +67,7 @@ Extract the core framework or steps from the post. Do not copy the full post. Di
 - Key points as visual blocks (Unicode icons fine)
 - Footer with author name from about-me.md if available
 
-Save the HTML file. Tell the user:
-
-> Open the HTML in your browser and screenshot it.
+Save the HTML and export a PNG using the available browser screenshot or existing local renderer. Wait for fonts and images to load. Open the actual PNG at full resolution and at 360px feed width; inspect headline, every item, clipping, contrast, fonts and attribution. Fix the HTML and re-export until those checks pass. Preserve the editable HTML alongside the inspected PNG. If browser/render access is unavailable, return the HTML as **render pending**, name the missing capability and give the user the browser screenshot step. Never call unrendered HTML visually verified.
 
 ## Path B: Image generation prompt
 
@@ -65,7 +75,7 @@ The graphic must recap the post content visually. It is not an abstract illustra
 
 First, extract the content for the infographic from the post:
 - The main headline or hook (shortened to 5 to 10 words)
-- 3 to 6 key points, steps, or takeaways (one short line each)
+- All required key points, steps or takeaways in the requested order. Aim for concise lines; propose a split if accurate content will not fit.
 - Any numbers, stats, or data worth highlighting
 - A footer line (author name and CTA if appropriate)
 
@@ -95,7 +105,7 @@ CONTENT (hand-drawn sections with marker pen):
 
 Use multi-colored markers for emphasis. Keep text large and legible. Make everything look hand-drawn with slight imperfections. Make it look like a photograph of an actual notebook page.
 
-Always include the handwritten text "[Author name from about-me.md] | Repost" at the bottom of the image, in the same hand-drawn marker style.
+If confirmed in the brief, include the handwritten text "[verified author and approved CTA]" at the bottom of the image, in the same hand-drawn marker style.
 ```
 
 ### Style 2: Branded infographic
@@ -124,7 +134,7 @@ BODY (structured sections, each with an icon or number):
 FOOTER:
 [Author name from about-me.md] | [CTA or tagline if appropriate]
 
-Keep text large and scannable. Maximum 40 words on the entire image. No decorative borders. No watermarks. No logos unless the user provides one.
+Keep text large and scannable. Aim for 40 words on the image; preserve required content and split the brief if needed. No decorative borders. No watermarks. No logos unless the user provides one.
 ```
 
 Output the complete prompt in a code block. Tell the user:
@@ -133,9 +143,7 @@ Output the complete prompt in a code block. Tell the user:
 
 ## After either path
 
-Say:
-
-> Graphic ready. Say "score my post" when you want feedback before publishing.
+Report the actual state: **HTML render pending**, **HTML + inspected PNG**, or **Gemini prompt-ready**. Link the files that actually exist. List any unresolved visual defects. Post scoring reviews copy and does not substitute for image inspection.
 
 ## Rules
 

@@ -6,6 +6,18 @@ description: >
 
 # YouTube Thumbnail
 
+## Codex and Claude runtime
+
+- Use this skill in Codex or Claude with the tools actually available in the current task. `AskUserQuestion` examples describe the questions, not a required API: use an available question tool within its limits, or ask in chat. Reuse answers and source material already supplied.
+- Work in the user-selected project. Read its `about-me.md`, `voice.md` and relevant brand files before personalised work. Confirm the intended author if files conflict or contain starter defaults. Ask for missing facts or run `voice-builder`; never inherit the maintainer's identity, accounts or private files.
+- Resolve bundled `references/` relative to this skill folder. For an explicitly requested profile refresh, read and update the canonical `about-me.md`, `voice.md` or `newsletter-voice.md` in place, preserving unrelated user facts and rules. Consumers must reread those canonical files. Use a new filename only for new deliverables that would collide with unrelated existing files. Installation alone never starts an interview or writes files. Do not write persistent learnings unless requested.
+- Use supplied evidence first. Verify external claims through available search/source tools when needed. If a source or integration is unavailable, name the missing capability and offer supplied text/export input. Never invent facts, first-person experience, metrics or a successful tool run.
+- Connect only services needed for the chosen route through the user's existing account. Never print credentials or overwrite connections. Drafting, saving and reviewing do not authorise publishing, sending messages or changing accounts.
+
+## Visual completion state
+
+This skill's image prompts are **prompt-ready**, not generated or visually reviewed assets. Keep its named Gemini workflow unless the user requests another generator. A missing image service does not block writing a prompt. When images are supplied or generated, open and inspect each export at full size and feed size (about 360px wide, 320px for thumbnails). Check exact copy, dimensions, clipping, legibility, brand colours, font appearance, logos and reference fidelity. Fix and re-inspect failed exports. Record any unavailable export or inspection as pending. An image prompt or raster export is not an editable design file.
+
 ## CRITICAL: Auto-start on load
 
 When this skill triggers, go straight to Step 1.
@@ -48,6 +60,8 @@ Then call AskUserQuestion:
   }
 ]
 ```
+
+Confirm the title and promise against the video’s supplied content. Do not invent a result, imply a demonstration exists, or use an unprovided face or brand mark. A missing reference photo leaves photo-based generation pending, while a composition brief can still be drafted.
 
 ## Step 2. Apply thumbnail best practices
 
@@ -118,7 +132,7 @@ Tell the user:
 
 ## Step 5. Offer the next move
 
-> Want me to outline the video next? Hook, mid, CTA from the thumbnail. Or call the create skill if you have one.
+> Want me to outline the video next? Hook, mid, CTA from the thumbnail.
 
 ## Rules
 
