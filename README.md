@@ -45,14 +45,6 @@ The `pip` line installs the command-line tools that some skills (Scrapling, Agen
 
 `install.sh` also runs [`scripts/setup_claude_flow.sh`](scripts/setup_claude_flow.sh), which does `npm install -g claude-flow@3.38.20` and `claude mcp add -s user claude-flow -- npx claude-flow@3.38.20 mcp start`. Any setup script that runs `install.sh` therefore gets claude-flow too, so you don't need to add those lines yourself. Cloud containers are rebuilt for every session and the setup script runs each time, so the install happens again in each new session. The first install takes about a minute. Re-runs skip the npm step. Set `SKIP_CLAUDE_FLOW=1` to opt out, or `CLAUDE_FLOW_VERSION` to pin a different version.
 
-`install.sh` also runs [`scripts/setup_harvey.sh`](scripts/setup_harvey.sh), which clones [Harvey](https://github.com/ethanplusai/harvey) to `~/harvey` at a pinned commit, installs it into `~/harvey/.venv` (Python 3.11+) and links `harvey` into `~/.local/bin`. Harvey keeps its database, `.env` and `harvey.local.yaml` inside `~/harvey`, so in cloud sessions that state is gone when the container is rebuilt. Set `SKIP_HARVEY=1` to opt out, or `HARVEY_REF` to use a different commit.
-
-To keep Harvey's state across cloud containers, it is synced to the private repo [`nigelguy007/Harvey`](https://github.com/nigelguy007/Harvey) (override with `HARVEY_STATE_REPO`):
-
-- `harvey-state pull` restores `data/harvey.db`, `harvey.local.yaml` and the training files into `~/harvey`. `harvey-state push` saves a consistent SQLite snapshot and pushes it, and does nothing when nothing changed. `.env` and OAuth token files are never synced. Put credentials (for example `SMTP_*` with an app password) in the cloud environment's variables, which Harvey reads before `.env`.
-- `harvey-cycle` runs `pull`, then `harvey run` for `HARVEY_CYCLE_MINUTES` (default 25), stops it with SIGTERM, then runs `push`. Call it from an hourly scheduled task to keep Harvey prospecting without a machine that stays on.
-- The session needs `nigelguy007/Harvey` attached for git access. Two sessions writing state at the same time is last-writer-wins on `harvey.db`, so don't run `harvey` interactively while a scheduled cycle is running.
-
 ## Subagents
 
 [`agents/`](agents/) holds Claude Code subagents, namespaced the same way as `agents/<owner>_<repo>/<division>/<agent>.md`. Currently that's the 282 agents from [msitarzewski/agency-agents](https://github.com/msitarzewski/agency-agents) (MIT), in 18 divisions: engineering, design, marketing, sales, testing and so on.
