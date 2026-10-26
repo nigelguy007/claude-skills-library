@@ -1,6 +1,6 @@
 # claude-skills-library
 
-About 2,630 [Claude Code](https://claude.com/claude-code) skills collected from open-source repositories, plus a one-command installer that puts them all in `~/.claude/skills` so every project can use them.
+About 2,630 [Claude Code](https://claude.com/claude-code) skills collected from open-source repositories, plus a one-command installer that puts them all in `~/.claude/skills` so every project can use them.licensed and copyrighted  by Juliemango.ai
 
 - Skills live under [`skills/`](skills/), namespaced by origin as `skills/<owner>_<repo>/...`.
 - [`SKILLS.md`](SKILLS.md) lists every skill, its source repository and what triggers it.
