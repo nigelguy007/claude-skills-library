@@ -61,7 +61,7 @@ git add -A && git commit -m "Add <owner>/<repo> skills"
 ### 5. Install into the current session
 
 - New skill: `python3 install_global_skills.py --source <owner>_<repo>`
-- Updated skill: the installer **never overwrites** existing directories, so copy the changed files over `~/.claude/skills/<installed-dir>/` yourself.
+- Updated skill: re-run `python3 install_global_skills.py --source <owner>_<repo>`. The installer removes and recopies every skill listed in its manifest (`~/.claude/skills/.collection-install.json`), so updates apply. It never touches skills installed by other means, such as gstack's own `.gstack-owned` symlinked skills. Leave those alone, because replacing them breaks gstack.
 - CLI or MCP: run the new `scripts/setup_<tool>.sh` once.
 - Verify: `ls ~/.claude/skills | grep <name>`, or `which <tool>`, or `claude mcp list`.
 
@@ -75,5 +75,5 @@ Push the branch, open a PR on `nigelguy007/claude-skills-library`, and **merge i
 - **New sessions:** live from `main` (give the merge commit).
 - **Existing sessions:** other running containers **cannot** be changed from here. In each one, the user runs
   `cd ~/claude-skills-library && git pull && bash install.sh`
-  or starts a new session. For updated skills, the installer won't overwrite an existing copy, so starting a new session is the reliable route.
+  or starts a new session. This applies new **and** updated library skills.
 - If the environment's setup script doesn't run `install.sh`, nothing persists. Point the user to the setup snippet in the library's README.
