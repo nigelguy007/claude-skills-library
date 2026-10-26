@@ -1,6 +1,6 @@
 # Installed Claude Skills
 
-This repository has **2656 Claude skills** installed under the `skills/` directory, collected from 81 source repositories plus 5 uploaded skill packs.
+This repository has **2662 Claude skills** installed under the `skills/` directory, collected from 82 source repositories plus 5 uploaded skill packs.
 
 Each skill is stored under `skills/<owner>_<repo>/...`, preserving its origin path.
 
@@ -96,6 +96,7 @@ Each skill is stored under `skills/<owner>_<repo>/...`, preserving its origin pa
 | 84 | [jakubkrehel/make-interfaces-feel-better](https://github.com/jakubkrehel/make-interfaces-feel-better) | 1 |
 | 85 | [Jakeschincariol/replica-skill](https://github.com/Jakeschincariol/replica-skill) | 11 |
 | 86 | [Jakubantalik/transitions.dev](https://github.com/Jakubantalik/transitions.dev) | 3 |
+| 87 | [nigelguy007/selfhost-client-stack](https://github.com/nigelguy007/selfhost-client-stack) | 6 |
 
 ### Source repositories with no installable skills
 
@@ -114,7 +115,7 @@ Each skill is stored under `skills/<owner>_<repo>/...`, preserving its origin pa
 
 - **Google Drive folders** (3 links in the request) — cloud storage, not git repositories; cannot be installed as Claude skills.
 
-## All installed skills (2656)
+## All installed skills (2662)
 
 | Skill | Source repo | Description | Trigger |
 |-------|-------------|-------------|---------|
@@ -2434,6 +2435,12 @@ Each skill is stored under `skills/<owner>_<repo>/...`, preserving its origin pa
 | `ui-styling` | nextlevelbuilder/ui-ux-pro-max-skill | Create beautiful, accessible user interfaces with shadcn/ui components (built on Radix UI + Tailwind), Tailwind CSS utility-first styling, and canvas-based visual designs. Use when building user interfaces, implementing design… | Use when building user interfaces, implementing design systems, creating responsive layouts, adding accessible components (dialogs, dropdowns, forms, tables), customizing themes and colors, implementing dark mode, generating visual designs and… |
 | `ui-ux-pro-max` | nextlevelbuilder/ui-ux-pro-max-skill | UI/UX design intelligence for web and mobile. Includes 50+ styles, 161 color palettes, 57 font pairings, 161 product types, 99 UX guidelines, and 25 chart types across 10 stacks (React, Next.js, Vue, Svelte, SwiftUI, React Native,… | Model-invoked automatically when a request matches the skill's description. |
 | `prompt-master` | nidhinjs/prompt-master | Generates optimized prompts for AI tools. Activates only when the user explicitly asks to write, fix, improve, or adapt a prompt for a specific AI tool (LLM, Cursor, Midjourney, image AI, video AI, coding agents, etc.). Does not activate… | Activates only when the user explicitly asks to write, fix, improve, or adapt a prompt for a specific AI tool (LLM, Cursor, Midjourney, image AI, video AI, coding agents, etc. |
+| `selfhost-dify-assistant` | nigelguy007/selfhost-client-stack | Self-host Dify for one client and build a front-desk FAQ chatbot trained on their documents (dental, medical, law firm, clinic) - Docker deploy, knowledge base, website embed, guardrails, updates. Use when the user says "Dify", "chatbot… | Use when the user says "Dify", "chatbot trained on their docs", "front-desk assistant", "RAG bot for a clinic/law firm", or "deploy Dify for a client". |
+| `selfhost-listmonk-newsletter` | nigelguy007/selfhost-client-stack | Move a client off Mailchimp onto self-hosted Listmonk with a proper sending service - Docker deploy, SMTP (SES/Postmark/etc.), SPF/DKIM/DMARC, list import with consent, IP/domain warmup, bounce handling. Use when the user says "Listmonk",… | Use when the user says "Listmonk", "leave Mailchimp", "self-hosted newsletter", "email deliverability setup", or "deploy Listmonk for a client". |
+| `selfhost-nocodb-app` | nigelguy007/selfhost-client-stack | Turn a client's messy spreadsheets into a database-backed app with NocoDB (views, forms, permissions) on Postgres - licence check, Docker deploy, data migration, handover. Use when the user says "NocoDB", "Airtable alternative",… | Use when the user says "NocoDB", "Airtable alternative", "spreadsheets into an app", or "deploy NocoDB for a client". |
+| `selfhost-pipecat-receptionist` | nigelguy007/selfhost-client-stack | Build and deploy a phone-answering AI receptionist for a trades business (plumber, electrician, HVAC) with Pipecat + Twilio - answers calls, captures job details, books or takes messages, texts the owner. Use when the user says "AI… | Use when the user says "AI receptionist", "answer missed calls", "voice agent for a plumber", "Pipecat phone bot", or "deploy Pipecat for a client". |
+| `selfhost-plane-pm` | nigelguy007/selfhost-client-stack | Self-host Plane Community Edition as a flat-cost replacement for Jira/Asana/Monday for a 10-30 person team - edition choice (Community vs Commercial Free seat cap), Docker deploy, SMTP, import, upgrades. Use when the user says "Plane",… | Use when the user says "Plane", "self-hosted Jira alternative", "project management without per-seat fees", or "deploy Plane for a client". |
+| `selfhost-vps-base` | nigelguy007/selfhost-client-stack | Prepare a client VPS for a managed self-hosted app (Pipecat, Dify, NocoDB, Listmonk, Plane) - Docker, firewall, Caddy HTTPS reverse proxy, off-server backups, uptime monitoring and an update routine. Use before any selfhost-* deploy… | Model-invoked automatically when a request matches the skill's description. |
 | `brainstorming` | obra/superpowers | You MUST use this before any creative work - creating features, building components, adding functionality, or modifying behavior. Explores user intent, requirements and design before implementation. | Model-invoked automatically when a request matches the skill's description. |
 | `dispatching-parallel-agents` | obra/superpowers | Use when facing 2+ independent tasks that can be worked on without shared state or sequential dependencies | Model-invoked automatically when a request matches the skill's description. |
 | `executing-plans` | obra/superpowers | Use when you have a written implementation plan to execute in a separate session with review checkpoints | Model-invoked automatically when a request matches the skill's description. |
