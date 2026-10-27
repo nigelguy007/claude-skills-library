@@ -49,6 +49,8 @@ The `pip` line installs the command-line tools that some skills (Scrapling, Agen
 
 [`agents/`](agents/) holds Claude Code subagents, namespaced the same way as `agents/<owner>_<repo>/<division>/<agent>.md`. Currently that's the 282 agents from [msitarzewski/agency-agents](https://github.com/msitarzewski/agency-agents) (MIT), in 18 divisions: engineering, design, marketing, sales, testing and so on.
 
+[`agents/nigelguy007_book-studio/`](agents/nigelguy007_book-studio/) adds 8 book-writing agents (idea → outline → chapters → edits → KDP launch), run by the `/write-book` skill. Install them with `./install.sh --agents --source nigelguy007_book-studio`.
+
 They are **not** installed by default. Every installed agent's description goes into every Claude Code session, so 282 of them cost context and make Claude pick the wrong one more often. Install only the divisions you use:
 
 ```bash
