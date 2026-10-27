@@ -61,7 +61,7 @@ A **gate** means: summarise the agent's output in a few lines, give the file pat
 6. **Copy edit** → `book-copy-editor`, one chapter per call, in order (it builds `style-sheet.md` as it goes, so parallel runs would conflict). Then one final call over all chapters for cross-chapter consistency.
 7. **Launch plan** → `book-launch-consultant`. **Gate:** the author approves the description, bio, price and categories.
 
-After every step, update `STATUS.md`: step, file, status (`drafted` / `approved` / `needs-revision`), and a one-line note.
+After every step, update `STATUS.md`: step, file, status (`drafted` / `approved` / `needs-revision`), and a one-line note. Then, if `book/` is inside a git repository, commit `book/` and push it. Cloud sessions (Claude Code on the web) are deleted when they end, so anything not pushed is lost.
 
 ## Writing a brief
 
