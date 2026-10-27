@@ -25,3 +25,5 @@ Ground rules built into every agent:
 - No invented stories, studies, statistics or quotes. Gaps are marked `[STORY NEEDED]` or `[SOURCE NEEDED]`.
 - Comparable books and KDP rules are checked on the web and linked.
 - Nothing is published automatically.
+
+For claude.ai chat, which has no subagents, use `skills/nigelguy007_book-studio/book-studio-chat`: one skill that plays all eight roles in turn. Build the upload zip with `python3 scripts/package_for_claude_ai.py book-studio-chat`.

@@ -1,6 +1,6 @@
 # Installed Claude Skills
 
-This repository has **2665 Claude skills** installed under the `skills/` directory, collected from 83 source repositories plus 5 uploaded skill packs.
+This repository has **2666 Claude skills** installed under the `skills/` directory, collected from 83 source repositories plus 5 uploaded skill packs.
 
 Each skill is stored under `skills/<owner>_<repo>/...`, preserving its origin path.
 
@@ -98,7 +98,7 @@ Each skill is stored under `skills/<owner>_<repo>/...`, preserving its origin pa
 | 86 | [Jakubantalik/transitions.dev](https://github.com/Jakubantalik/transitions.dev) | 3 |
 | 87 | [nigelguy007/selfhost-client-stack](https://github.com/nigelguy007/selfhost-client-stack) | 7 |
 | 88 | [referodesign/refero_skill](https://github.com/referodesign/refero_skill) | 1 |
-| 89 | [nigelguy007/book-studio](https://github.com/nigelguy007/book-studio) | 1 |
+| 89 | [nigelguy007/book-studio](https://github.com/nigelguy007/book-studio) | 2 |
 
 ### Source repositories with no installable skills
 
@@ -117,7 +117,7 @@ Each skill is stored under `skills/<owner>_<repo>/...`, preserving its origin pa
 
 - **Google Drive folders** (3 links in the request) — cloud storage, not git repositories; cannot be installed as Claude skills.
 
-## All installed skills (2665)
+## All installed skills (2666)
 
 | Skill | Source repo | Description | Trigger |
 |-------|-------------|-------------|---------|
@@ -2786,3 +2786,4 @@ Each skill is stored under `skills/<owner>_<repo>/...`, preserving its origin pa
 | `skill-builder` | yusufkaraaslan/Skill_Seekers | Automatically detect source types and build AI skills using Skill Seekers. Use when the user wants to create skills from documentation, repos, PDFs, videos, or other knowledge sources. | Use when the user wants to create skills from documentation, repos, PDFs, videos, or other knowledge sources. |
 | `refero-design` | referodesign/refero_skill | Research-first design skill for UI, product and web design, design systems, typography, colour, motion, copywriting and anti-AI-slop work. Combines with other design skills. Edited locally to drop its "primary/default design skill" claim (MIT). | Model-invoked automatically when a request matches the skill's description. |
 | `write-book` | nigelguy007/book-studio | Orchestrate a nonfiction book from idea (or messy notes) to a KDP launch plan using the book-studio subagents - market research, outline, title and cover, chapter drafting in the author's voice, developmental edit, illustration prompts,… | Use when the user says "write a book", "help me write my book", "turn my notes into a book", "book from my voice notes", "/write-book", or wants to run any… |
+| `book-studio-chat` | nigelguy007/book-studio | Write a nonfiction book step by step in claude.ai chat - market-tested idea, outline from messy notes, title and cover prompts, chapters in the author's… | Use when the user says "write a book", "help with my book", "turn my notes into a book", "next book step", "write chapter N", or names any step (outline, title, cover, edit, launch). |
