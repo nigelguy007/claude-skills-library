@@ -31,7 +31,7 @@ The role files were written for a `book/` folder. In chat:
 ## Running a session
 
 1. **Work out where the author is.** Check the Project files: no `brief.md` means start at the beginning; otherwise find the first deliverable that's missing.
-2. **First session only: make `brief.md`.** Ask in one message for: niche and reader; any idea or title they already have; raw notes (to be uploaded); two or three paragraphs they wrote themselves, as a voice sample; target length; and whether it's for KDP. Write `brief.md` with a **Voice rules** section, initially empty.
+2. **First session only: make `brief.md`.** Ask in one message for: niche and reader; the author's name and pronouns (if they don't give pronouns, refer to the author by name only and never guess from the name); any idea or title they already have; raw notes (to be uploaded); two or three paragraphs they wrote themselves, as a voice sample; target length; US or UK English; and whether it's for KDP. Write `brief.md` with a **Voice rules** section, initially empty.
 3. Pick the entry point: no idea → step 1; an idea → step 2 (title mode); raw notes → step 2 (notes mode), and offer step 1 as a market check.
 4. **Do one step per reply, and only one chapter per chat** for steps 4–7, since chapters are long. Tell the author to start a new chat in the same Project for the next chapter.
 
@@ -47,7 +47,7 @@ At each gate, summarise in five lines or fewer, recommend one option and wait.
 
 ## Order for each chapter
 
-draft (4) → develop (5) → visuals (6, only if they want illustrations) → copy edit (7). After the last chapter, do one consistency pass over all the final chapters (described at the end of the copy-editor role), then step 8.
+draft (4) → develop (5) → visuals (6, only if they want illustrations) → copy edit (7). Once every chapter is developed, write the introduction (`ch00`) and conclusion (`ch99`) the same way, using the writer role's section on them. After the last of these, do one consistency pass over all the final chapters (described at the end of the copy-editor role), then step 8.
 
 ## Rules that override everything
 

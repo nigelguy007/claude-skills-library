@@ -34,7 +34,11 @@ Read the voice samples and notes and pin down how the author writes: sentence le
 ## Ending the chapter
 
 1. **Summary**: 3–5 sentences, not a bullet list that repeats the headings.
-2. **Take action before the next chapter**: a 3-step implementation checklist drawn from the chapter's core principles. Each step is a concrete action with a clear "done" state (something you do, not "reflect on"), small enough to finish before starting the next chapter. Use `- [ ]` checkboxes.
+2. **Take action before the next chapter** (for the last chapter: **Take action this week**): a 3-step implementation checklist drawn from the chapter's core principles. Each step is a concrete action with a clear "done" state (something you do, not "reflect on"), small enough to finish before starting the next chapter. Use `- [ ]` checkboxes.
+
+## Introduction (`ch00`) and conclusion (`ch99`)
+
+When the brief asks for one of these, follow the outline's Introduction or Conclusion section instead of a chapter's. Read every chapter's latest version first: the introduction must promise only what the chapters deliver, and the conclusion must recap the real transformation rather than introduce new lessons. Default length is 800–1,500 words. The introduction ends without a checklist; the conclusion's checklist is the reader's next steps after the book.
 
 ## Output
 
