@@ -38,10 +38,14 @@ Add this to your cloud environment's **Setup script** (environment menu in the s
 # --- claude-skills-library: install all skills into ~/.claude/skills ---
 git clone --depth 1 https://github.com/nigelguy007/claude-skills-library.git ~/claude-skills-library \
   && bash ~/claude-skills-library/install.sh || true
-(pip install --quiet scrapling scrapegraphai agent-reach geo-optimizer-skill >/tmp/skill-tools-install.log 2>&1 &) || true
+(pip install --quiet scrapling scrapegraphai geo-optimizer-skill >/tmp/skill-tools-install.log 2>&1 &) || true
 ```
 
-The `pip` line installs the command-line tools that some skills (Scrapling, Agent-Reach, GEO Optimizer) call. It runs in the background.
+The `pip` line installs the command-line tools that some skills (Scrapling, GEO Optimizer) call. It runs in the background.
+
+`install.sh` also runs [`scripts/setup_agent_reach.sh`](scripts/setup_agent_reach.sh), which installs the [Agent Reach](https://github.com/Panniantong/Agent-Reach) CLI (pinned to v1.6.0) from its GitHub release with `uv` and runs `agent-reach setup`. **Do not `pip install agent-reach`**: the PyPI package with that name is a different project, and the script removes it if it finds it. Set `SKIP_AGENT_REACH=1` to opt out, or `AGENT_REACH_VERSION` to pin another release.
+
+YouTube blocks cloud IPs unless you're signed in. To read YouTube from cloud sessions, export a `cookies.txt` from a browser signed in to a throwaway YouTube account, base64-encode it (`base64 -w0 cookies.txt`), and save it as the environment variable `AGENT_REACH_YT_COOKIES_B64` in your cloud environment. The script passes it to yt-dlp. Never commit the cookies file: it's a login.
 
 `install.sh` also runs [`scripts/setup_claude_flow.sh`](scripts/setup_claude_flow.sh), which does `npm install -g claude-flow@3.38.20` and `claude mcp add -s user claude-flow -- npx claude-flow@3.38.20 mcp start`. Any setup script that runs `install.sh` therefore gets claude-flow too, so you don't need to add those lines yourself. Cloud containers are rebuilt for every session and the setup script runs each time, so the install happens again in each new session. The first install takes about a minute. Re-runs skip the npm step. Set `SKIP_CLAUDE_FLOW=1` to opt out, or `CLAUDE_FLOW_VERSION` to pin a different version.
 
