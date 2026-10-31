@@ -47,6 +47,8 @@ The `pip` line installs the command-line tools that some skills (Scrapling, Agen
 
 It also runs [`scripts/setup_api_anything.sh`](scripts/setup_api_anything.sh), which does `npm install -g api-anything@0.3.1`, records shared-catalog uploads as **off**, and runs `claude mcp add -s user api-anything -- api-anything mcp`. Set `SKIP_API_ANYTHING=1` to opt out, `API_ANYTHING_VERSION` to pin another version, or `API_ANYTHING_SHARE=1` to opt in to sharing learned operations with the public catalog.
 
+It also runs [`scripts/setup_agent_reach.sh`](scripts/setup_agent_reach.sh), which removes the unrelated PyPI package named `agent-reach` if present, installs [Agent Reach](https://github.com/Panniantong/Agent-Reach) v1.6.0 from GitHub (`uv tool install git+https://github.com/Panniantong/Agent-Reach@v1.6.0`), and runs `agent-reach setup` (default channels: web, youtube, github, v2ex, bilibili). Set `SKIP_AGENT_REACH=1` to opt out, `AGENT_REACH_VERSION` to pin another tag, or `AGENT_REACH_LANG=zh` for the Chinese skill text.
+
 ## Subagents
 
 [`agents/`](agents/) holds Claude Code subagents, namespaced the same way as `agents/<owner>_<repo>/<division>/<agent>.md`. Currently that's the 282 agents from [msitarzewski/agency-agents](https://github.com/msitarzewski/agency-agents) (MIT), in 18 divisions: engineering, design, marketing, sales, testing and so on.
