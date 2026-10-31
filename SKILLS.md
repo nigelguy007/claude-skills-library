@@ -1,6 +1,6 @@
 # Installed Claude Skills
 
-This repository has **2679 Claude skills** installed under the `skills/` directory, collected from 86 source repositories plus 5 uploaded skill packs.
+This repository has **2677 Claude skills** installed under the `skills/` directory, collected from 86 source repositories plus 5 uploaded skill packs.
 
 Each skill is stored under `skills/<owner>_<repo>/...`, preserving its origin path.
 
@@ -99,8 +99,8 @@ Each skill is stored under `skills/<owner>_<repo>/...`, preserving its origin pa
 | 87 | [referodesign/refero_skill](https://github.com/referodesign/refero_skill) | 1 |
 | 88 | [nigelguy007/book-studio](https://github.com/nigelguy007/book-studio) | 2 |
 | 89 | [Jakeschincariol/linkedin-agent-skill](https://github.com/Jakeschincariol/linkedin-agent-skill) | 11 |
-| 90 | [Jakubantalik/transitions.dev](https://github.com/Jakubantalik/transitions.dev) | 3 |
-| 91 | [latent-spaces/brag](https://github.com/latent-spaces/brag) | 2 |
+| 90 | [latent-spaces/brag](https://github.com/latent-spaces/brag) | 2 |
+| 91 | [goodnight000/api-anything](https://github.com/goodnight000/api-anything) | 1 |
 
 ### Source repositories with no installable skills
 
@@ -119,7 +119,7 @@ Each skill is stored under `skills/<owner>_<repo>/...`, preserving its origin pa
 
 - **Google Drive folders** (3 links in the request) — cloud storage, not git repositories; cannot be installed as Claude skills.
 
-## All installed skills (2679)
+## All installed skills (2677)
 
 | Skill | Source repo | Description | Trigger |
 |-------|-------------|-------------|---------|
@@ -1062,9 +1062,6 @@ Each skill is stored under `skills/<owner>_<repo>/...`, preserving its origin pa
 | `replica-launch` | Jakeschincariol/replica-skill | Writes the launch for an app clone: the landing page built on the positioning angle, pricing set against the original's public pricing and its users' complaints, and the App Store and Google Play listing linted against the stores' limits… | Use when the user says "landing page", "pricing", "how much should I charge", "App Store listing", "store screenshots", "launch plan", "Product Hunt", or… |
 | `replica-recon` | Jakeschincariol/replica-skill | Reverse-engineers any app into a recon map: screen inventory, user flows, component list, inferred data model and a feature matrix, from public pages, screenshots, app store listings, help docs and the user's own account. The first step… | Use when the user says "clone this app", "reverse engineer X", "how does X work", "map out X", "what screens does X have", "I want to build my own version of… |
 | `replica-test` | Jakeschincariol/replica-skill | Clicks through every flow of an app clone and tests it for bugs: a test plan generated from the recon flows with happy paths and edge cases, Playwright end-to-end tests where possible, a browser click-through where not, and bug reports in… | Use when the user says "test my clone", "find bugs", "QA this", "click through everything", "write e2e tests", "does it work", or after /replica-build or… |
-| `transitions-dev` | Jakubantalik/transitions.dev | Production-ready CSS transitions for web apps. Use when implementing notification badges, dropdowns, modals, panel reveals, page transitions, card resizes, number pop-ins, text swaps, icon swaps, success checks, avatar group hovers, error… | Use when implementing notification badges, dropdowns, modals, panel reveals, page transitions, card resizes, number pop-ins, text swaps, icon swaps, success… |
-| `transitions-polish` | Jakubantalik/transitions.dev | Polish and refine existing motion against the transitions.dev motion-token scale — duration, distance, scale, blur, and easing — plus the rules for WHEN each token applies (open/close asymmetry, hover-in vs hover-out, stagger offsets, and… | Use when the user asks to "polish my transitions", "refine the motion", "tune the timing / easing", "make the animation feel better / less janky", "tighten… |
-| `transitions-ui-generation` | Jakubantalik/transitions.dev | Make any UI, headline or image appear as if an AI agent is generating it. Five variants: ui (the default: a dotted wireframe drawn from the element's own structure, outline, boxes, text lines, icon paths, with guides, corner handles and… | Use when the user asks for a "generation animation", "AI generating the UI", "agent building the component", "build-in animation", "wireframe to UI reveal",… |
 | `agent-reach` | Panniantong/Agent-Reach | MUST USE when user wants to 调研/research/搜索/search/查/找/look up anything on the internet — e.g. 全网调研 X / 帮我调研一下 X / 查一下 X / 搜搜 X / 看看大家怎么评价 X / X 上有什么讨论 / research this topic。 Also MUST USE when user… | Model-invoked automatically when a request matches the skill's description. |
 | `beautiful-prose` | SHADOWPR0/beautiful_prose | A hard-edged writing style contract for timeless, forceful English prose without modern AI tics. Use when users ask for prose or rewrites that must be clean, exact, concrete, and free of AI cadence, filler, or therapeutic tone. | Use when users ask for prose or rewrites that must be clean, exact, concrete, and free of AI cadence, filler, or therapeutic tone. |
 | `advisor-orchestrator-worker` | Shubhamsaboo/awesome-llm-apps | Use when a task is too large for one model pass, needs parallel research or generation across many subtasks (like researching a dozen competitors at once), or the user asks to orchestrate multiple models, split work across a model team,… | Use when a task is too large for one model pass, needs parallel research or generation across many subtasks (like researching a dozen competitors at once),… |
@@ -2355,6 +2352,7 @@ Each skill is stored under `skills/<owner>_<repo>/...`, preserving its origin pa
 | `wow-digest` | glebis/claude-skills | Daily digest of 3-7 genuinely surprising items from newsletters and Telegram channels. Scores content for epistemic friction, not just relevance. Appends to daily note. Use when the user says "/wow-digest", "run the wow digest", "what's… | Use when the user says "/wow-digest", "run the wow digest", "what's surprising today", "morning reading", or "digest my newsletters". |
 | `youtube-transcript` | glebis/claude-skills | Extract YouTube video transcripts with metadata and save as Markdown to Obsidian vault. Use this skill when the user requests downloading YouTube transcripts, converting YouTube videos to text, or extracting video subtitles. Does not… | Use this skill when the user requests downloading YouTube transcripts, converting YouTube videos to text, or extracting video subtitles. |
 | `zoom` | glebis/claude-skills | Create and manage Zoom meetings and access cloud recordings via the Zoom API. Use for queries like "create a Zoom meeting", "list my Zoom meetings", "show my Zoom recordings", or "schedule a meeting for tomorrow". | Use for queries like "create a Zoom meeting", "list my Zoom meetings", "show my Zoom recordings", or "schedule a meeting for tomorrow". |
+| `api-anything` | goodnight000/api-anything | Get data from any website through its own requests instead of a browser, from a shared catalog of operations or by learning a new one in one call. Use when the user asks for data or an action on a website ("what does Goodreads rate X",… | Use when the user asks for data or an action on a website ("what does Goodreads rate X", "flights from A to B", "get X from <site>"), says "turn <site> into… |
 | `gsap-core` | greensock/gsap-skills | Official GSAP skill for the core API — gsap.to(), from(), fromTo(), easing, duration, stagger, defaults, gsap.matchMedia() (responsive, prefers-reduced-motion). Use when the user asks for a JavaScript animation library, animation in… | Use when the user asks for a JavaScript animation library, animation in React/Vue/vanilla, GSAP tweens, easing, basic animation, responsive or reduced-motion… |
 | `gsap-frameworks` | greensock/gsap-skills | Official GSAP skill for Vue, Svelte, and other non-React frameworks — lifecycle, scoping selectors, cleanup on unmount. Use when the user wants animation in Vue, Nuxt, Svelte, SvelteKit, or asks about GSAP with Vue/Svelte, onMounted,… | Use when the user wants animation in Vue, Nuxt, Svelte, SvelteKit, or asks about GSAP with Vue/Svelte, onMounted, onMount, onDestroy. |
 | `gsap-performance` | greensock/gsap-skills | Official GSAP skill for performance — prefer transforms, avoid layout thrashing, will-change, batching. Use when optimizing GSAP animations, reducing jank, or when the user asks about animation performance, FPS, or smooth 60fps. | Use when optimizing GSAP animations, reducing jank, or when the user asks about animation performance, FPS, or smooth 60fps. |
