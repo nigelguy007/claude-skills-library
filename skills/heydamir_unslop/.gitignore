@@ -1,0 +1,10 @@
+.claude/
+runs/
+.DS_Store
+.story-frames/
+examples/*
+!examples/dashboard.html
+!examples/hero.html
+!examples/assets/
+examples/assets/*
+!examples/assets/blob.webp
