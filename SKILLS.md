@@ -1,6 +1,6 @@
 # Installed Claude Skills
 
-This repository has **2680 Claude skills** installed under the `skills/` directory, collected from 87 source repositories plus 5 uploaded skill packs.
+This repository has **2681 Claude skills** installed under the `skills/` directory, collected from 88 source repositories plus 5 uploaded skill packs.
 
 Each skill is stored under `skills/<owner>_<repo>/...`, preserving its origin path.
 
@@ -102,6 +102,7 @@ Each skill is stored under `skills/<owner>_<repo>/...`, preserving its origin pa
 | 90 | [latent-spaces/brag](https://github.com/latent-spaces/brag) | 2 |
 | 91 | [goodnight000/api-anything](https://github.com/goodnight000/api-anything) | 1 |
 | 92 | [Jakubantalik/transitions.dev](https://github.com/Jakubantalik/transitions.dev) | 3 |
+| 93 | [heydamir/unslop](https://github.com/heydamir/unslop) | 1 |
 
 ### Source repositories with no installable skills
 
@@ -120,7 +121,7 @@ Each skill is stored under `skills/<owner>_<repo>/...`, preserving its origin pa
 
 - **Google Drive folders** (3 links in the request) — cloud storage, not git repositories; cannot be installed as Claude skills.
 
-## All installed skills (2680)
+## All installed skills (2681)
 
 | Skill | Source repo | Description | Trigger |
 |-------|-------------|-------------|---------|
@@ -2365,6 +2366,7 @@ Each skill is stored under `skills/<owner>_<repo>/...`, preserving its origin pa
 | `gsap-scrolltrigger` | greensock/gsap-skills | Official GSAP skill for ScrollTrigger — scroll-linked animations, pinning, scrub, triggers. Use when building or recommending scroll-based animation, parallax, pinned sections, or when the user asks about ScrollTrigger, scroll animations,… | Use when building or recommending scroll-based animation, parallax, pinned sections, or when the user asks about ScrollTrigger, scroll animations, or pinning. |
 | `gsap-timeline` | greensock/gsap-skills | Official GSAP skill for timelines — gsap.timeline(), position parameter, nesting, playback. Use when sequencing animations, choreographing keyframes, or when the user asks about animation sequencing, timelines, or animation order (in GSAP… | Use when sequencing animations, choreographing keyframes, or when the user asks about animation sequencing, timelines, or animation order (in GSAP or when… |
 | `gsap-utils` | greensock/gsap-skills | Official GSAP skill for gsap.utils — clamp, mapRange, normalize, interpolate, random, snap, toArray, wrap, pipe. Use when the user asks about gsap.utils, clamp, mapRange, random, snap, toArray, wrap, or helper utilities in GSAP. | Use when the user asks about gsap. |
+| `unslop` | heydamir/unslop | Turns vibecoded, AI-looking UI into a designed interface with its own character. Finds a direction from the product itself, then fixes spacing, color, icons, copy, type, layout, details, visuals and motion in that order, and can generate… | Use when the user asks to unslop, polish, clean up or redesign a screen so it stops looking AI-generated, or when a UI shows the usual tells like purple… |
 | `embedded-captions` | heygen-com/hyperframes | Add captions or subtitles to an existing single-subject talking-head video without editing the footage. Use for plain verbatim captions, cinematic captions embedded behind the subject, VFX captions, “炸/特效/酷炫字幕,” or a named identity from… | Use for plain verbatim captions, cinematic captions embedded behind the subject, VFX captions, “炸/特效/酷炫字幕,” or a named identity from the 35-style catalog. |
 | `faceless-explainer` | heygen-com/hyperframes | Turn arbitrary text — an article, notes, a topic, a brief — into a faceless explainer video: there is no site or footage to capture, so the visuals are invented per scene (typography, abstract graphics, diagrams, data-viz). Use for topic… | Use for topic explainers, concept breakdowns, how-tos, listicles. |
 | `figma` | heygen-com/hyperframes | Import Figma content into a HyperFrames composition — rendered assets, brand tokens, components, storyboard sections → reconstructed motion (frames read as states, not slides) (REST/CLI), connector-assisted motion when available, and… | Use when the user pastes a figma. |
