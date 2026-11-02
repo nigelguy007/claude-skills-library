@@ -1,6 +1,6 @@
 # Installed Claude Skills
 
-This repository has **2681 Claude skills** installed under the `skills/` directory, collected from 88 source repositories plus 5 uploaded skill packs.
+This repository has **2682 Claude skills** installed under the `skills/` directory, collected from 89 source repositories plus 5 uploaded skill packs.
 
 Each skill is stored under `skills/<owner>_<repo>/...`, preserving its origin path.
 
@@ -103,6 +103,7 @@ Each skill is stored under `skills/<owner>_<repo>/...`, preserving its origin pa
 | 91 | [goodnight000/api-anything](https://github.com/goodnight000/api-anything) | 1 |
 | 92 | [Jakubantalik/transitions.dev](https://github.com/Jakubantalik/transitions.dev) | 3 |
 | 93 | [heydamir/unslop](https://github.com/heydamir/unslop) | 1 |
+| 94 | [mohamedishagg/watch-skill](https://github.com/mohamedishagg/watch-skill) | 1 |
 
 ### Source repositories with no installable skills
 
@@ -121,7 +122,7 @@ Each skill is stored under `skills/<owner>_<repo>/...`, preserving its origin pa
 
 - **Google Drive folders** (3 links in the request) — cloud storage, not git repositories; cannot be installed as Claude skills.
 
-## All installed skills (2681)
+## All installed skills (2682)
 
 | Skill | Source repo | Description | Trigger |
 |-------|-------------|-------------|---------|
@@ -2446,6 +2447,7 @@ Each skill is stored under `skills/<owner>_<repo>/...`, preserving its origin pa
 | `writing-for-agents` | mattpocock/skills | Writing documents for agents. Use when creating or editing skills, or modifying AGENTS.md or CLAUDE.md. | Use when creating or editing skills, or modifying AGENTS.md or CLAUDE.md. |
 | `color-expert` | meodai/skill.color-expert | Use when working with color naming, color theory, color spaces, color definitions, or any task involving color knowledge - palettes, ramps, gradients, conversions, accessibility, perceptual matching, pigment mixing, print-vs-screen color,… | Use when working with color naming, color theory, color spaces, color definitions, or any task involving color knowledge - palettes, ramps, gradients, conversions, accessibility, perceptual matching,… |
 | `free-llm-apis` | mnfst/awesome-free-llm-apis | Guide users through obtaining and configuring free API keys for LLM providers. Use when the user wants to set up a free LLM API, get a free API key, connect to a free model provider, configure an… | Use when the user wants to set up a free LLM API, get a free API key, connect to a free model provider, configure an OpenAI-compatible endpoint at no cost, or… |
+| `watch-link` | mohamedishagg/watch-skill | Watch a video from a link (Instagram reels/posts, TikTok, YouTube, X, anything yt-dlp supports). Use when the user pastes a video link and wants it watched, summarized, copied for style, or analysed ("watch this", "look at this reel",… | Use when the user pastes a video link and wants it watched, summarized, copied for style, or analysed ("watch this", "look at this reel", "what's in this… |
 | `hand-drawn-diagrams` | muthuishere/hand-drawn-diagrams | Create hand-drawn Excalidraw diagrams, flows, explainers, wireframes, and page mockups. Default to monochrome sketch output; allow restrained color only for page mockups when the user explicitly wants webpage-like fidelity. | when the user explicitly wants webpage-like fidelity. |
 | `last30days` | mvanhorn/last30days-skill | Research what people actually say about any topic in the last 30 days. Pulls posts and engagement from Reddit, X, YouTube, TikTok, Hacker News, Polymarket, GitHub, and the web. Includes a doctor health check to diagnose broken or missing… | Model-invoked automatically when a request matches the skill's description. |
 | `banner-design` | nextlevelbuilder/ui-ux-pro-max-skill | Design banners for social media, ads, website heroes, creative assets, and print. Multiple art direction options with AI-generated visuals. Actions: design, create, generate banner. Platforms: Facebook, Twitter/X, LinkedIn, YouTube, Instagram,… | Model-invoked automatically when a request matches the skill's description. |
