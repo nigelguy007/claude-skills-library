@@ -1,6 +1,6 @@
 # Installed Claude Skills
 
-This repository has **2682 Claude skills** installed under the `skills/` directory, collected from 89 source repositories plus 5 uploaded skill packs.
+This repository has **2683 Claude skills** installed under the `skills/` directory, collected from 89 source repositories plus 6 uploaded skill packs.
 
 Each skill is stored under `skills/<owner>_<repo>/...`, preserving its origin path.
 
@@ -104,6 +104,7 @@ Each skill is stored under `skills/<owner>_<repo>/...`, preserving its origin pa
 | 92 | [Jakubantalik/transitions.dev](https://github.com/Jakubantalik/transitions.dev) | 3 |
 | 93 | [heydamir/unslop](https://github.com/heydamir/unslop) | 1 |
 | 94 | [mohamedishagg/watch-skill](https://github.com/mohamedishagg/watch-skill) | 1 |
+| 95 | [nigelguy007/reverse-engineered-gpts](skills/nigelguy007_reverse-engineered-gpts) (reconstructed in this repo, no upstream) | 1 |
 
 ### Source repositories with no installable skills
 
@@ -122,7 +123,7 @@ Each skill is stored under `skills/<owner>_<repo>/...`, preserving its origin pa
 
 - **Google Drive folders** (3 links in the request) — cloud storage, not git repositories; cannot be installed as Claude skills.
 
-## All installed skills (2682)
+## All installed skills (2683)
 
 | Skill | Source repo | Description | Trigger |
 |-------|-------------|-------------|---------|
@@ -2460,6 +2461,7 @@ Each skill is stored under `skills/<owner>_<repo>/...`, preserving its origin pa
 | `prompt-master` | nidhinjs/prompt-master | Generates optimized prompts for AI tools. Activates only when the user explicitly asks to write, fix, improve, or adapt a prompt for a specific AI tool (LLM, Cursor, Midjourney, image AI, video AI, coding agents, etc.). Does not activate… | Activates only when the user explicitly asks to write, fix, improve, or adapt a prompt for a specific AI tool (LLM, Cursor, Midjourney, image AI, video AI, coding agents, etc. |
 | `book-studio-chat` | nigelguy007/book-studio | Write a nonfiction book step by step in claude.ai chat - market-tested idea, outline from messy notes, title and cover prompts, chapters in the author's… | Use when the user says "write a book", "help with my book", "turn my notes into a book", "next book step", "write chapter N", or names any step (outline, title, cover, edit, launch). |
 | `write-book` | nigelguy007/book-studio | Orchestrate a nonfiction book from idea (or messy notes) to a KDP launch plan using the book-studio subagents - market research, outline, title and cover, chapter drafting in the author's voice, developmental edit, illustration prompts,… | Use when the user says "write a book", "help me write my book", "turn my notes into a book", "book from my voice notes", "/write-book", or wants to run any… |
+| `prompt-maker` | nigelguy007/reverse-engineered-gpts | Turn a one-line, vague request into a ready-to-paste structured prompt (role, objective, numbered steps, output spec, placeholder) - a reconstruction of Ruben Hassid's "Prompt Maker" custom GPT. | Use when the user says "prompt maker", "make me a prompt", "turn this into a prompt", "upgrade/optimize this prompt", or "a prompt to ...". |
 | `install-globally` | nigelguy007/selfhost-client-stack | The user's standing procedure for the trigger phrase "install globally" (also "make it global", "available in all sessions", "not ephemeral"). Makes a skill, skill repo, CLI tool or MCP server survive container resets by committing it to… | Use whenever the user says "install globally" with a repo URL, git clone command, package or tool name. |
 | `selfhost-dify-assistant` | nigelguy007/selfhost-client-stack | Self-host Dify for one client and build a front-desk FAQ chatbot trained on their documents (dental, medical, law firm, clinic) - Docker deploy, knowledge base, website embed, guardrails, updates. Use when the user says "Dify", "chatbot… | Use when the user says "Dify", "chatbot trained on their docs", "front-desk assistant", "RAG bot for a clinic/law firm", or "deploy Dify for a client". |
 | `selfhost-listmonk-newsletter` | nigelguy007/selfhost-client-stack | Move a client off Mailchimp onto self-hosted Listmonk with a proper sending service - Docker deploy, SMTP (SES/Postmark/etc.), SPF/DKIM/DMARC, list import with consent, IP/domain warmup, bounce handling. Use when the user says "Listmonk",… | Use when the user says "Listmonk", "leave Mailchimp", "self-hosted newsletter", "email deliverability setup", or "deploy Listmonk for a client". |
