@@ -6,6 +6,14 @@ description: >
 
 # Analytics Dashboard
 
+## Codex and Claude runtime
+
+- Use this skill in Codex or Claude with the tools actually available in the current task. `AskUserQuestion` examples describe the questions, not a required API: use an available question tool within its limits, or ask in chat. Reuse answers and source material already supplied.
+- Work in the user-selected project. Read its `about-me.md`, `voice.md` and relevant brand files before personalised work. Confirm the intended author if files conflict or contain starter defaults. Ask for missing facts or run `voice-builder`; never inherit the maintainer's identity, accounts or private files.
+- Resolve bundled `references/` relative to this skill folder. For an explicitly requested profile refresh, read and update the canonical `about-me.md`, `voice.md` or `newsletter-voice.md` in place, preserving unrelated user facts and rules. Consumers must reread those canonical files. Use a new filename only for new deliverables that would collide with unrelated existing files. Installation alone never starts an interview or writes files. Do not write persistent learnings unless requested.
+- Use supplied evidence first. Verify external claims through available search/source tools when needed. If a source or integration is unavailable, name the missing capability and offer supplied text/export input. Never invent facts, first-person experience, metrics or a successful tool run.
+- Connect only services needed for the chosen route through the user's existing account. Never print credentials or overwrite connections. Drafting, saving and reviewing do not authorise publishing, sending messages or changing accounts.
+
 ## CRITICAL: Auto-start on load
 
 When this skill triggers, go straight to Step 1.
@@ -22,7 +30,7 @@ Wait for the file upload.
 
 ## Step 2. Parse the data
 
-Read every sheet in the file. Expect these sheets:
+Read every sheet in the file. Confirm author, reporting window, units and actual column names before calculating. The following sheets are examples, not a guaranteed export schema:
 
 - **DISCOVERY**: overall impressions and reach
 - **ENGAGEMENT**: daily impressions and engagements over time
@@ -30,11 +38,11 @@ Read every sheet in the file. Expect these sheets:
 - **FOLLOWERS**: daily new followers plus total count
 - **DEMOGRAPHICS**: job titles, locations, industries, seniority, company size, top companies
 
-Clean any messy headers. Merge the two TOP POSTS tables (by engagements and by impressions) into one unified dataset per post. De-duplicate.
+Top-post tables are selected samples, not the account’s entire posting history. Keep their denominators separate from account-wide metrics; do not infer best posting times from daily aggregates. Clean any messy headers. Merge the two TOP POSTS tables (by engagements and by impressions) into one unified dataset per post. De-duplicate.
 
 ## Step 3. Build the interactive dashboard
 
-Create a single React artifact. Dark theme (background `#0f1117`), accent colours for charts. Use Recharts for all visualisations.
+Use a supported React artifact surface or the selected project’s existing React and Recharts setup. If neither is available, provide the computed analysis and React source with **preview pending**; do not silently install dependencies or claim an interactive dashboard is running. Preview and exercise chart tooltips/resizing before calling it verified. Dark theme (background `#0f1117`), accent colours for charts. Use Recharts for all visualisations.
 
 Include these panels in this order:
 
@@ -44,7 +52,7 @@ Include these panels in this order:
 - Total new followers
 - Average daily impressions
 - Average daily engagements
-- Average engagement rate (engagements / impressions)
+- Overall engagement rate (sum of engagements / sum of impressions, for the same reporting window). Zero or missing denominators are unavailable, not zero.
 - Total posts tracked
 
 ### Engagement trend (line chart)
@@ -88,7 +96,7 @@ Below the dashboard, write a concise analysis with these sections:
 
 ### Performance Summary
 - Trajectory: growing, plateauing, or declining (use trendlines)
-- Current engagement rate and how it compares to LinkedIn benchmarks for accounts this size
+- Current engagement rate; compare external benchmarks only with a verified dated source and matching metric definition
 
 ### Top Post Patterns
 - Analyse top 10 by impressions and top 10 by engagements
@@ -103,7 +111,7 @@ Below the dashboard, write a concise analysis with these sections:
 
 ### Growth Velocity
 - Average daily follower growth
-- 30, 60, 90 day projections at current pace
+- 30, 60, 90 day scenarios at current pace, labelled as extrapolations rather than forecasts
 - Acceleration or deceleration trends
 
 ### Day and Timing Strategy
@@ -116,7 +124,7 @@ Each one includes:
 - Content angle or topic
 - Why the data supports it
 - Which audience segment it targets
-- Expected impact based on patterns in the data
+- Evidence and a testable hypothesis, without guaranteed impact
 
 ## Step 5. Offer the next move
 

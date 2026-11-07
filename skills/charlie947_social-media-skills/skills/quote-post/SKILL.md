@@ -1,10 +1,22 @@
 ---
 name: quote-post
 description: >
-  Two-step workflow for creating quote posts on LinkedIn. Claude generates viral motivational quotes to accompany a caption, then produces a Gemini prompt that recreates a reference image with the chosen quote baked in. Use this skill whenever the user says "quote post", "quote graphic", "motivational post", "build me a quote", or wants a low-effort high-engagement LinkedIn graphic. Optimised for LinkedIn's employee and early-career audience, which skews toward motivational content.
+  Two-step workflow for creating quote posts on LinkedIn. The assistant drafts original short quotes to accompany a caption, then produces a Gemini prompt that recreates a reference image with the chosen quote baked in. Use this skill whenever the user says "quote post", "quote graphic", "motivational post", "build me a quote", or wants a low-effort high-engagement LinkedIn graphic. Optimised for LinkedIn's employee and early-career audience, which skews toward motivational content.
 ---
 
 # Quote Post
+
+## Codex and Claude runtime
+
+- Use this skill in Codex or Claude with the tools actually available in the current task. `AskUserQuestion` examples describe the questions, not a required API: use an available question tool within its limits, or ask in chat. Reuse answers and source material already supplied.
+- Work in the user-selected project. Read its `about-me.md`, `voice.md` and relevant brand files before personalised work. Confirm the intended author if files conflict or contain starter defaults. Ask for missing facts or run `voice-builder`; never inherit the maintainer's identity, accounts or private files.
+- Resolve bundled `references/` relative to this skill folder. For an explicitly requested profile refresh, read and update the canonical `about-me.md`, `voice.md` or `newsletter-voice.md` in place, preserving unrelated user facts and rules. Consumers must reread those canonical files. Use a new filename only for new deliverables that would collide with unrelated existing files. Installation alone never starts an interview or writes files. Do not write persistent learnings unless requested.
+- Use supplied evidence first. Verify external claims through available search/source tools when needed. If a source or integration is unavailable, name the missing capability and offer supplied text/export input. Never invent facts, first-person experience, metrics or a successful tool run.
+- Connect only services needed for the chosen route through the user's existing account. Never print credentials or overwrite connections. Drafting, saving and reviewing do not authorise publishing, sending messages or changing accounts.
+
+## Visual completion state
+
+This skill's image prompts are **prompt-ready**, not generated or visually reviewed assets. Keep its named Gemini workflow unless the user requests another generator. A missing image service does not block writing a prompt. When images are supplied or generated, open and inspect each export at full size and feed size (about 360px wide, 320px for thumbnails). Check exact copy, dimensions, clipping, legibility, brand colours, font appearance, logos and reference fidelity. Fix and re-inspect failed exports. Record any unavailable export or inspection as pending. An image prompt or raster export is not an editable design file.
 
 ## CRITICAL: Auto-start on load
 
@@ -20,7 +32,7 @@ Wait for the caption.
 
 ## Step 2. Generate quote options
 
-Return 9 viral motivational quote options, grouped into 3 categories of 3 quotes each:
+Return 9 original motivational quote options, grouped into 3 categories of 3 quotes each:
 
 - **Category 1: Growth and transformation** (e.g., "You don't find the time. You make it.")
 - **Category 2: Resilience and grit** (e.g., "Your setback is someone else's setup.")
@@ -85,7 +97,7 @@ Critical constraints:
 - Output at exactly 1080 x 1350 pixels (4:5 vertical)
 - Match the style, typography, and colour palette of the reference image
 - Keep the quote as the focal point — centred and legible
-- Attribute nothing (no names, no handles, no logos)
+- For an original quote, use no invented attribution. For a sourced quote, retain its verified attribution as approved in the brief.
 - Maintain the visual tone of the original but with the new text
 
 The quote must be perfectly spelled and punctuated exactly as written above.
@@ -99,7 +111,7 @@ Tell the user:
 
 After the prompt, add:
 
-> Quote posts get strong engagement but lower impressions than other formats. It is not the strongest content type. But for the effort, the return is worth it. This takes minutes.
+> The prompt is ready. Performance for your audience is unverified until tested against your own posts.
 
 ## Rules
 
