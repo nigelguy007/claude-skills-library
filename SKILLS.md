@@ -1,6 +1,6 @@
 # Installed Claude Skills
 
-This repository has **2696 Claude skills** installed under the `skills/` directory, collected from 91 source repositories plus 5 uploaded skill packs.
+This repository has **2698 Claude skills** installed under the `skills/` directory, collected from 92 source repositories plus 5 uploaded skill packs.
 
 Each skill is stored under `skills/<owner>_<repo>/...`, preserving its origin path.
 
@@ -106,6 +106,7 @@ Each skill is stored under `skills/<owner>_<repo>/...`, preserving its origin pa
 | 94 | [nutlope/hallmark](https://github.com/nutlope/hallmark) | 1 |
 | 95 | [Jakubantalik/transitions.dev](https://github.com/Jakubantalik/transitions.dev) | 3 |
 | 96 | [nigelguy007/instagramskills](https://github.com/nigelguy007/instagramskills) | 13 |
+| 97 | [nigelguy007/reverseengineeranything](https://github.com/nigelguy007/reverseengineeranything) | 2 |
 
 ### Source repositories with no installable skills
 
@@ -124,7 +125,7 @@ Each skill is stored under `skills/<owner>_<repo>/...`, preserving its origin pa
 
 - **Google Drive folders** (3 links in the request) — cloud storage, not git repositories; cannot be installed as Claude skills.
 
-## All installed skills (2696)
+## All installed skills (2698)
 
 | Skill | Source repo | Description | Trigger |
 |-------|-------------|-------------|---------|
@@ -2475,6 +2476,8 @@ Each skill is stored under `skills/<owner>_<repo>/...`, preserving its origin pa
 | `ig-repurpose` | nigelguy007/instagramskills | Turn one long asset - a YouTube video, podcast, livestream, newsletter, blog post or client call - into a week of reels and carousels. Use when the user says "repurpose this", "turn this into reels", "I have a video/podcast/ transcript",… | Use when the user says "repurpose this", "turn this into reels", "I have a video/podcast/ transcript", "cut this up", or pastes something long and wants it on… |
 | `ig-story` | nigelguy007/instagramskills | Write the day's Instagram Stories - the frame-by-frame sequence, which stickers to use where, and the one that moves people into the DMs. Use when the user says "stories", "what do I post on my story", "story sequence", "poll idea", "I… | Use when the user says "stories", "what do I post on my story", "story sequence", "poll idea", "I have nothing to story about", or wants to sell something… |
 | `ig-viral` | nigelguy007/instagramskills | Go and find the reels that are actually working right now in the user's niche, rank them by how far each beat its own account, name the hook formula each one used, and turn that into a swipe file they can shoot from. Use when the user… | Use when the user says "find viral videos", "what's working right now", "what are people posting in my niche", "reverse engineer this account", "build me a… |
+| `product-gap-finder` | nigelguy007/reverseengineeranything | Find a product's real gaps from user evidence - Trustpilot and G2 low-star reviews, Reddit threads, YouTube comments, independent reviews and a last30days social sweep - then rank them by severity with concrete fixes and a priority order.… | Use when the user asks "where could <product> be better", "what do users complain about in <product>", "identify gaps in this app", "check reddit for… |
+| `reverse-engineer-website` | nigelguy007/reverseengineeranything | Reverse-engineer a SaaS product or website from its public surface only - product and feature inventory, pricing, vendor and tech stack (from response headers, the app's Content-Security-Policy and its client route manifest), inferred… | Use when the user says "reverse engineer <url>", "how is <site> built", "what's <product>'s tech stack", "teardown of <company>", or wants to know what it… |
 | `install-globally` | nigelguy007/selfhost-client-stack | The user's standing procedure for the trigger phrase "install globally" (also "make it global", "available in all sessions", "not ephemeral"). Makes a skill, skill repo, CLI tool or MCP server survive container resets by committing it to… | Use whenever the user says "install globally" with a repo URL, git clone command, package or tool name. |
 | `selfhost-dify-assistant` | nigelguy007/selfhost-client-stack | Self-host Dify for one client and build a front-desk FAQ chatbot trained on their documents (dental, medical, law firm, clinic) - Docker deploy, knowledge base, website embed, guardrails, updates. Use when the user says "Dify", "chatbot… | Use when the user says "Dify", "chatbot trained on their docs", "front-desk assistant", "RAG bot for a clinic/law firm", or "deploy Dify for a client". |
 | `selfhost-listmonk-newsletter` | nigelguy007/selfhost-client-stack | Move a client off Mailchimp onto self-hosted Listmonk with a proper sending service - Docker deploy, SMTP (SES/Postmark/etc.), SPF/DKIM/DMARC, list import with consent, IP/domain warmup, bounce handling. Use when the user says "Listmonk",… | Use when the user says "Listmonk", "leave Mailchimp", "self-hosted newsletter", "email deliverability setup", or "deploy Listmonk for a client". |
