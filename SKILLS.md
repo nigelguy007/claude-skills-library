@@ -1,6 +1,6 @@
 # Installed Claude Skills
 
-This repository has **2698 Claude skills** installed under the `skills/` directory, collected from 92 source repositories plus 5 uploaded skill packs.
+This repository has **2699 Claude skills** installed under the `skills/` directory, collected from 92 source repositories plus 6 uploaded skill packs.
 
 Each skill is stored under `skills/<owner>_<repo>/...`, preserving its origin path.
 
@@ -107,6 +107,7 @@ Each skill is stored under `skills/<owner>_<repo>/...`, preserving its origin pa
 | 95 | [Jakubantalik/transitions.dev](https://github.com/Jakubantalik/transitions.dev) | 3 |
 | 96 | [nigelguy007/instagramskills](https://github.com/nigelguy007/instagramskills) | 13 |
 | 97 | [nigelguy007/reverseengineeranything](https://github.com/nigelguy007/reverseengineeranything) | 2 |
+| 98 | nigelguy007/warwick-essay-coach (authored in this repo) | 1 |
 
 ### Source repositories with no installable skills
 
@@ -125,7 +126,7 @@ Each skill is stored under `skills/<owner>_<repo>/...`, preserving its origin pa
 
 - **Google Drive folders** (3 links in the request) — cloud storage, not git repositories; cannot be installed as Claude skills.
 
-## All installed skills (2698)
+## All installed skills (2699)
 
 | Skill | Source repo | Description | Trigger |
 |-------|-------------|-------------|---------|
@@ -2485,6 +2486,7 @@ Each skill is stored under `skills/<owner>_<repo>/...`, preserving its origin pa
 | `selfhost-pipecat-receptionist` | nigelguy007/selfhost-client-stack | Build and deploy a phone-answering AI receptionist for a trades business (plumber, electrician, HVAC) with Pipecat + Twilio - answers calls, captures job details, books or takes messages, texts the owner. Use when the user says "AI… | Use when the user says "AI receptionist", "answer missed calls", "voice agent for a plumber", "Pipecat phone bot", or "deploy Pipecat for a client". |
 | `selfhost-plane-pm` | nigelguy007/selfhost-client-stack | Self-host Plane Community Edition as a flat-cost replacement for Jira/Asana/Monday for a 10-30 person team - edition choice (Community vs Commercial Free seat cap), Docker deploy, SMTP, import, upgrades. Use when the user says "Plane",… | Use when the user says "Plane", "self-hosted Jira alternative", "project management without per-seat fees", or "deploy Plane for a client". |
 | `selfhost-vps-base` | nigelguy007/selfhost-client-stack | Prepare a client VPS for a managed self-hosted app (Pipecat, Dify, NocoDB, Listmonk, Plane) - Docker, firewall, Caddy HTTPS reverse proxy, off-server backups, uptime monitoring and an update routine. Use before any selfhost-* deploy… | Model-invoked automatically when a request matches the skill's description. |
+| `warwick-politics-essay-coach` | nigelguy007/warwick-essay-coach | Essay coach and reviewer for a first-year Politics student at the University of Warwick (PAIS). Reviews essay plans, drafts and finished essays against the Year 1 curriculum (PO107 Introduction to Politics, PO131 World Politics), the… | Use when asked to review, check, mark, plan, proofread or improve a politics essay, or to make sense of essay feedback. |
 | `hallmark` | nutlope/hallmark | Design skill for websites and new pages that look designed, not generated. Use when the user asks to build or design something new, or names Hallmark. Never use it on an existing design unless the user names Hallmark, as in `/hallmark… | Use when the user asks to build or design something new, or names Hallmark. |
 | `brainstorming` | obra/superpowers | You MUST use this before any creative work - creating features, building components, adding functionality, or modifying behavior. Explores user intent, requirements and design before implementation. | Model-invoked automatically when a request matches the skill's description. |
 | `dispatching-parallel-agents` | obra/superpowers | Use when facing 2+ independent tasks that can be worked on without shared state or sequential dependencies | Model-invoked automatically when a request matches the skill's description. |

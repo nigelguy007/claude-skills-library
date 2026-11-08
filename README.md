@@ -55,6 +55,8 @@ It also runs [`scripts/setup_agent_reach.sh`](scripts/setup_agent_reach.sh), whi
 
 [`agents/nigelguy007_book-studio/`](agents/nigelguy007_book-studio/) adds 8 book-writing agents (idea → outline → chapters → edits → KDP launch), run by the `/write-book` skill. Install them with `./install.sh --agents --source nigelguy007_book-studio`.
 
+[`agents/nigelguy007_warwick-essay-coach/`](agents/nigelguy007_warwick-essay-coach/) adds an essay reviewer for a first-year Warwick Politics student, paired with the `warwick-politics-essay-coach` skill (which also works in claude.ai chat). It gives feedback against the Year 1 curriculum and the Warwick marking scale and never writes the essay. Install with `./install.sh --agents --source nigelguy007_warwick-essay-coach`.
+
 They are **not** installed by default. Every installed agent's description goes into every Claude Code session, so 282 of them cost context and make Claude pick the wrong one more often. Install only the divisions you use:
 
 ```bash
