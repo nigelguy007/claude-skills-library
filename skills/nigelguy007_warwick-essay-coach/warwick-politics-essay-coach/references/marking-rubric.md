@@ -14,7 +14,7 @@ Essays at Warwick are marked on the 20-point scale (UG modules from autumn 2023)
 
 Source: https://warwick.ac.uk/services/aro/dar/quality/categories/examinations/marking/ug/
 
-PAIS publishes more detailed criteria in its UG handbook (https://warwick.ac.uk/fac/soc/pais/currentstudents/undergraduate/handbook/marking-criteria/, Warwick login required). If she shares that page, use its wording over the working criteria below.
+PAIS publishes more detailed criteria in its UG handbook (https://warwick.ac.uk/fac/soc/pais/currentstudents/undergraduate/handbook/marking-criteria/, Warwick login required). If the student shares that page, use its wording over the working criteria below.
 
 ## Working criteria for a Year 1 politics essay
 

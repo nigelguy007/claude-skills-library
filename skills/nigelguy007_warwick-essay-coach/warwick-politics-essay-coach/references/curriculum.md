@@ -1,6 +1,6 @@
 # Year 1 curriculum: Warwick Politics BA (PAIS)
 
-Source: Warwick module catalogue and course page, checked November 2026 for the 2026/27 versions. Modules change year to year; if her lecture list differs, her lecture list wins. Ask for the module handbook or Moodle topic list when it matters.
+Source: Warwick module catalogue and course page, checked November 2026 for the 2026/27 versions. Modules change year to year; if the student's lecture list differs, theirs wins. Ask for the module handbook or Moodle topic list when it matters.
 
 - PO107: https://courses.warwick.ac.uk/modules/2026/PO107-30
 - PO131: https://courses.warwick.ac.uk/modules/2026/PO131-30
@@ -31,7 +31,7 @@ Source: Warwick module catalogue and course page, checked November 2026 for the 
 
 **Assessment:** 100% coursework: Essay 1 (25%) and Essay 2 (75%). An essay plan gets checkbox feedback on proposed structure, indicative bibliography and strength of proposed argument. Feedback within 20 working days.
 
-**Weekly topics (as taught 2025/26):**
+**Weekly topics** (the 2026/27 catalogue page lists them as taught in 2025/26):
 1. Introduction: assumptions about world politics
 2. Realism
 3. Liberalism
@@ -42,7 +42,7 @@ Source: Warwick module catalogue and course page, checked November 2026 for the 
 8. Postcolonialism
 9. World Politics Before Europe
 10. Empires and Sovereign States
-11. Cold War 1945–1989
+11. Cold War 1945–1989 (the module's dating; the end point is debated: 1989 fall of the Berlin Wall, 1990 German reunification, 1991 dissolution of the USSR. Students should pick one and justify it.)
 12. Emerging World Order
 13. Globalisation
 14. Production and World Politics

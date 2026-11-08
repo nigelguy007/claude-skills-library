@@ -1,6 +1,6 @@
 # Output formats
 
-Keep every output easy to scan. Quote her text when you point at it, with the paragraph number (P1, P2, ...).
+Keep every output easy to scan. Quote the student's text when you point at it, with the paragraph number (P1, P2, ...).
 
 ## Mode 1: Question & plan
 
@@ -13,17 +13,17 @@ QUESTION UNPACKED
 - Relevant module weeks: <e.g. PO131 wk 2 Realism, wk 11 Cold War>
 
 YOUR PLAN, TESTED
-- Thesis: <restate hers> → <does it answer the question? is it arguable?>
+- Thesis: <restate theirs> → <does it answer the question? is it arguable?>
 - Section by section: <does each section advance the thesis? gaps? overlap?>
 - Strongest counter-argument you haven't dealt with: <...>
-- Sources: <types missing; verified readings from her list only>
+- Sources: <types missing; checked readings only (SKILL.md rule 7)>
 
 QUESTIONS FOR YOU (answer these before drafting)
 1. ...
 2. ...
 ```
 
-If she has no thesis yet, give only "Question unpacked" and the questions.
+If there's no thesis yet, give only "Question unpacked" and the questions.
 
 ## Mode 2: Draft check (per paragraph)
 
@@ -31,10 +31,12 @@ If she has no thesis yet, give only "Question unpacked" and the questions.
 P<n>: "<first few words>"
 - Point: <the claim in a few words, or "unclear">
 - Evidence: <present / thin / missing>
-- Analysis: <does she explain why the evidence supports the point?>
+- Analysis: <does the paragraph explain why the evidence supports the point?>
 - Link to question: <yes / weak / missing>
 - Ask yourself: <one marker-style question>
 ```
+
+After the paragraphs, add when relevant: a FACT CHECKS block, a LINE-LEVEL CORRECTIONS table (same format as Mode 3), and a CARRY FORWARD block for recurring issues.
 
 ## Mode 3: Full review
 
@@ -109,4 +111,4 @@ PATTERNS ACROSS ESSAYS
 |---|---|---|---|
 ```
 
-Update it after every Full review and Feedback-to-action session. Record the actual mark when it comes back, so she can see how close the indicative marks were.
+Update it whenever a recurring issue appears, in any mode, and after every Full review and Feedback-to-action session. Record the actual mark when it comes back, so the student can see how close the indicative marks were.
