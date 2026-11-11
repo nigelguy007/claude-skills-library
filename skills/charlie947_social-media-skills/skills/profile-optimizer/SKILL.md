@@ -6,6 +6,18 @@ description: >
 
 # Profile Optimizer
 
+## Codex and Claude runtime
+
+- Use this skill in Codex or Claude with the tools actually available in the current task. `AskUserQuestion` examples describe the questions, not a required API: use an available question tool within its limits, or ask in chat. Reuse answers and source material already supplied.
+- Work in the user-selected project. Read its `about-me.md`, `voice.md` and relevant brand files before personalised work. Confirm the intended author if files conflict or contain starter defaults. Ask for missing facts or run `voice-builder`; never inherit the maintainer's identity, accounts or private files.
+- Resolve bundled `references/` relative to this skill folder. For an explicitly requested profile refresh, read and update the canonical `about-me.md`, `voice.md` or `newsletter-voice.md` in place, preserving unrelated user facts and rules. Consumers must reread those canonical files. Use a new filename only for new deliverables that would collide with unrelated existing files. Installation alone never starts an interview or writes files. Do not write persistent learnings unless requested.
+- Use supplied evidence first. Verify external claims through available search/source tools when needed. If a source or integration is unavailable, name the missing capability and offer supplied text/export input. Never invent facts, first-person experience, metrics or a successful tool run.
+- Connect only services needed for the chosen route through the user's existing account. Never print credentials or overwrite connections. Drafting, saving and reviewing do not authorise publishing, sending messages or changing accounts.
+
+## Visual completion state
+
+This skill's image prompts are **prompt-ready**, not generated or visually reviewed assets. Keep its named Gemini workflow unless the user requests another generator. A missing image service does not block writing a prompt. When images are supplied or generated, open and inspect each export at full size and feed size (about 360px wide, 320px for thumbnails). Check exact copy, dimensions, clipping, legibility, brand colours, font appearance, logos and reference fidelity. Fix and re-inspect failed exports. Record any unavailable export or inspection as pending. An image prompt or raster export is not an editable design file.
+
 ## CRITICAL: Auto-start on load
 
 When this skill triggers, go straight to Step 1. Do not summarise. Do not explain what you will produce. Start input gathering immediately.
@@ -144,22 +156,15 @@ Structure: Hook > Struggle/Empathy > Method/Philosophy > Authority > CTA
 
 Tone: Punchy, direct, human. Not corporate.
 
-Example of correct formatting:
+Formatting example only; replace with supplied facts, never invented biography:
 ```
-I left my 9-to-5 in September 2024.
-Two years later: 200k+ followers, multiple six-figure businesses, thousands of marketers trained.
+[User’s real starting point, if supplied.]
+[Their verified result, with the correct timeframe.]
 
-Here is what I learned.
-Most people do not need more content. They need a system that turns content into clients. That is what I build.
+[What they do and how that helps their audience.]
+[One concrete example from their supplied experience.]
 
-✦ Linked Agency: done-for-you LinkedIn content for founders and executives.
-✦ Vislo: an AI design tool that creates publish-ready infographics in minutes.
-✦ MarTech AI newsletter: 200k+ readers getting weekly AI marketing frameworks.
-✦ The AI Creators Club: live breakdowns, proven systems, and a community that helps you grow in weeks, not months.
-
-Brand partnerships and speaking: hello@influencermoso.com
-
-Check out my Featured section below. Or DM me. I will point you in the right direction.
+[Their current offer and confirmed next action.]
 ```
 
 ## Step 4. The Experience Section
@@ -170,7 +175,7 @@ Structure per role: Context > Challenge > Action > Result
 
 Storytelling format, not bullet points. 8 to 15 sentences per role maximum.
 
-Example of correct formatting:
+Formatting example only; replace with supplied facts, never invented biography:
 ```
 I walked into a team that had lost 3 managers in 2 years.
 Morale was gone. Revenue was slipping.
@@ -219,7 +224,7 @@ The prompt must:
 - Place the chosen headline text centre-right
 - Place a 5 to 8 word tagline below the headline
 - Include a CTA button element (3 to 4 words)
-- Include social proof text
+- Include only social proof supplied and confirmed by the user; omit it when absent
 - Use brand colours
 - Specify background style
 

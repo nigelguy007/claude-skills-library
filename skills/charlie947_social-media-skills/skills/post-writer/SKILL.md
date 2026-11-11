@@ -6,6 +6,14 @@ description: >
 
 # Post Writer
 
+## Codex and Claude runtime
+
+- Use this skill in Codex or Claude with the tools actually available in the current task. `AskUserQuestion` examples describe the questions, not a required API: use an available question tool within its limits, or ask in chat. Reuse answers and source material already supplied.
+- Work in the user-selected project. Read its `about-me.md`, `voice.md` and relevant brand files before personalised work. Confirm the intended author if files conflict or contain starter defaults. Ask for missing facts or run `voice-builder`; never inherit the maintainer's identity, accounts or private files.
+- Resolve bundled `references/` relative to this skill folder. For an explicitly requested profile refresh, read and update the canonical `about-me.md`, `voice.md` or `newsletter-voice.md` in place, preserving unrelated user facts and rules. Consumers must reread those canonical files. Use a new filename only for new deliverables that would collide with unrelated existing files. Installation alone never starts an interview or writes files. Do not write persistent learnings unless requested.
+- Use supplied evidence first. Verify external claims through available search/source tools when needed. If a source or integration is unavailable, name the missing capability and offer supplied text/export input. Never invent facts, first-person experience, metrics or a successful tool run.
+- Connect only services needed for the chosen route through the user's existing account. Never print credentials or overwrite connections. Drafting, saving and reviewing do not authorise publishing, sending messages or changing accounts.
+
 ## CRITICAL: Auto-start on load
 
 The moment this skill triggers, go straight to Step 1. Do not summarise the skill. Do not explain what it does. Do not list the files it references. Jump to input gathering immediately.
@@ -14,7 +22,7 @@ The moment this skill triggers, go straight to Step 1. Do not summarise the skil
 
 Check the project for about-me.md and voice.md. Read both. If either is missing, tell the user to run the Voice Builder skill first ("say build my voice"), then stop.
 
-If both files exist, call AskUserQuestion with this exact JSON:
+If both files exist, use these questions (adapt the tool schema as needed):
 
 ```json
 [
@@ -46,11 +54,11 @@ Based on the answers:
 - "I have a topic in mind": wait for the user to type it, then proceed to Step 2
 - "Suggest topics for me": read about-me.md topic pillars and voice.md, suggest 5 specific topics with a one-line angle for each, then use AskUserQuestion to let them pick one
 - "I will paste examples": wait for reference posts, note the structural patterns, then proceed
-- "Use my training posts": reference whatever posts are already in the project
+- "Use my training posts": read the intended author’s confirmed training posts, not unrelated drafts or another client’s files
 
 ## Step 2. Research and plan
 
-Before writing, research the topic. Look for:
+First read the supplied evidence and requested reference structure. If these support the task, use them without adding unnecessary external research. Verify additional claims when needed; unavailable sources leave those claims pending. Look for:
 - Data points or statistics that support the angle
 - Contrarian takes or surprising facts
 - Real examples or case studies
@@ -103,6 +111,8 @@ Output the post inside a plain code block:
 ```
 
 After the code block, add 2 to 3 sentences on why you chose this hook and structure, referencing specific patterns from voice.md.
+
+Before presenting the draft, review it in the running assistant against the supplied facts, voice and requested format. For a roster or step caption, map every required item to its matching caption passage and check ordering, duplicates and omissions. Do not replace requested structure with a generic post framework. Keep source notes separate from paste-ready copy. Claude is not a required reviewer in Codex.
 
 ## Step 4. Iterate
 

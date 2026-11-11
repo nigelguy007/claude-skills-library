@@ -1,0 +1,7 @@
+{
+  "source_url": "https://github.com/charlie947/social-media-skills",
+  "source_commit": "10ca79c0ec0be0f7654d19cd4f0c86b6fa6ed23b",
+  "vendored_at": "2026-10-20T00:00:00Z",
+  "security_scan": "clean (0 HIGH, 0 INFO) via scripts/scan_skill_source.py",
+  "notes": "skills/ vendored (17 skills). reels-scripting needs APIFY_API_TOKEN and GOOGLE_AI_API_KEY for its URL-to-analysis route."
+}
