@@ -1,6 +1,6 @@
 # Installed Claude Skills
 
-This repository has **2699 Claude skills** installed under the `skills/` directory, collected from 93 source repositories plus 5 uploaded skill packs.
+This repository has **2700 Claude skills** installed under the `skills/` directory, collected from 94 source repositories plus 5 uploaded skill packs.
 
 Each skill is stored under `skills/<owner>_<repo>/...`, preserving its origin path.
 
@@ -108,6 +108,7 @@ Each skill is stored under `skills/<owner>_<repo>/...`, preserving its origin pa
 | 96 | [nigelguy007/reverseengineeranything](https://github.com/nigelguy007/reverseengineeranything) | 2 |
 | 97 | [andrewyng/openworker](https://github.com/andrewyng/openworker) | 1 |
 | 98 | [Jakubantalik/transitions.dev](https://github.com/Jakubantalik/transitions.dev) | 3 |
+| 99 | [nigelguy007/ad-library-outbound](https://github.com/nigelguy007/ad-library-outbound) | 1 |
 
 ### Source repositories with no installable skills
 
@@ -126,7 +127,7 @@ Each skill is stored under `skills/<owner>_<repo>/...`, preserving its origin pa
 
 - **Google Drive folders** (3 links in the request) — cloud storage, not git repositories; cannot be installed as Claude skills.
 
-## All installed skills (2699)
+## All installed skills (2700)
 
 | Skill | Source repo | Description | Trigger |
 |-------|-------------|-------------|---------|
@@ -2463,6 +2464,7 @@ Each skill is stored under `skills/<owner>_<repo>/...`, preserving its origin pa
 | `ui-styling` | nextlevelbuilder/ui-ux-pro-max-skill | Create beautiful, accessible user interfaces with shadcn/ui components (built on Radix UI + Tailwind), Tailwind CSS utility-first styling, and canvas-based visual designs. Use when building user interfaces, implementing design… | Use when building user interfaces, implementing design systems, creating responsive layouts, adding accessible components (dialogs, dropdowns, forms, tables), customizing themes and colors, implementing dark mode, generating visual designs and… |
 | `ui-ux-pro-max` | nextlevelbuilder/ui-ux-pro-max-skill | UI/UX design intelligence for web and mobile. Includes 50+ styles, 161 color palettes, 57 font pairings, 161 product types, 99 UX guidelines, and 25 chart types across 10 stacks (React, Next.js, Vue, Svelte, SwiftUI, React Native,… | Model-invoked automatically when a request matches the skill's description. |
 | `prompt-master` | nidhinjs/prompt-master | Generates optimized prompts for AI tools. Activates only when the user explicitly asks to write, fix, improve, or adapt a prompt for a specific AI tool (LLM, Cursor, Midjourney, image AI, video AI, coding agents, etc.). Does not activate… | Activates only when the user explicitly asks to write, fix, improve, or adapt a prompt for a specific AI tool (LLM, Cursor, Midjourney, image AI, video AI, coding agents, etc. |
+| `ad-library-outbound` | nigelguy007/ad-library-outbound | Sell to companies that already pay for ads. Orchestrates four subagents that pull advertisers from the LinkedIn (or Meta) Ad Library, pick the best ones, write a 2-line cold email quoting each company's own ad, then build a send sheet and… | Use when the user says "find companies running ads", "LinkedIn Ad Library prospecting", "sell to advertisers", "cold email companies that run ads",… |
 | `book-studio-chat` | nigelguy007/book-studio | Write a nonfiction book step by step in claude.ai chat - market-tested idea, outline from messy notes, title and cover prompts, chapters in the author's… | Use when the user says "write a book", "help with my book", "turn my notes into a book", "next book step", "write chapter N", or names any step (outline, title, cover, edit, launch). |
 | `write-book` | nigelguy007/book-studio | Orchestrate a nonfiction book from idea (or messy notes) to a KDP launch plan using the book-studio subagents - market research, outline, title and cover, chapter drafting in the author's voice, developmental edit, illustration prompts,… | Use when the user says "write a book", "help me write my book", "turn my notes into a book", "book from my voice notes", "/write-book", or wants to run any… |
 | `ig-audit` | nigelguy007/instagramskills | Post-mortem on what the user has already posted - which reels actually worked, why, and what to stop making. Use when the user pastes their Instagram insights or past posts and asks "what's working", "why did this flop", "read my… | Use when the user pastes their Instagram insights or past posts and asks "what's working", "why did this flop", "read my analytics", "audit my content", or… |

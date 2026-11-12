@@ -57,6 +57,8 @@ It also runs [`scripts/setup_openworker.sh`](scripts/setup_openworker.sh), which
 
 [`agents/nigelguy007_book-studio/`](agents/nigelguy007_book-studio/) adds 8 book-writing agents (idea → outline → chapters → edits → KDP launch), run by the `/write-book` skill. Install them with `./install.sh --agents --source nigelguy007_book-studio`.
 
+[`agents/nigelguy007_ad-library-outbound/`](agents/nigelguy007_ad-library-outbound/) adds 4 outbound-sales agents (find advertisers in the LinkedIn or Meta Ad Library → pick the best → write a 2-line email that quotes their own ad → build a send sheet and read the replies), run by the `/ad-library-outbound` skill. Install both halves with `./install.sh --source nigelguy007_ad-library-outbound` and `./install.sh --agents --source nigelguy007_ad-library-outbound`. It needs a Scrape Creators API key and never sends anything itself.
+
 They are **not** installed by default. Every installed agent's description goes into every Claude Code session, so 282 of them cost context and make Claude pick the wrong one more often. Install only the divisions you use:
 
 ```bash
