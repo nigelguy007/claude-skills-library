@@ -75,13 +75,19 @@ _HIRING_BUTTONS = frozenset(("apply", "apply now", "view jobs", "see jobs"))
 
 def classify_ad(ad: Ad) -> str:
     """'company', 'boosted_by_company' (a person's post a company paid to boost) or 'self_promoted'."""
-    is_person = bool((ad.get("poster_title") or "").strip()) or _is_profile(ad.get("advertiser_url"))
+    is_person = bool(_job_title(ad)) or _is_profile(ad.get("advertiser_url"))
     promoted = (ad.get("promoted_by") or "").strip().lower()
     if is_person and promoted.startswith("promoted by"):
         return "boosted_by_company"
     if is_person or promoted == "promoted":
         return "self_promoted"
     return "company"
+
+
+def _job_title(ad: Ad) -> str:
+    """The poster's job title. LinkedIn's "Promoted" label sometimes arrives in this field: that is not a title."""
+    title = (ad.get("poster_title") or "").strip()
+    return "" if title.lower().startswith("promoted") else title
 
 
 def _is_profile(url: Optional[str]) -> bool:
@@ -97,7 +103,7 @@ def owner_role(title: Optional[str]) -> bool:
 
 def contact_hint(ad: Ad) -> Optional[Dict[str, str]]:
     """The post's author, when the ad itself shows them as an owner of the advertiser."""
-    title = ad.get("poster_title") or ""
+    title = _job_title(ad)
     if not owner_role(title):
         return None
     kind = classify_ad(ad)

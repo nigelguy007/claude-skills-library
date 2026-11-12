@@ -381,6 +381,13 @@ class AdlibHardeningTest(unittest.TestCase):
         self.assertIsNone(named["advertiser_id"])
         self.assertEqual(numeric["advertiser_id"], "37")
 
+    def test_promoted_label_is_moved_out_of_the_title_field(self):
+        ad = adlib.normalise_linkedin({"id": "1", "poster": "E1 Power", "posterTitle": "Promoted", "promotedBy": ""})
+        self.assertIsNone(ad["poster_title"])
+        self.assertEqual(ad["promoted_by"], "Promoted")
+        kept = adlib.normalise_linkedin({"id": "2", "posterTitle": "CEO, Voss Strategies", "promotedBy": "Promoted"})
+        self.assertEqual(kept["poster_title"], "CEO, Voss Strategies")
+
     def test_ads_without_an_id_are_dropped(self):
         def fetch(path, params):
             return {"ads": [{"advertiser": "A"}, {"id": "9", "advertiser": "B"}], "isLastPage": True}
@@ -429,6 +436,17 @@ class ScoreHardeningTest(unittest.TestCase):
         ads = [{"library": "linkedin", "id": "1", "advertiser": "株式会社A", "headline": "x"},
                {"library": "linkedin", "id": "2", "advertiser": "株式会社B", "headline": "y"}]
         self.assertEqual(len(score.rank(ads, today=date(2026, 11, 12))), 2)
+
+    def test_promoted_label_in_the_title_field_does_not_make_a_company_a_person(self):
+        ad = {"library": "linkedin", "id": "1", "advertiser": "E1 Power", "advertiser_id": "143",
+              "advertiser_url": "https://www.linkedin.com/company/143", "poster": "E1 Power",
+              "poster_title": "Promoted", "promoted_by": None, "headline": None,
+              "description": "Most owners never read past the closing total."}
+        self.assertEqual(score.classify_ad(ad), "company")
+        row = score.rank([ad, dict(ad, id="2", description="Another post.")], today=date(2026, 11, 12))[0]
+        self.assertIsNone(row["skip_reason"])
+        self.assertIn("company_paid", row["signals"])
+        self.assertEqual(row["contact_hints"], [])
 
     def test_rows_carry_their_rank(self):
         ads = [{"library": "linkedin", "id": "1", "advertiser": "A", "advertiser_id": "1", "headline": "From $9"},

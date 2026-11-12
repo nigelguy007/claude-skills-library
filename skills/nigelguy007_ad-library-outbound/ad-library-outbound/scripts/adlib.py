@@ -183,6 +183,10 @@ def normalise_linkedin(raw: Dict[str, Any]) -> Ad:
     """Keep the fields the pipeline uses; drop images, video and logos."""
     page = raw.get("advertiserLinkedinPage") or ""
     company_id = _COMPANY_ID.search(page)
+    title = (raw.get("posterTitle") or "").strip()
+    label = (raw.get("promotedBy") or "").strip()
+    if title.lower().startswith("promoted"):  # the "Promoted" label sometimes arrives in the title field
+        title, label = "", label or title
     return {
         "library": "linkedin",
         "id": str(raw.get("id")),
@@ -191,8 +195,8 @@ def normalise_linkedin(raw: Dict[str, Any]) -> Ad:
         "advertiser_id": company_id.group(1) if company_id else None,
         "advertiser_url": page or None,
         "poster": raw.get("poster"),
-        "poster_title": raw.get("posterTitle") or None,
-        "promoted_by": raw.get("promotedBy") or None,
+        "poster_title": title or None,
+        "promoted_by": label or None,
         "paid_for_by": raw.get("paidForBy") or None,
         "headline": raw.get("headline") or None,
         "description": raw.get("description") or None,
