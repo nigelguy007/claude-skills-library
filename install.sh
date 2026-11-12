@@ -30,6 +30,7 @@ bash "${SCRIPT_DIR}/scripts/setup_claude_flow.sh"
 bash "${SCRIPT_DIR}/scripts/setup_api_anything.sh"
 bash "${SCRIPT_DIR}/scripts/setup_agent_reach.sh"
 bash "${SCRIPT_DIR}/scripts/setup_watch_skill.sh"
+bash "${SCRIPT_DIR}/scripts/setup_openworker.sh"
 
 if [ "${1:-}" = "--agents" ]; then
   shift

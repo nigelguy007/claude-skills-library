@@ -49,6 +49,8 @@ It also runs [`scripts/setup_api_anything.sh`](scripts/setup_api_anything.sh), w
 
 It also runs [`scripts/setup_agent_reach.sh`](scripts/setup_agent_reach.sh), which removes the unrelated PyPI package named `agent-reach` if present, installs [Agent Reach](https://github.com/Panniantong/Agent-Reach) v1.6.0 from GitHub (`uv tool install git+https://github.com/Panniantong/Agent-Reach@v1.6.0`), and runs `agent-reach setup` (default channels: web, youtube, github, v2ex, bilibili). Set `SKIP_AGENT_REACH=1` to opt out, `AGENT_REACH_VERSION` to pin another tag, or `AGENT_REACH_LANG=zh` for the Chinese skill text.
 
+It also runs [`scripts/setup_openworker.sh`](scripts/setup_openworker.sh), which installs the [OpenWorker](https://github.com/andrewyng/openworker) headless CLI v0.3.4 from GitHub (`uv tool install git+https://github.com/andrewyng/openworker@v0.3.4`). The PyPI package named `openworker` is not this project's release and is not used. It installs the `openworker` command only: it does not enroll the machine, store a model key or start a server. Set `SKIP_OPENWORKER=1` to opt out or `OPENWORKER_VERSION` to pin another tag.
+
 ## Subagents
 
 [`agents/`](agents/) holds Claude Code subagents, namespaced the same way as `agents/<owner>_<repo>/<division>/<agent>.md`. Currently that's the 282 agents from [msitarzewski/agency-agents](https://github.com/msitarzewski/agency-agents) (MIT), in 18 divisions: engineering, design, marketing, sales, testing and so on.

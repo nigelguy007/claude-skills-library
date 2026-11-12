@@ -1,6 +1,6 @@
 # Installed Claude Skills
 
-This repository has **2698 Claude skills** installed under the `skills/` directory, collected from 92 source repositories plus 5 uploaded skill packs.
+This repository has **2699 Claude skills** installed under the `skills/` directory, collected from 93 source repositories plus 5 uploaded skill packs.
 
 Each skill is stored under `skills/<owner>_<repo>/...`, preserving its origin path.
 
@@ -104,9 +104,10 @@ Each skill is stored under `skills/<owner>_<repo>/...`, preserving its origin pa
 | 92 | [heydamir/unslop](https://github.com/heydamir/unslop) | 1 |
 | 93 | [mohamedishagg/watch-skill](https://github.com/mohamedishagg/watch-skill) | 1 |
 | 94 | [nutlope/hallmark](https://github.com/nutlope/hallmark) | 1 |
-| 95 | [Jakubantalik/transitions.dev](https://github.com/Jakubantalik/transitions.dev) | 3 |
-| 96 | [nigelguy007/instagramskills](https://github.com/nigelguy007/instagramskills) | 13 |
-| 97 | [nigelguy007/reverseengineeranything](https://github.com/nigelguy007/reverseengineeranything) | 2 |
+| 95 | [nigelguy007/instagramskills](https://github.com/nigelguy007/instagramskills) | 13 |
+| 96 | [nigelguy007/reverseengineeranything](https://github.com/nigelguy007/reverseengineeranything) | 2 |
+| 97 | [andrewyng/openworker](https://github.com/andrewyng/openworker) | 1 |
+| 98 | [Jakubantalik/transitions.dev](https://github.com/Jakubantalik/transitions.dev) | 3 |
 
 ### Source repositories with no installable skills
 
@@ -125,7 +126,7 @@ Each skill is stored under `skills/<owner>_<repo>/...`, preserving its origin pa
 
 - **Google Drive folders** (3 links in the request) — cloud storage, not git repositories; cannot be installed as Claude skills.
 
-## All installed skills (2698)
+## All installed skills (2699)
 
 | Skill | Source repo | Description | Trigger |
 |-------|-------------|-------------|---------|
@@ -1068,7 +1069,7 @@ Each skill is stored under `skills/<owner>_<repo>/...`, preserving its origin pa
 | `replica-launch` | Jakeschincariol/replica-skill | Writes the launch for an app clone: the landing page built on the positioning angle, pricing set against the original's public pricing and its users' complaints, and the App Store and Google Play listing linted against the stores' limits… | Use when the user says "landing page", "pricing", "how much should I charge", "App Store listing", "store screenshots", "launch plan", "Product Hunt", or… |
 | `replica-recon` | Jakeschincariol/replica-skill | Reverse-engineers any app into a recon map: screen inventory, user flows, component list, inferred data model and a feature matrix, from public pages, screenshots, app store listings, help docs and the user's own account. The first step… | Use when the user says "clone this app", "reverse engineer X", "how does X work", "map out X", "what screens does X have", "I want to build my own version of… |
 | `replica-test` | Jakeschincariol/replica-skill | Clicks through every flow of an app clone and tests it for bugs: a test plan generated from the recon flows with happy paths and edge cases, Playwright end-to-end tests where possible, a browser click-through where not, and bug reports in… | Use when the user says "test my clone", "find bugs", "QA this", "click through everything", "write e2e tests", "does it work", or after /replica-build or… |
-| `transitions-dev` | Jakubantalik/transitions.dev | Production-ready CSS transitions for web apps. Use when implementing notification badges, dropdowns, modals, panel reveals, page transitions, card resizes, number pop-ins, text swaps, icon swaps, success checks, avatar group hovers, error… | Use when implementing notification badges, dropdowns, modals, panel reveals, page transitions, card resizes, number pop-ins, text swaps, icon swaps, success… |
+| `transitions-dev` | Jakubantalik/transitions.dev | Production-ready CSS transitions for web apps. Use when implementing notification badges, dropdowns, modals, panel reveals, page transitions, card resizes, number pop-ins, subtle number changes, text swaps, icon swaps, success checks,… | Use when implementing notification badges, dropdowns, modals, panel reveals, page transitions, card resizes, number pop-ins, subtle number changes, text… |
 | `transitions-polish` | Jakubantalik/transitions.dev | Polish and refine existing motion against the transitions.dev motion-token scale — duration, distance, scale, blur, and easing — plus the rules for WHEN each token applies (open/close asymmetry, hover-in vs hover-out, stagger offsets, and… | Use when the user asks to "polish my transitions", "refine the motion", "tune the timing / easing", "make the animation feel better / less janky", "tighten… |
 | `transitions-ui-generation` | Jakubantalik/transitions.dev | Make any UI, headline or image appear as if an AI agent is generating it. Five variants: ui (the default: a dotted wireframe drawn from the element's own structure, outline, boxes, text lines, icon paths, with guides, corner handles and… | Use when the user asks for a "generation animation", "AI generating the UI", "agent building the component", "build-in animation", "wireframe to UI reveal",… |
 | `agent-reach` | Panniantong/Agent-Reach | MUST USE when user wants to 调研/research/搜索/search/查/找/look up anything on the internet — e.g. 全网调研 X / 帮我调研一下 X / 查一下 X / 搜搜 X / 看看大家怎么评价 X / X 上有什么讨论 / research this topic。 Also MUST USE when user… | Model-invoked automatically when a request matches the skill's description. |
@@ -1758,6 +1759,7 @@ Each skill is stored under `skills/<owner>_<repo>/...`, preserving its origin pa
 | `product-research` | alirezarezvani/claude-skills | Use when planning and synthesizing product/user research as a method-and-repository discipline — selecting the right method for the goal (generative interviews vs usability test vs concept test vs validation), computing method-based… | Use when planning and synthesizing product/user research as a method-and-repository discipline — selecting the right method for the goal (generative interviews vs usability test vs concept test vs… |
 | `research-finance` | alirezarezvani/claude-skills | Use when managing the money for an internal R&D program or portfolio — building a multi-period program budget with the F&A (indirect) split, tracking burn rate and runway against value-inflection milestones, or routing R&D cost items to a… | Use when managing the money for an internal R&D program or portfolio — building a multi-period program budget with the F&A (indirect) split, tracking burn rate and runway against value-inflection… |
 | `research-ops-skills` | alirezarezvani/claude-skills | Use when planning, funding, scoping, or synthesizing enterprise research across workstreams — clinical study design, R&D program finance, market sizing/surveys, or product/user research. Triggers on "design this clinical study", "what… | Use when planning, funding, scoping, or synthesizing enterprise research across workstreams — clinical study design, R&D program finance, market sizing/surveys, or product/user research. |
+| `openworker-apps` | andrewyng/openworker | Build or adapt desktop and web applications using the OpenWorker Harness SDK, including agent creation, streamed sessions, model configuration, application packaging and Railway deployment. Use for OpenWorker integrations, not general… | Use for OpenWorker integrations, not general website design or unrelated agent frameworks. |
 | `antfu` | antfu/skills | Anthony Fu's opinionated tooling and conventions for JavaScript/TypeScript projects. Use when setting up new projects, configuring ESLint/Prettier alternatives, monorepos, library publishing, or when the user mentions Anthony Fu's… | Use when setting up new projects, configuring ESLint/Prettier alternatives, monorepos, library publishing, or when the user mentions Anthony Fu's preferences. |
 | `nuxt` | antfu/skills | Nuxt full-stack Vue framework with SSR, auto-imports, and file-based routing. Use when working with Nuxt apps, server routes, useFetch, middleware, or hybrid rendering. | Use when working with Nuxt apps, server routes, useFetch, middleware, or hybrid rendering. |
 | `pinia` | antfu/skills | Pinia official Vue state management library, type-safe and extensible. Use when defining stores, working with state/getters/actions, or implementing store patterns in Vue apps. | Use when defining stores, working with state/getters/actions, or implementing store patterns in Vue apps. |
