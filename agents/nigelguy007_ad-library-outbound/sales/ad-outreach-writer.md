@@ -22,7 +22,7 @@ Write `<run>/drafts/<lead_id>.md` from the template for each lead.
 **Front matter.** Copy `lead_id`, `ad_id` and `ad_quote` from the lead file without changing a character. `subject` is two to four plain words that say what the email is about, such as "your LinkedIn ad". Never "Re:" or "Fwd:". Leave `approved: no`. Only the user approves a draft, and the orchestrator records it. Never run `batch.py approve` and never write an approval into a draft.
 
 **`## Email A`.** Exactly two lines with a blank line between them, and no more than `max_words` words in total (35 unless `offer.md` says otherwise). No greeting and no sign-off: the sender's name, address and opt-out line are added underneath later.
-- Line one: their ad line in quotation marks, word for word, and where you saw it. When `ad_kind` is `boosted_post` the words are the poster's, so write "the post you're promoting". When it is `own_post`, write "your post".
+- Line one: their ad line in quotation marks, word for word, and where you saw it. When `ad_kind` is `boosted_by_company` the words are the poster's, so write "the post you're promoting". When it is `self_promoted`, write "your post".
 - Line two: the user's offer in one clause, built from `sell` and "Proof I can back up", then one question that takes a yes or a no.
 - Take the opening from the row in the angle table that matches `angle`, and only when that row's "only if" is true for this lead.
 

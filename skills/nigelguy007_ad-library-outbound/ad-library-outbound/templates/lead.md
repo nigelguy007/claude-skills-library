@@ -21,11 +21,13 @@ email:
 # verified (a verification tool confirmed it) | published (shown on the company's own site or profile)
 # | guessed (a pattern guess, never sendable) | none
 email_status: none
+# personal (a named person's own address) | general (info@, hello@, sales@ and the like)
+email_kind:
 email_source:
 ad_id:
 ad_url:
-# company (the company's own ad) | boosted_post (someone's post the company pays to promote)
-# | own_post (the contact boosted their own post)
+# The ad's `kind` from advertisers.json: company (the company's own ad) | boosted_by_company
+# (someone's post the company pays to promote) | self_promoted (the contact boosted their own post)
 ad_kind:
 # Word for word from the ad. Copy it from advertisers.json, do not retype it.
 ad_quote:
