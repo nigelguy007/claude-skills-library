@@ -533,8 +533,10 @@ def _cmd_build(args: argparse.Namespace) -> int:
     sheet = run / ("send-sheet-%s.csv" % batch_id)
     if rows:
         write_csv(sheet, SHEET_FIELDS, rows)
-    out(json.dumps({"built": bool(rows), "sheet": str(sheet) if rows else None, "batch_id": batch_id,
+    nameless = [row["lead_id"] for row in rows if not row["first_name"]]
+    out(json.dumps({"built": bool(rows), "sheet": str(sheet.resolve()) if rows else None, "batch_id": batch_id,
                     "rows": len(rows), "versions": {v: sum(1 for r in rows if r["variant"] == v) for v in "AB"},
+                    "no_named_contact": nameless,
                     "left_out": [{"lead_id": name, "why": why} for name, why in unreadable + skipped],
                     "suppressed_loaded": {"emails": len(suppression.emails), "domains": len(suppression.domains)},
                     "already_contacted": len(contacted.emails), "warnings": warnings}, indent=2))

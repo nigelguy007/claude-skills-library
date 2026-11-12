@@ -14,7 +14,9 @@ you email before the first send.
   ramp, per inbox: 5 a day in week one, 10 in week two, 20 in week three, and stay under 30-50 a day
   after that. These are rules of thumb. Your sending tool's own warm-up settings come first.
 - **Verify addresses before sending.** A bounce rate above about 5% damages the domain.
-  `batch.py stats` raises an alarm at that level.
+  `batch.py stats` raises an alarm at that level. A `published` address was on the company's own
+  site the day it was read, which is good evidence but not a delivery check. Run a list through a
+  verification tool before a large send.
 - **Read every email.** `batch.py build` only includes drafts approved with `batch.py approve`, and an edit to the draft or to the address after that cancels the approval.
 
 ## What every email must carry

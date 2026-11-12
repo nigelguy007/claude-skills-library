@@ -339,6 +339,18 @@ class BuildCommandTest(TempDir):
         self.assertEqual(summary["rows"], 1)
         self.assertEqual(summary["suppressed_loaded"], {"emails": 0, "domains": 0})
 
+    def test_build_flags_rows_with_no_named_person_and_gives_an_absolute_sheet_path(self):
+        run, offer = self.workspace()
+        lead_file = run / "leads" / "L-261112-01.md"
+        lead_file.write_text(lead_file.read_text().replace("contact_name: Vera Lindqvist", "contact_name:"))
+        base = ["--suppression", str(self.sup), "--log", str(self.log)]
+        self.run_main(["init"] + base)
+        self.run_main(["approve", "--run", str(run), "--all"])
+        _, output = self.run_main(["build", "--run", str(run), "--offer", str(offer), "--batch-id", "B1"] + base)
+        summary = json.loads(output)
+        self.assertEqual(summary["no_named_contact"], ["L-261112-01"])
+        self.assertTrue(Path(summary["sheet"]).is_absolute())
+
     def test_unreadable_lead_file_is_reported_not_dropped(self):
         run, offer = self.workspace()
         (run / "leads" / "broken.md").write_text("no front matter here\n")
