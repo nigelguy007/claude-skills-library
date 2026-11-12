@@ -448,6 +448,11 @@ class ScoreHardeningTest(unittest.TestCase):
         self.assertIn("company_paid", row["signals"])
         self.assertEqual(row["contact_hints"], [])
 
+    def test_non_text_advertiser_name_does_not_crash_the_ranking(self):
+        ads = [{"library": "linkedin", "id": "1", "advertiser": 3, "headline": "hello"},
+               {"library": "linkedin", "id": "2", "advertiser": None, "headline": "hello"}]
+        self.assertEqual(len(score.rank(ads, today=date(2026, 11, 12))), 2)
+
     def test_rows_carry_their_rank(self):
         ads = [{"library": "linkedin", "id": "1", "advertiser": "A", "advertiser_id": "1", "headline": "From $9"},
                {"library": "linkedin", "id": "2", "advertiser": "B", "advertiser_id": "2", "headline": "hello"}]

@@ -244,7 +244,7 @@ def _score_group(ads: List[Ad], today: date) -> Row:
     only_personal = kinds["self_promoted"] == len(ads)
     skip = "personal post: the poster is not shown as an owner" if only_personal and not contacts else None
     return {
-        "advertiser": first.get("advertiser") or "",
+        "advertiser": str(first.get("advertiser") or ""),
         "library": first.get("library") or "linkedin",
         "advertiser_id": first.get("advertiser_id"),
         "advertiser_url": first.get("advertiser_url"),

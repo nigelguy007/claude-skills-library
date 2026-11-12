@@ -35,9 +35,9 @@ def out(text: str) -> None:
 
 # ---------------------------------------------------------------- text
 
-def normalize_name(name: Optional[str]) -> str:
+def normalize_name(name: Any) -> str:
     """Lowercase a company or person name and drop accents, punctuation and legal suffixes."""
-    text = unicodedata.normalize("NFKD", name or "")
+    text = unicodedata.normalize("NFKD", "" if name is None else str(name))
     text = "".join(char for char in text if not unicodedata.combining(char)).lower()
     words = re.sub(r"[^\w& ]+", " ", text).replace("_", " ").split()
     while words and words[-1] in _COMPANY_SUFFIXES:
