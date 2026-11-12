@@ -17,20 +17,20 @@ Read:
 
 ## The draft
 
-Write `<run>/drafts/<lead_id>.md` from the template for each lead.
+Write `<run>/drafts/<lead_id>.md` from the template for each lead in the brief, whether or not it can be sent yet. A lead with no address or no contact name still gets its draft: the user may find the address, and the LinkedIn note needs none.
 
-**Front matter.** Copy `lead_id`, `ad_id` and `ad_quote` from the lead file without changing a character. `subject` is two to four plain words that say what the email is about, such as "your LinkedIn ad". Never "Re:" or "Fwd:". Leave `approved: no`. Only the user approves a draft, and the orchestrator records it. Never run `batch.py approve` and never write an approval into a draft.
+**Front matter.** Copy `lead_id`, `ad_id` and `ad_quote` from the lead file without changing a character. One exception: when the quote is so long that it crowds out line two, you may shorten `ad_quote` to a run of consecutive words from it, at least three. Never reword it. `subject` is two to four plain words that say what the email is about, such as "your LinkedIn ad". Never "Re:" or "Fwd:". Leave `approved: no`. Only the user approves a draft, and the orchestrator records it. Never run `batch.py approve` and never write an approval into a draft.
 
-**`## Email A`.** Exactly two lines with a blank line between them, and no more than `max_words` words in total (35 unless `offer.md` says otherwise). No greeting and no sign-off: the sender's name, address and opt-out line are added underneath later.
-- Line one: their ad line in quotation marks, word for word, and where you saw it. When `ad_kind` is `boosted_by_company` the words are the poster's, so write "the post you're promoting". When it is `self_promoted`, write "your post".
+**`## Email A`.** Exactly two lines with a blank line between them, and no more than `max_words` words in total (35 unless `offer.md` says otherwise). The lint counts words by splitting on spaces, and the quote counts. No greeting and no sign-off: the sender's name, address and opt-out line are added underneath later.
+- Line one: their ad line in quotation marks, word for word, and where you saw it (LinkedIn, or Facebook or Instagram for a Meta ad). When `ad_kind` is `company`, write "your LinkedIn ad". When it is `boosted_by_company` the words are the poster's, so write "the post you're promoting". When it is `self_promoted`, write "your post".
 - Line two: the user's offer in one clause, built from `sell` and "Proof I can back up", then one question that takes a yes or a no.
-- Take the opening from the row in the angle table that matches `angle`, and only when that row's "only if" is true for this lead.
+- Take the opening from the row in the angle table that matches `angle`, and only when that row's "only if" is true for this lead. Judge that from the lead file. If it does not say, for example, who the company sells to, do not name a group: offer the sample "for the buyers you want" instead.
 
 **`## Follow-up 1` and `## Follow-up 2`.** One short line each, such as "Did this land?". No guilt, no "bumping this", no new pitch.
 
 **`## LinkedIn note`.** Under 200 characters. It mentions the ad and asks permission to share one idea. No pitch.
 
-**A test.** When the brief says a test is running, add `## Email B`. It changes exactly one line of Email A, the thing under test, and nothing else. Put the `test_id` in the front matter.
+**A test.** When the brief says a test is running, add `## Email B`. It changes exactly one line of Email A, the thing under test, and nothing else. Put the `test_id` in the front matter. Both versions quote the same ad line. A first-line test changes the words around the quote (how you refer to the ad, whether the quote comes first), using only what the ad record shows. An offer or question test changes line two.
 
 **Extra plays.** Add only the plays the brief lists, each as its own section, following `references/plays.md`. If a play's condition is not met (you could not open the landing page, the offer has no pay-per-result price), write one line saying why you left it out.
 

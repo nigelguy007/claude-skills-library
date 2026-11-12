@@ -34,6 +34,7 @@ A connection note that mentions the ad and asks permission to share one idea.
 ### 2. Free mini-review of their ad (`## Ad review`)
 Three specific ideas to make the ad work better: a clearer offer, a stronger number, a better
 button. Give before you ask.
+- Format: three numbered ideas, one or two sentences each, written as the user would say them. Start with one line saying what you looked at.
 - Each idea must point at something in the ad text you were given. No generic advice.
 - If you have only the ad's text (LinkedIn gives no image through the API), review the words and
   say so. Do not comment on a creative you have not seen.

@@ -13,7 +13,7 @@ approved: no
 ---
 
 ## Email A
-Line one: their ad line in quotes, plus one specific thing you noticed.
+Line one: their ad line in quotes, word for word, and where you saw it.
 
 Line two: your offer in one clause, then one easy yes/no question?
 
