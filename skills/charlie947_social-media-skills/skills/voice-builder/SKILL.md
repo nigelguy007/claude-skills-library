@@ -1,14 +1,22 @@
 ---
 name: voice-builder
 description: >
-  Build a personalised voice profile inside a Cowork project from a short interview plus 3 to 5 sample pieces of writing. Works for any content format: LinkedIn posts, newsletters, essays, emails, blog posts, tweets, or any other published writing. Use this skill at the start of any Cowork project where the user wants Claude to learn who they are and how they write before drafting new content. Trigger whenever the user says "build my voice", "learn my voice", "set up my content system", "onboard me", "train on my writing", "train on my posts", "I want Claude to sound like me", or drops a batch of writing samples into chat at the start of a project. Also trigger for first-time Cowork users who need a voice foundation before writing anything. Always produces two files (about-me.md and voice.md) saved into the project root.
+  Build a personalised voice profile inside a Codex or Claude project from a short interview plus 3 to 5 sample pieces of writing. Works for any content format: LinkedIn posts, newsletters, essays, emails, blog posts, tweets, or any other published writing. Use this skill at the start of any project where the user wants the assistant to learn who they are and how they write before drafting new content. Trigger whenever the user says "build my voice", "learn my voice", "set up my content system", "onboard me", "train on my writing", "train on my posts", "I want Claude to sound like me", or drops a batch of writing samples into chat at the start of a project. Also trigger for first-time users who need a voice foundation before writing anything. Always produces two files (about-me.md and voice.md) saved into the project root.
 ---
 
 # Voice Builder
 
+## Codex and Claude runtime
+
+- Use this skill in Codex or Claude with the tools actually available in the current task. `AskUserQuestion` examples describe the questions, not a required API: use an available question tool within its limits, or ask in chat. Reuse answers and source material already supplied.
+- Work in the user-selected project. Read its `about-me.md`, `voice.md` and relevant brand files before personalised work. Confirm the intended author if files conflict or contain starter defaults. Ask for missing facts or run `voice-builder`; never inherit the maintainer's identity, accounts or private files.
+- Resolve bundled `references/` relative to this skill folder. For an explicitly requested profile refresh, read and update the canonical `about-me.md`, `voice.md` or `newsletter-voice.md` in place, preserving unrelated user facts and rules. Consumers must reread those canonical files. Use a new filename only for new deliverables that would collide with unrelated existing files. Installation alone never starts an interview or writes files. Do not write persistent learnings unless requested.
+- Use supplied evidence first. Verify external claims through available search/source tools when needed. If a source or integration is unavailable, name the missing capability and offer supplied text/export input. Never invent facts, first-person experience, metrics or a successful tool run.
+- Connect only services needed for the chosen route through the user's existing account. Never print credentials or overwrite connections. Drafting, saving and reviewing do not authorise publishing, sending messages or changing accounts.
+
 ## CRITICAL: Auto-start on load
 
-The moment this skill is loaded, installed, uploaded, or triggered, you MUST immediately run Step 1 below. This means your very next message to the user is the interview questions. Nothing else.
+When the user requests this workflow, start Step 1. This means your very next message to the user is the interview questions. Nothing else.
 
 Do NOT:
 - Summarise this skill
@@ -23,17 +31,17 @@ Do THIS:
 - Go straight to Step 1
 - Send the interview questions as your first and only response
 
-This applies whether the user uploaded a .skill file, said "build my voice", pasted samples, or triggered the skill in any other way. No preamble. No summary. Interview first.
+This applies when the user asks to build their voice or supplies samples for that purpose. No preamble. No summary. Interview first.
 
 ## Step 1. Run the About Me interview
 
-You MUST call the AskUserQuestion tool to ask these questions. Do not type the questions as chat text. Use the tool. The tool renders as an interactive form the user fills in, which is a better experience than typing answers into chat.
+Ask the questions using the runtime guidance above. If a question tool is available, respect its schema and batch limits; otherwise ask the same questions in chat.
 
 AskUserQuestion supports a maximum of 4 questions per call, so send two calls: Batch 1 first, wait for answers, then Batch 2.
 
 ### Batch 1 (your very first action, no text before it)
 
-Call AskUserQuestion with this exact JSON structure for the questions parameter:
+Use these questions, adapting the tool schema as needed:
 
 ```json
 [
@@ -140,7 +148,7 @@ Create about-me.md in the project root. Use this structure:
 [From question 6, topics or angles never to write about]
 ```
 
-Keep it under 300 words. Every line should be something Claude would reference when writing.
+Keep it under 300 words. Every line should be something the assistant would reference when writing.
 
 ## Step 3. Ask for the samples
 
@@ -219,13 +227,13 @@ Create voice.md in the project root. This is a single integrated profile coverin
 
 Fill every section from the actual samples. No generic filler. If a pattern is not present, say so. Do not duplicate audience or topic pillars from about-me.md.
 
-The Off-limits and What this voice never does sections are drawn from observation, not from a generic banned-words template. Every item must be backed by absence across the samples.
+Separate explicit user prohibitions from patterns merely absent in this small sample. Label the latter provisional, with sample counts; absence alone does not establish a permanent ban. Starter samples describe a borrowed style, never the user’s experiences or established voice.
 
 ## Step 6. Confirm and hand off
 
 Tell the user:
 
-> Your voice profile is built. Two files are now in your project: about-me.md and voice.md. Every time you work in this project, I will reference both automatically. You can open and edit either file anytime.
+> Your voice profile is built. Two files are now in your project: about-me.md and voice.md. These skills read both files when invoked in this project; a fresh task must discover the skills and use the same project context. You can open and edit either file anytime.
 >
 > You are ready to go. Here is what you can do next:
 >
@@ -255,4 +263,4 @@ Two files in the project root:
 - Keep voice.md under 500 words.
 - British English throughout unless the samples are clearly American.
 - Never use em dashes in any output file or in any draft.
-- Do not produce an voice.md file. Absence signals live inside voice.md.
+- Do not create a separate absence profile. Absence signals live inside voice.md.

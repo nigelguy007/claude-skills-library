@@ -1,10 +1,18 @@
 ---
 name: content-matrix
 description: >
-  Generate 32+ LinkedIn post ideas in a single table by pairing the user's content pillars with 8 proven content formats. Based on the Justin Welsh content matrix. Use this skill whenever the user says "give me post ideas", "content matrix", "what should I post about", "generate post ideas", "content ideation", or "map out my content for the month". Pulls from about-me.md and voice.md if they exist, otherwise asks for pillars and context.
+  Generate 24 to 40 LinkedIn post ideas in a single table by pairing the user's content pillars with 8 proven content formats. Based on the Justin Welsh content matrix. Use this skill whenever the user says "give me post ideas", "content matrix", "what should I post about", "generate post ideas", "content ideation", or "map out my content for the month". Pulls from about-me.md and voice.md if they exist, otherwise asks for pillars and context.
 ---
 
 # Content Matrix
+
+## Codex and Claude runtime
+
+- Use this skill in Codex or Claude with the tools actually available in the current task. `AskUserQuestion` examples describe the questions, not a required API: use an available question tool within its limits, or ask in chat. Reuse answers and source material already supplied.
+- Work in the user-selected project. Read its `about-me.md`, `voice.md` and relevant brand files before personalised work. Confirm the intended author if files conflict or contain starter defaults. Ask for missing facts or run `voice-builder`; never inherit the maintainer's identity, accounts or private files.
+- Resolve bundled `references/` relative to this skill folder. For an explicitly requested profile refresh, read and update the canonical `about-me.md`, `voice.md` or `newsletter-voice.md` in place, preserving unrelated user facts and rules. Consumers must reread those canonical files. Use a new filename only for new deliverables that would collide with unrelated existing files. Installation alone never starts an interview or writes files. Do not write persistent learnings unless requested.
+- Use supplied evidence first. Verify external claims through available search/source tools when needed. If a source or integration is unavailable, name the missing capability and offer supplied text/export input. Never invent facts, first-person experience, metrics or a successful tool run.
+- Connect only services needed for the chosen route through the user's existing account. Never print credentials or overwrite connections. Drafting, saving and reviewing do not authorise publishing, sending messages or changing accounts.
 
 ## CRITICAL: Auto-start on load
 
@@ -69,14 +77,14 @@ Format definitions to apply when filling each cell:
 - **Present vs Future**: Current state vs a specific prediction, with the why.
 - **Listicle**: A list of resources, tips, mistakes, lessons, or steps.
 
-Each cell's idea should be a specific headline, not a theme. Good: "The 3-line hook formula I stole from David Ogilvy". Bad: "Hooks".
+Each cell's idea should be a specific headline, not a theme. Good: "A 3-line hook formula for product launches". Bad: "Hooks".
 
 ## Step 3. Output (surface-aware)
 
 Pick the output mode based on the surface you are running on. Do not output the table in a fenced markdown code block — that renders as monospace plain text and makes a 5×8 grid hard to scan.
 
-- **Claude.ai or Claude Cowork (chat surfaces with interactive chart support):** render the matrix as an interactive chart / interactive table widget. Pillars as rows, formats as columns, each cell holding one specific headline. The user should be able to click a cell to see the full headline and any expansion notes. Do not also dump the table as markdown — the chart is the deliverable.
-- **Claude Code (file-system surface, has Write/Edit tools):** save the matrix to `content-matrix-YYYY-MM-DD.md` in the current working directory and print the same table inline in the response as a plain markdown table (no triple-backtick wrap). Confirm the file path so the user can open it.
+- **An available interactive chart/table surface:** render the matrix as an interactive chart / interactive table widget. Pillars as rows, formats as columns, each cell holding one specific headline. The user should be able to click a cell to see the full headline and any expansion notes. Do not also dump the table as markdown — the chart is the deliverable.
+- **A file-capable assistant such as Codex or Claude Code:** save the matrix to `content-matrix-YYYY-MM-DD.md` in the current working directory and print the same table inline in the response as a plain markdown table (no triple-backtick wrap). Confirm the file path so the user can open it.
 - **Fallback (no interactive chart, no file-system tools):** output a plain markdown table inline. Still no code-fence wrap.
 
 Below the table or chart, add one sentence naming the single strongest idea across the matrix and why.
@@ -87,7 +95,7 @@ Ask:
 
 > Any cell here you want me to write as a full post? Reference the cell by pillar + format (for example "Hooks × Contrarian") and I will hand it to the post-writer or post-formatter skill.
 
-On Claude Code, also offer to append the drafted post into the same `content-matrix-YYYY-MM-DD.md` file under the cell reference.
+When file tools are available, also offer to append the drafted post into the same `content-matrix-YYYY-MM-DD.md` file under the cell reference.
 
 ## Rules
 

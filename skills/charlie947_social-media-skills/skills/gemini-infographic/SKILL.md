@@ -1,10 +1,22 @@
 ---
 name: gemini-infographic
 description: >
-  Generate the hand-drawn whiteboard infographic prompt that pulled 480k impressions across 3 posts. Takes source content (a post, newsletter, blog, research note) and returns a complete Gemini image generation prompt with a structured brief. Use this skill whenever the user says "whiteboard infographic", "gemini infographic", "hand-drawn graphic", "turn this into a whiteboard", or wants an AI-generated infographic for a post.
+  Generate a hand-drawn whiteboard infographic prompt. Takes source content (a post, newsletter, blog, research note) and returns a complete Gemini image generation prompt with a structured brief. Use this skill whenever the user says "whiteboard infographic", "gemini infographic", "hand-drawn graphic", "turn this into a whiteboard", or wants an AI-generated infographic for a post.
 ---
 
 # Gemini Infographic
+
+## Codex and Claude runtime
+
+- Use this skill in Codex or Claude with the tools actually available in the current task. `AskUserQuestion` examples describe the questions, not a required API: use an available question tool within its limits, or ask in chat. Reuse answers and source material already supplied.
+- Work in the user-selected project. Read its `about-me.md`, `voice.md` and relevant brand files before personalised work. Confirm the intended author if files conflict or contain starter defaults. Ask for missing facts or run `voice-builder`; never inherit the maintainer's identity, accounts or private files.
+- Resolve bundled `references/` relative to this skill folder. For an explicitly requested profile refresh, read and update the canonical `about-me.md`, `voice.md` or `newsletter-voice.md` in place, preserving unrelated user facts and rules. Consumers must reread those canonical files. Use a new filename only for new deliverables that would collide with unrelated existing files. Installation alone never starts an interview or writes files. Do not write persistent learnings unless requested.
+- Use supplied evidence first. Verify external claims through available search/source tools when needed. If a source or integration is unavailable, name the missing capability and offer supplied text/export input. Never invent facts, first-person experience, metrics or a successful tool run.
+- Connect only services needed for the chosen route through the user's existing account. Never print credentials or overwrite connections. Drafting, saving and reviewing do not authorise publishing, sending messages or changing accounts.
+
+## Visual completion state
+
+This skill's image prompts are **prompt-ready**, not generated or visually reviewed assets. Keep its named Gemini workflow unless the user requests another generator. A missing image service does not block writing a prompt. When images are supplied or generated, open and inspect each export at full size and feed size (about 360px wide, 320px for thumbnails). Check exact copy, dimensions, clipping, legibility, brand colours, font appearance, logos and reference fidelity. Fix and re-inspect failed exports. Record any unavailable export or inspection as pending. An image prompt or raster export is not an editable design file.
 
 ## CRITICAL: Auto-start on load
 
@@ -25,7 +37,7 @@ Analyse the content and produce an infographic brief in plain language. Include:
 - **Title** (6 words or fewer, punchy)
 - **Subtitle** (optional, one line of context)
 - **Core structure**: decide between steps, framework, comparison, stats, or list
-- **Key points**: 3 to 7 bullets max, each 10 words or fewer
+- **Key points**: aim for 3 to 7 short bullets. Preserve every required step, item and qualification; if they do not fit legibly, propose a split in the brief rather than silently dropping content.
 - **Visual suggestions**: arrows, boxes, highlighted numbers, icons, color accents. Be specific about placement and colour.
 - **Footer CTA**: handwritten text reading "Follow [Name] [Tagline] for more helpful content | Repost ♻️"
 
@@ -56,7 +68,7 @@ Layout: Structure the 1080x1350 image as follows:
 
 Use multi-colored markers for emphasis. Keep text large and legible. Make everything look hand-drawn with slight imperfections. Make it look like a photograph of an actual notebook page.
 
-Always include the handwritten text "Follow [Name] [Tagline] for more helpful content | Repost ♻️" at the bottom of the image, in the same hand-drawn marker style.
+If approved in the brief, include the handwritten footer "[verified author and approved CTA]" at the bottom of the image, in the same hand-drawn marker style.
 ```
 
 Tell the user:
@@ -72,9 +84,9 @@ After the prompt, offer:
 ## Rules
 
 - 1080x1350 pixel output is non-negotiable. Vertical format owns the LinkedIn feed.
-- Footer CTA always includes the recycle symbol and "Repost".
+- Fill footer name and tagline only from confirmed user context. Use the suggested Repost footer only if it fits the user’s voice; omit unknown fields.
 - Never use em dashes in any output.
-- Keep bullets under 10 words. Longer text loses legibility at the whiteboard scale.
+- Aim for bullets under 10 words without losing their meaning. Readability and accurate coverage must both pass.
 - Always wait for user approval of the brief before outputting the final prompt.
 - British English unless voice.md says otherwise.
 - If the user has brand-kit.md or colours.md in the project, bake their brand colours into the visual suggestions.
