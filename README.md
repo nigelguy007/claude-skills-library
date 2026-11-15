@@ -1,6 +1,6 @@
 # claude-skills-library
 
-About 2,630 [Claude Code](https://claude.com/claude-code) skills collected from open-source repositories, plus a one-command installer that puts them all in `~/.claude/skills` so every project can use them.licensed and copyrighted  by Juliemango.ai
+About 2,870 [Claude Code](https://claude.com/claude-code) skills collected from open-source repositories, plus a one-command installer that puts them all in `~/.claude/skills` so every project can use them.licensed and copyrighted  by Juliemango.ai
 
 - Skills live under [`skills/`](skills/), namespaced by origin as `skills/<owner>_<repo>/...`.
 - [`SKILLS.md`](SKILLS.md) lists every skill, its source repository and what triggers it.
@@ -28,6 +28,7 @@ Restart Claude Code afterwards. Run the same command again to update.
 - Collections with a router `SKILL.md` at their root (gstack, avoid-ai-writing, linkedin-skills) also get the skills nested under it installed. If a skill with that name is already there from another install, such as gstack's own setup, that copy is kept.
 - Sources listed in [`external_sources.json`](external_sources.json) (currently [transitions.dev](https://github.com/Jakubantalik/transitions.dev)) are cloned from upstream each time you install. Their licences don't allow redistributing them, so they aren't committed here.
 - The official design sources (impeccable, make-interfaces-feel-better, GSAP, transitions.dev) are installed first and keep the bare skill names. Third-party copies of the same skills are namespaced.
+- [`skills/nexu-io_open-design/`](skills/nexu-io_open-design/) holds the 169 skills from [nexu-io/open-design](https://github.com/nexu-io/open-design). Only the skills are vendored: the OpenDesign app and its `od` daemon/MCP server are not installed (`od` isn't on npm and needs a from-source Node 24 build plus a running local daemon).
 - After adding or removing skills, run `python3 scripts/build_skills_index.py` to rebuild `SKILLS.md` from what's on disk.
 
 ## Claude Code on the web (cloud sessions)
