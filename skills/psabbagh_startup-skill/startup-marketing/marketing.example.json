@@ -1,0 +1,35 @@
+{
+  "business": "Chairside (an example: booking and no-show reminders for hair salons)",
+  "currency": "$",
+  "channels": [
+    {
+      "name": "Walking into salons nearby and showing it",
+      "kind": "outreach",
+      "reach": 30,
+      "reach_unit": "salons visited",
+      "steps": [
+        {"name": "the owner has five minutes", "rate": 0.5},
+        {"name": "starts the free trial", "rate": 0.3},
+        {"name": "pays after the trial", "rate": 0.5}
+      ],
+      "cost_per_month": 0,
+      "cost_per_reach": 0,
+      "founder_hours_per_month": 20,
+      "source": "estimate: no visits made yet; replace with the first 30 real ones"
+    },
+    {
+      "name": "Instagram ads to salon owners",
+      "kind": "ads",
+      "reach": [0, 0, 600, 900, 1200, 1500, 1500, 1500, 1500, 1500, 1500, 1500],
+      "reach_unit": "clicks",
+      "steps": [
+        {"name": "starts the free trial", "rate": 0.04},
+        {"name": "pays after the trial", "rate": 0.4}
+      ],
+      "cost_per_month": 0,
+      "cost_per_reach": 0.9,
+      "founder_hours_per_month": 6,
+      "source": "estimate: click cost from the ad platform's planner, trial and pay rates guessed"
+    }
+  ]
+}

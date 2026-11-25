@@ -1,0 +1,4 @@
+interface:
+  display_name: "Startup Marketing"
+  short_description: "Where your first customers come from, and what each costs"
+  default_prompt: "Use $startup-marketing to plan how my first customers will find me."

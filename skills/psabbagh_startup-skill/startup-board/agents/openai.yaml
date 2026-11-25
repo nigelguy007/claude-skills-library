@@ -1,0 +1,7 @@
+interface:
+  display_name: "Startup Board"
+  short_description: "A board of advisors scores and votes on your idea"
+  default_prompt: "Use $startup-board to put my business idea in front of the board."
+
+policy:
+  allow_implicit_invocation: false

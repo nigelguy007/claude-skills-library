@@ -1,0 +1,6 @@
+name,type,url,price,price_unit,includes,headline,rating,reviews,checked
+SalonDesk (made-up example),direct,https://example.com/salondesk/pricing,35,month,"online booking, text reminders, one calendar per stylist",Your salon on autopilot,4.1,212,2026-11-07
+ChairBook (made-up example),direct,https://example.com/chairbook/pricing,0,month,"free booking page; reminders cost extra",Free booking for solo stylists,3.6,88,2026-11-07
+StudioSuite (made-up example),direct,https://example.com/studiosuite,,month,"booking, payments, payroll; price only on a sales call",The all-in-one salon platform,4.4,1030,2026-11-07
+A general booking app (made-up example),indirect,https://example.com/generic-booking/plans,16,month,"booking page and email reminders, no card hold",Let clients book you online,4.2,5400,2026-11-07
+Texting clients and a paper diary,diy,https://example.com/forum/how-do-you-take-bookings,0,month,"the stylist's own phone and time",,,,2026-11-07

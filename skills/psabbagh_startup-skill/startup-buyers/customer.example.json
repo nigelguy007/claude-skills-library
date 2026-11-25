@@ -1,0 +1,39 @@
+{
+  "business": "Chairside (an example: booking and no-show reminders for hair salons)",
+  "target": "Owners of independent hair salons with 1 to 6 chairs who take bookings by phone, text or Instagram",
+  "category": "software that runs your bookings",
+  "currency": "$",
+  "budget_period": "month",
+  "offer_price": 29,
+  "age": [26, 58],
+  "segments": [
+    {"name": "Solo stylist renting a chair", "share": 0.40, "income": [32000, 60000], "budget": [0, 25]},
+    {"name": "Small salon owner, 2 to 3 chairs", "share": 0.40, "income": [45000, 90000], "budget": [15, 60]},
+    {"name": "Busy salon owner, 4 to 6 chairs", "share": 0.20, "income": [70000, 140000], "budget": [40, 150]}
+  ],
+  "behaviours": [
+    {"name": "Asks other stylists first", "share": 0.25, "how": "Only tries a tool another stylist they trust already uses."},
+    {"name": "Hates admin", "share": 0.20, "how": "Will pay to make phone tag and paperwork go away, if setup is quick."},
+    {"name": "Watches every dollar", "share": 0.20, "how": "Cancels any subscription that does not pay for itself in a month."},
+    {"name": "Tried apps before and quit", "share": 0.20, "how": "Signed up for a booking app once and went back to texting clients."},
+    {"name": "Early adopter", "share": 0.15, "how": "Likes new tools and posts about the ones that work."}
+  ],
+  "today": [
+    {"name": "Texts and Instagram messages, a paper diary", "share": 0.45},
+    {"name": "A free booking app with basic features", "share": 0.25},
+    {"name": "A paid booking system they find clunky", "share": 0.20},
+    {"name": "The owner of the salon where you rent a chair handles bookings", "share": 0.10}
+  ],
+  "situations": [
+    "you answer booking messages between clients, with dye on your gloves",
+    "two clients did not show up last week and you lost about $180",
+    "most of your clients have come to you for years and text you directly",
+    "you are booked three weeks ahead and turning people away"
+  ],
+  "known_objections": [
+    "My clients won't use an app",
+    "I already have something free",
+    "Setting it up takes time I don't have",
+    "Another monthly fee"
+  ]
+}

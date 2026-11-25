@@ -1,0 +1,4 @@
+interface:
+  display_name: "Startup Numbers"
+  short_description: "Margins, break-even, cash needed and payback"
+  default_prompt: "Use $startup-numbers to find out whether my business makes money."

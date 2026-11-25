@@ -1,0 +1,27 @@
+{
+  "business": "Rise & Crumb (an example: a sourdough starter kit sold online)",
+  "model": "one-time",
+  "unit": "kit",
+  "currency": "$",
+  "price": 45,
+  "variable": [
+    {"label": "Starter, flour and jar", "cost": 9.00, "source": "supplier price list"},
+    {"label": "Packaging", "cost": 3.00},
+    {"label": "Shipping", "cost": 7.00, "source": "estimate: average across zones"},
+    {"label": "Card fees", "cost": 1.60}
+  ],
+  "marketing_per_sale": 12,
+  "fixed_monthly": [
+    {"label": "Shared kitchen rental", "cost": 400},
+    {"label": "Online store", "cost": 39},
+    {"label": "Insurance", "cost": 60}
+  ],
+  "startup": [
+    {"label": "Equipment", "cost": 1800},
+    {"label": "First stock", "cost": 900},
+    {"label": "Branding and photos", "cost": 1000}
+  ],
+  "capacity": 400,
+  "sales": [30, 45, 60, 80, 100, 110, 120, 130, 140, 150, 170, 220],
+  "sources": {"marketing_per_sale": "estimate: Instagram ads at about $12 a sale"}
+}

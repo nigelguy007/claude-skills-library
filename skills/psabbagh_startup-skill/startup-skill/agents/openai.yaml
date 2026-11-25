@@ -1,0 +1,7 @@
+interface:
+  display_name: "Startup Skill"
+  short_description: "Test a startup idea before you spend money on it"
+  default_prompt: "Use $startup-skill to test my idea: a booking app for hair salons at $29 a month."
+
+policy:
+  allow_implicit_invocation: false

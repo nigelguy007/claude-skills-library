@@ -1,0 +1,29 @@
+{
+  "business": "Chairside (an example: booking and no-show reminders for hair salons)",
+  "model": "subscription",
+  "unit": "salon",
+  "currency": "$",
+  "price": 29,
+  "variable": [
+    {"label": "Text reminders", "cost": 1.50, "source": "estimate: about 150 texts a month at 1 cent each"},
+    {"label": "Hosting and database", "cost": 0.60, "source": "estimate"},
+    {"label": "Card fees (2.9% + 30 cents)", "cost": 1.14, "source": "the payment processor's published fees"}
+  ],
+  "fixed_monthly": [
+    {"label": "Founder pay", "cost": 3000},
+    {"label": "Part-time support", "cost": 1500, "source": "estimate: 15 hours a week"},
+    {"label": "Software and tools", "cost": 300}
+  ],
+  "startup": [
+    {"label": "Building the app", "cost": 8000, "source": "estimate"},
+    {"label": "Legal and company setup", "cost": 1200},
+    {"label": "Launch ads", "cost": 1500}
+  ],
+  "new_customers": [10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 60],
+  "churn": 0.04,
+  "cost_to_win_customer": 120,
+  "sources": {
+    "churn": "estimate: typical for small-business software, to check after 3 months",
+    "cost_to_win_customer": "estimate: Instagram ads plus demo calls"
+  }
+}
