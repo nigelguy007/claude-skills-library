@@ -215,6 +215,17 @@ class Panel(unittest.TestCase):
         with self.assertRaises(buyers.BuyersError):
             buyers.save(self.d, "B006", "no json here")
 
+    def test_a_refused_save_keeps_the_answer_already_on_file(self):
+        self.answer("B004", "not_now", "timing")
+        path = os.path.join(self.d, "answers", "B004.json")
+        with open(path, encoding="utf-8") as fh:
+            before = fh.read()
+        with self.assertRaises(buyers.BuyersError):
+            buyers.save(self.d, "B004", '{"id": "B004", "decision": "maybe"}')
+        with open(path, encoding="utf-8") as fh:
+            self.assertEqual(fh.read(), before)
+        self.assertEqual(os.listdir(os.path.join(self.d, "answers")), ["B004.json"])
+
     def test_tally_counts_only_buy_now_as_a_buy(self):
         for i in range(1, 5):
             self.answer("B%03d" % i, "buy_now", "solves_my_problem")

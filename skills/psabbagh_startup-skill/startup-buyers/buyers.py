@@ -391,11 +391,14 @@ def save(d, buyer_id, reply):
     except ValueError as e:
         raise BuyersError("the reply's JSON does not parse: %s" % e)
     path = os.path.join(d, "answers", buyer_id + ".json")
-    _write_json(path, obj)
-    p = problem(path, buyer_id)
+    # Check the reply in a file of its own, so a refused reply never touches an answer already on file.
+    candidate = path + ".new"
+    _write_json(candidate, obj)
+    p = problem(candidate, buyer_id)
     if p:
-        os.remove(path)
+        os.remove(candidate)
         raise BuyersError("%s's reply is not a valid answer (%s): run its brief again instead" % (buyer_id, p))
+    os.replace(candidate, path)
     return path
 
 
