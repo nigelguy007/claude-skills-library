@@ -1,6 +1,6 @@
 # Installed Claude Skills
 
-This repository has **2855 Claude skills** installed under the `skills/` directory, collected from 96 source repositories plus 5 uploaded skill packs.
+This repository has **2862 Claude skills** installed under the `skills/` directory, collected from 97 source repositories plus 5 uploaded skill packs.
 
 Each skill is stored under `skills/<owner>_<repo>/...`, preserving its origin path.
 
@@ -111,6 +111,7 @@ Each skill is stored under `skills/<owner>_<repo>/...`, preserving its origin pa
 | 99 | [nexu-io/open-design](https://github.com/nexu-io/open-design) | 113 |
 | 100 | [uploads/boardroom-strategy-decks](https://github.com/uploads/boardroom-strategy-decks) | 25 |
 | 101 | [uploads/consulting-slide-design](https://github.com/uploads/consulting-slide-design) | 18 |
+| 102 | [psabbagh/startup-skill](https://github.com/psabbagh/startup-skill) | 7 |
 
 ### Source repositories with no installable skills
 
@@ -129,7 +130,7 @@ Each skill is stored under `skills/<owner>_<repo>/...`, preserving its origin pa
 
 - **Google Drive folders** (3 links in the request) — cloud storage, not git repositories; cannot be installed as Claude skills.
 
-## All installed skills (2855)
+## All installed skills (2862)
 
 | Skill | Source repo | Description | Trigger |
 |-------|-------------|-------------|---------|
@@ -2695,6 +2696,13 @@ Each skill is stored under `skills/<owner>_<repo>/...`, preserving its origin pa
 | `grammar-check` | phuryn/pm-skills | Identify grammar, logical, and flow errors in text and suggest targeted fixes without rewriting the entire text. Use when proofreading content, checking writing quality, or reviewing a draft. | Use when proofreading content, checking writing quality, or reviewing a draft. |
 | `privacy-policy` | phuryn/pm-skills | Draft a detailed privacy policy covering data types, jurisdiction, GDPR and compliance considerations, and clauses needing legal review. Use when creating a privacy policy, updating data protection documentation, or preparing for… | Use when creating a privacy policy, updating data protection documentation, or preparing for compliance. |
 | `review-resume` | phuryn/pm-skills | Comprehensive PM resume review and tailoring against 10 best practices including XYZ+S formula, keyword optimization, job-specific tailoring, and structure. Use when reviewing a PM resume, preparing for job applications, or improving… | Use when reviewing a PM resume, preparing for job applications, or improving resume impact. |
+| `startup-board` | psabbagh/startup-skill | Puts a business idea in front of a board of eight advisors, each a separate sub-agent applying one published playbook: Alex Hormozi's $100M Offers and $100M Leads, Peter Thiel's Zero to One, Seth Godin on marketing, Naval Ravikant on… | Use when someone says "test my business idea", "would this work", "pressure-test this", "what would a board say", "is this a good business", or as step 1 of… |
+| `startup-buyers` | psabbagh/startup-skill | Puts a business idea in front of 100 simulated buyers (20 with --quick), each a separate sub-agent with their own income, budget, shopping habits, what they use today and how much the problem really bothers them, and counts who would pay… | Use when someone asks "would people buy this", "test it on customers", "simulate buyers", "run the buyer panel", "is there demand", "who is my customer" or… |
+| `startup-competitors` | psabbagh/startup-skill | Finds out how buyers already solve the problem a business idea targets, from public sources only, every fact linked: the direct competitors, the other products people use for the same job, and the do-it-yourself way, with what each… | Use when someone asks "who are my competitors", "is this market crowded", "what else is out there", "what do others charge", "find the gap", or as step 2 of… |
+| `startup-marketing` | psabbagh/startup-skill | Works out how the first customers will actually find and buy a new business, and what each one costs to win: the first audience, the positioning, two or three channels with every step from reaching someone to getting paid, the first 30… | Use when someone asks "how do I get customers", "marketing plan", "where do I find my first customers", "how much should I spend on ads", "go-to-market", or… |
+| `startup-numbers` | psabbagh/startup-skill | Works out whether a business makes money before any is spent: what each sale or each customer leaves after its own costs, what it costs to win a customer and whether they are worth it, the break-even, 24 months month by month, the cash… | Use when someone asks "is this profitable", "do the numbers", "find my margins", "break-even", "unit economics", "how much money do I need to start", "how… |
+| `startup-plan` | psabbagh/startup-skill | Compiles what the startup-skill pack found (the board, the competitors, the buyer panel, the marketing plan and the numbers) into one business plan with a verdict at the top that is computed, never written by hand: Profitable, Not yet… | Use when someone asks "write my business plan", "put it all together", "is it profitable", "give me the verdict", "what should I do next", or as the last step… |
+| `startup-skill` | psabbagh/startup-skill | Tests a startup or business idea before any money is spent, start to finish: a board of advisors scores it, real competitors are researched with links, 100 simulated buyers say whether they would pay, a channel plan forecasts where the… | Use when someone says "test my startup idea", "test my business idea", "is this idea any good", "would this business work", "validate my idea", "run the… |
 | `accessibility-audit` | rampstackco/claude-skills | Run a comprehensive WCAG accessibility audit covering perceivable, operable, understandable, and robust principles. Use this skill whenever the user wants to audit accessibility, review WCAG… | Use this skill whenever the user wants to audit accessibility, review WCAG compliance, fix accessibility issues, prepare for accessibility certification,… |
 | `ads-creative-development` | rampstackco/claude-skills | How to produce ad creative that converts at performance scale. Hook patterns, format selection, video pacing, variation systems, sequential testing methodology, fatigue detection, brand-voice… | Triggers on ad creative, ad design, hook patterns, ad video pacing, creative testing, ad variations, creative refresh, creative fatigue, refresh ad creative,… |
 | `ads-performance-analytics` | rampstackco/claude-skills | How to read paid media dashboards without fooling yourself. Attribution models, platform reporting quirks, multi-platform reconciliation, ROAS vs LTV horizon traps, statistical noise in performance… | Triggers on read paid media dashboard, attribution analysis, ROAS vs LTV, multi-platform reconciliation, ad incrementality, geo holdout, conversion lift study,… |

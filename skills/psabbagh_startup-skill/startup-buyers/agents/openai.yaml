@@ -1,0 +1,7 @@
+interface:
+  display_name: "Startup Buyers"
+  short_description: "100 simulated buyers say if they would pay, and why"
+  default_prompt: "Use $startup-buyers --quick to see whether people would buy my idea."
+
+policy:
+  allow_implicit_invocation: false

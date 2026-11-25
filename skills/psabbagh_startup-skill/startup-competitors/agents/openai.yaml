@@ -1,0 +1,4 @@
+interface:
+  display_name: "Startup Competitors"
+  short_description: "Real competitors, prices and complaints, every fact linked"
+  default_prompt: "Use $startup-competitors to find who already solves this and what they charge."

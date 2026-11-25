@@ -1,0 +1,4 @@
+interface:
+  display_name: "Startup Plan"
+  short_description: "The business plan with a computed verdict"
+  default_prompt: "Use $startup-plan to put it all together and give me the verdict."
