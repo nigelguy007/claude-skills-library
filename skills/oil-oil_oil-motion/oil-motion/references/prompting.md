@@ -1,10 +1,174 @@
-# 关键帧与视频提示词（Open Design 适配）
+# 关键帧、视频提示词与任务提交
 
-使用当前宿主的图片／视频工具，不要求 ZenMux，不调用外部凭据页或上游 image_job/video_job 脚本。已有视频或序列帧跳过生成。先检查工具是否支持参考图、首尾帧、透明通道和所需画幅；不支持时不能假装约束已满足。
+本文档是关键帧与视频提示词写法，以及 `image_job.py`、`video_job.py` 提交命令的唯一事实源。
+路线选择见 [delivery-selection.md](delivery-selection.md)，Pilot 与帧链硬门命令见
+[qa.md](qa.md)。
 
-按任务的真实容器锁定比例、尺寸和裁切策略；用已验收 K0/K1 约束一段连续变化。每段只承担一种主要变化。连续片段的第二段起使用上一段实际尾帧，并保留任务元数据。用实际解码结果核对时长、分辨率与帧数，不把请求值当作结果。先把第一段放入真实页面检查，再批量生产；宿主不允许额外验证时记录未验证项。
+## 目录
 
-生成调用的字段、模型和权限遵循当前宿主工具定义，以下是可移植的构图与动作提示词，不是服务 API 参数。
+- [生成关键帧](#生成关键帧)
+- [画幅与尺寸](#画幅与尺寸)
+- [写提示词前先决定](#写提示词前先决定)
+- [提交视频任务（video_job.py）](#提交视频任务video_jobpy)
+- 提示词段落：[身份锁定](#通用身份锁定段)、[固定镜头](#固定镜头段)、[场景背景](#场景背景段baked-路线)、[视频色键](#视频色键段page-路线)
+- 按动作类型：[转动与视向](#转动与视向提示词)、[一镜到底](#一镜到底连续镜头提示词)、[产品拆解](#产品拆解与爆炸图)、[镜头穿越](#镜头穿越)、[多段串联](#多段关键帧串联)、[指针二维](#指针二维动画)、[逐帧 scrub](#逐帧-scrub-时间轴)、[分段播放](#分段播放转场)、[离散状态](#离散状态动画)
+- [失败修复提示词](#失败修复提示词)、[负面约束](#负面约束)、[分辨率和时长](#分辨率和时长)
+
+## 生成关键帧
+
+生产主流程（先生图、再生视频、逐段串联）见 SKILL.md 主流程。视频提示词只描述两张已验收
+关键帧之间如何连续变化，不再承担终点设计；主体身份、产品结构、Logo、构图和风格必须先在
+关键帧图片中解决。
+
+关键帧通过凭据入口运行 `image_job.py`：
+
+```bash
+node "$OIL_MOTION/scripts/credential-ui/src/profile.ts" run default -- python3 "$OIL_MOTION/scripts/image_job.py" \
+  --prompt-file source/K0.txt \
+  --image source/product-reference.png \
+  --background transparent \
+  --size 2048x1152 \
+  --output source/K0-alpha.png
+```
+
+- `--background` 必填。`background_owner=page` 传 `transparent`，直接生成真实透明背景 PNG；
+  脚本检查 Alpha 通道、四角透明和可见主体，不合格的结果另存为 `*.rejected.png` 并以非零状态退出。
+  `background_owner=video` 传 `opaque`，提示词写明完整场景、光线和地面接触。
+- `--image` 可重复。真实产品图、身份参考或上一张已验收关键帧都作为输入；提示词按顺序
+  写明“图 1 是……”以及哪些部分必须保持不变。没有参考图时才走文生图。
+- 不确定参数时先加 `--dry-run`：只校验并打印请求摘要，不计费，也不需要 Key。
+- 输出已存在时默认停止；确认要替换后才加 `--force`。
+
+`background_owner=page` 时不要让生图模型画绿色、品红、灰色、白色或棋盘格背景。提交视频前，
+再从透明源确定性合成视频模型需要的均匀色键副本：
+
+```bash
+python3 "$OIL_MOTION/scripts/composite_alpha_keyframe.py" \
+  source/K0-alpha.png source/K0-video.png \
+  --key-color '#00FF00'
+```
+
+透明源与视频输入副本必须分开保存。主体含大量绿色时，合成副本改用 `#FF00FF`。
+
+需要同一主体从轨道一端精确移动到另一端时，可以先准备透明主体层，用程序生成身份和尺寸
+完全一致的首尾帧，再交给视频模型补全中间形变：
+
+```bash
+python3 "$OIL_MOTION/scripts/compose_travel_frames.py" subject.png \
+  --first-output first-green.png \
+  --last-output last-green.png \
+  --size 864x1536 \
+  --subject-height 0.36 \
+  --subject-anchor-x 0.535
+```
+
+该工具只负责扁平轨道、缩放和精确位移。中间的结构形变、接触关系和前后遮挡仍由首尾帧
+约束下的视频模型完成。
+
+## 画幅与尺寸
+
+Concept Contract 锁定 `aspect_ratio` 后，关键帧、视频和编译输出沿用同一比例：
+
+| `aspect_ratio` | 关键帧 `--size` | 视频画幅 | 常见容器 |
+| --- | --- | --- | --- |
+| `16:9` | `2048x1152` 或 `1536x864` | 从首帧推断为 `16:9` | 横向全屏、Hero、宽幅转场 |
+| `9:16` | `1152x2048` 或 `864x1536` | `9:16` | 竖屏全屏、移动端故事 |
+| `1:1` | `1024x1024` 或 `2048x2048` | `1:1` | 卡片、头像、方形视窗 |
+| `21:9` | `2016x864` | `21:9` | 宽银幕叙事 |
+
+默认图片模型（gpt-image-2 系列）要求宽高都是 16 的倍数、最长边不超过 3840、长短边之比
+不超过 3:1、总像素在 655,360 到 8,294,400 之间，脚本会在联网前校验。换用其他模型时以
+该模型支持的尺寸为准，并核对脚本报告的实际宽高比。
+
+容器是 16:10、4:3 或其他比例时，选最接近的生成比例，在合同中写明裁切或补边策略，再按
+最终视口验收。编译输出宽度由最大 CSS 尺寸乘目标 DPR 决定，见各媒体路线的编译命令。
+
+## 写提示词前先决定
+
+提示词从 Concept Contract 和 Identity Bible 出发，不得加入用户未确认的主体、人数、
+风格、情绪或叙事形式；合同中的限制必须原样成为提示词约束。
+
+先写清楚：
+
+1. `time_control` 是逐帧 scrub、分段播放还是自主播放。
+2. 时间轴或状态转场的起点、终点和方向。
+3. 主体哪些部分允许变化，哪些必须固定（角色照抄 Identity Bible 的身份锚点）。
+4. 是否闭环。
+5. 背景归属：`background_owner=video` 时写明场景、环境光、地面接触和景深如何保持
+   连续；`background_owner=page` 时写明关键帧生图使用真实 Alpha、视频输入副本使用
+   绿色还是洋红色键，以及如何保证视频四角与时间维度均匀。
+6. 最终会按时间、角度、二维位置还是状态取帧。
+
+图片模型负责关键帧，`page` 路线直接输出透明通道；视频模型负责动作语义和画面连续性，不负责精确
+切帧、Alpha 视频、帧编号、压缩或图集。不要让视频提示词承担透明通道或图集输出。
+
+## 提交视频任务（video_job.py）
+
+`video_job.py` 用于提交、轮询和下载 ZenMux / MiniMax 原生视频任务，把重复的接口
+调用、图片编码、状态轮询和结果保存程序化。提交前按 SKILL.md 的“首次配置”检查一次
+凭据，命令始终经 `profile.ts run default --` 运行。
+
+模式与参数约束：
+
+- `reference_image` 与 `first_frame` / `last_frame` / `loop_frame` 互斥。混用会触发
+  MiniMax 接口错误 `2013`，脚本会在联网前阻止提交。
+- 首尾帧转场需要锁定身份时，先把身份和风格生成进验收后的首尾关键帧，不能再附加
+  `reference_image`。
+- 闭环动作把同一张已验收构图同时传为首帧和尾帧（`--loop-frame`）。这能加强接缝
+  约束，但仍需检查首尾差异和运动方向。
+- 默认不传 `--model`（固定 `minimax/minimax-h3-max`）和 `--ratio`（按首帧推断画幅）。
+- 默认传 5 秒 `duration`。使用 `--frames` 时不传 `duration`，二者不能同时出现；
+  只有当前接口明确支持帧数控制时才使用 `--frames`。
+- 模型支持时用 `--seed` 复现，并保存任务元数据和尾帧；seed 不能替代参考图和首尾帧。
+- `generate_audio=false` 不能保证成片没有音轨；编译脚本会统一移除音轨。
+- 模型实际输出的时长和帧数可能略多于请求，尾部还可能停顿。先用
+  `motion_pipeline.py probe` 查看实际值，再按目标尾帧清理，不要把请求值当成成片值。
+- 模型或接口拒绝参数时停止并报告具体响应；只有用户同意降级后，才能移除约束或更换
+  模型，不要静默删掉首尾帧。
+- 一条视频只承担一条连续时间轴或一个状态转场，时长和分辨率见[分辨率和时长](#分辨率和时长)。
+- `--stage` 必填：第一段为 `pilot`，后续生产段为 `production` 并传
+  `--pilot-approval`；连续叙事的生产段同时传 `--continuity-mode chain`、
+  `--previous-tail` 和 `--frame-chain-manifest`。Pilot 批准与帧链校验的规则、
+  阻断条件和命令见 [qa.md](qa.md)。
+
+第一段 Pilot（单向转场 `K0 → K1`）：
+
+```bash
+node "$OIL_MOTION/scripts/credential-ui/src/profile.ts" run default -- python3 "$OIL_MOTION/scripts/video_job.py" \
+  --stage pilot \
+  --segment-index 1 \
+  --prompt-file source/segment-01.txt \
+  --first-frame source/K0.png \
+  --last-frame source/K1.png \
+  --resolution 768P \
+  --duration 5 \
+  --seed 42 \
+  --output source/segment-01.mp4 \
+  --metadata source/segment-01.job.json
+```
+
+闭环动作把 `--last-frame source/K1.png` 换成 `--loop-frame`。`background_owner=page`
+时，首尾帧传 `composite_alpha_keyframe.py` 合成的色键副本，不传透明源。脚本把实际尾帧
+保存为 `<输出名>-last-frame.jpg`，这里是 `source/segment-01-last-frame.jpg`。
+
+第 2 段及之后的连续生产：
+
+```bash
+node "$OIL_MOTION/scripts/credential-ui/src/profile.ts" run default -- python3 "$OIL_MOTION/scripts/video_job.py" \
+  --stage production \
+  --segment-index 2 \
+  --pilot-approval pilot/approval.json \
+  --continuity-mode chain \
+  --previous-tail source/segment-01-last-frame.jpg \
+  --first-frame source/segment-01-last-frame.jpg \
+  --last-frame source/K2.png \
+  --frame-chain-manifest qa/frame-chain.json \
+  --prompt-file source/segment-02.txt \
+  --output source/segment-02.mp4
+```
+
+`--first-frame` 与 `--previous-tail` 传同一个文件：续段从上一段真实结束的画面接着走，
+尾帧仍是计划关键帧。帧链的校验规则见 [qa.md](qa.md)。
 
 ## 通用身份锁定段
 
@@ -57,7 +221,7 @@ background replacement, and no transparency.
 ## 视频色键段（page 路线）
 
 仅当 Concept Contract 锁定 `background_owner: page` 时追加到视频提示词，图集和色键视频两条路线都用它。
-首尾关键帧先由宿主支持透明输出的图片工具生成透明 PNG，再由
+首尾关键帧先由 `image_job.py --background transparent` 生成透明 PNG，再由
 `composite_alpha_keyframe.py` 合成为视频输入；不要把这段用于图片提示词。默认 `#00FF00`，主体含绿色时改用 `#FF00FF`。
 
 ```text
@@ -304,3 +468,15 @@ text, watermark, border, style change, unnecessary sci-fi circuitry, or plastic 
 No unnecessary sci-fi circuitry, generic cyberpunk neon clutter, plastic AI
 noise, over-detailed artificial lines, or visual noise.
 ```
+
+## 分辨率和时长
+
+- 单段 3–6 秒，只完成一个主要变化；更长的动作拆成多段，否则容易漂移。
+- 默认模型 `minimax/minimax-h3-max` 仅支持 `480P`、`768P`，不支持 `1080P` 或 `2K`，
+  见 [ZenMux 模型信息](https://zenmux.ai/minimax/minimax-h3-max)。Pilot 与最终母版均用
+  `768P`；`480P` 可用于动作草案，不能当作更高清的母版。脚本接受大小写并在提交前校验。
+- 母版像素至少覆盖最大 CSS 尺寸乘目标 DPR。模型最高分辨率仍不够时，先调整显示目标或
+  说明取舍，不从低清母版放大。只有 `768P` 母版时，按实际宽高下调预算中的显示尺寸或
+  目标 DPR；例如 `1344×768` 可覆盖 `1280×720` CSS px、目标 DPR `1.05`，
+  具体参数与复核方法见 [显示预算取舍](delivery-selection.md#母版像素不足时的显示预算)。
+- 是否插帧由 Motion Brief 的 `frame_policy` 决定，提示词不要求模型自行提高帧率。

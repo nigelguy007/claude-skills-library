@@ -1,0 +1,7 @@
+{
+  "source_url": "https://github.com/oil-oil/oil-motion",
+  "source_commit": "c930f4477304603b192c9633a449c9f4da98d75c",
+  "vendored_at": "2026-11-26T00:00:00Z",
+  "security_scan": "clean (0 HIGH, 2 INFO: both in test files that set placeholder API-key environment variables)",
+  "notes": "Full upstream tree at that commit, unmodified, under oil-motion/. Replaces the trimmed copy that came with nexu-io/open-design (pinned at 07e31f2, with the generation scripts and the credential page removed). Upstream tests at vendoring time: 86 Python (unittest) and 27 Node (scripts/credential-ui) pass. See README.md in this folder for what calls the network and how the API key works."
+}

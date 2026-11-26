@@ -1,6 +1,6 @@
 # Installed Claude Skills
 
-This repository has **2862 Claude skills** installed under the `skills/` directory, collected from 97 source repositories plus 5 uploaded skill packs.
+This repository has **2862 Claude skills** installed under the `skills/` directory, collected from 98 source repositories plus 5 uploaded skill packs.
 
 Each skill is stored under `skills/<owner>_<repo>/...`, preserving its origin path.
 
@@ -108,10 +108,11 @@ Each skill is stored under `skills/<owner>_<repo>/...`, preserving its origin pa
 | 96 | [nigelguy007/reverseengineeranything](https://github.com/nigelguy007/reverseengineeranything) | 2 |
 | 97 | [andrewyng/openworker](https://github.com/andrewyng/openworker) | 1 |
 | 98 | [Jakubantalik/transitions.dev](https://github.com/Jakubantalik/transitions.dev) | 3 |
-| 99 | [nexu-io/open-design](https://github.com/nexu-io/open-design) | 113 |
+| 99 | [nexu-io/open-design](https://github.com/nexu-io/open-design) | 112 |
 | 100 | [uploads/boardroom-strategy-decks](https://github.com/uploads/boardroom-strategy-decks) | 25 |
 | 101 | [uploads/consulting-slide-design](https://github.com/uploads/consulting-slide-design) | 18 |
 | 102 | [psabbagh/startup-skill](https://github.com/psabbagh/startup-skill) | 7 |
+| 103 | [oil-oil/oil-motion](https://github.com/oil-oil/oil-motion) | 1 |
 
 ### Source repositories with no installable skills
 
@@ -2539,7 +2540,6 @@ Each skill is stored under `skills/<owner>_<repo>/...`, preserving its origin pa
 | `motion-lab` | nexu-io/open-design | 为当前网页或组件查找、选型和改造动效。包含 160 个案例的 HTML/CSS/JS、参数与中英文索引，覆盖基础、文字、交互和高级动效。 | Model-invoked automatically when a request matches the skill's description. |
 | `nanobanana-ppt` | nexu-io/open-design | AI-powered PPT generation with document analysis and styled images via the NanoBanana stack. Combines image generation with structured deck output. | Model-invoked automatically when a request matches the skill's description. |
 | `od-next-media-inputs` | nexu-io/open-design | Prepare required media inputs within an existing OD Next plan. Reuse capability evidence, acquire and measure assets efficiently, and resolve asynchronous jobs without removing required content or weakening quality standards. | Model-invoked automatically when a request matches the skill's description. |
-| `oil-motion` | nexu-io/open-design | 处理视频和序列帧，编译滚动、指针、拖动与状态驱动的网页动效；内含本地媒体处理脚本和运行时。新素材生成使用宿主工具。 | Model-invoked automatically when a request matches the skill's description. |
 | `pixelbin-media` | nexu-io/open-design | Generate and edit images and videos with an 85+ API portfolio and build visually appealing website pages via Pixelbin. | Model-invoked automatically when a request matches the skill's description. |
 | `platform-design` | nexu-io/open-design | 300+ design rules from Apple HIG, Material Design 3, and WCAG 2.2 for cross-platform apps. Useful when shipping a single design across iOS, Android, and the web. | Model-invoked automatically when a request matches the skill's description. |
 | `poster-hero` | nexu-io/open-design | Vertical poster or Moments-style share image with strong visual impact. | Model-invoked automatically when a request matches the skill's description. |
@@ -2619,6 +2619,7 @@ Each skill is stored under `skills/<owner>_<repo>/...`, preserving its origin pa
 | `verification-before-completion` | obra/superpowers | Use when about to claim work is complete, fixed, or passing, before committing or creating PRs - requires running verification commands and confirming output before making any success claims; evidence before assertions always | Model-invoked automatically when a request matches the skill's description. |
 | `writing-plans` | obra/superpowers | Use when you have a spec or requirements for a multi-step task, before touching code | Model-invoked automatically when a request matches the skill's description. |
 | `writing-skills` | obra/superpowers | Use when creating new skills, editing existing skills, or verifying skills work before deployment | Model-invoked automatically when a request matches the skill's description. |
+| `oil-motion` | oil-oil/oil-motion | 把 AI 生成或已有的视频、序列帧变成随滚动、指针、拖动、触摸、设备方向、音频、数据或状态变化的网页动画：设计动作方向，生成关键帧与视频，整理成图集或视频，编译时间轴并接入运行时。用户需要角色转向、产品拆解、镜头穿越、一镜到底转场，或要清理、抠色、补帧、压缩绿幕视频与雪碧图时使用。不用于纯 CSS、JS、SVG、Lottie 或实时 3D 就能完成的界面过渡与微交互（交给普通前端实现），也不用于独立成片剪辑、单张配图或静态页面。 | Model-invoked automatically when a request matches the skill's description. |
 | `assumption-audit` | Oria strategy skills (uploaded zip) | Surface and stress-test the unstated beliefs the team is treating as gospel. Use at the start of strategy work, before committing capital, or when a team's confidence outpaces its evidence. Built… | Model-invoked automatically when a request matches the skill's description. |
 | `competitive-intel` | Oria strategy skills (uploaded zip) | Surface what competitors are actually doing — their moves, capabilities, and likely next plays — before they hit your business. Use when assessing competitive threats, planning a market entry, or… | Use when assessing competitive threats, planning a market entry, or pressure-testing a strategy against rival response. Built around Porter's Five Forces,… |
 | `growth-barriers` | Oria strategy skills (uploaded zip) | Identify the real reason growth has stalled — not the symptom leadership is talking about. Use when revenue has plateaued, when growth is decelerating despite investment, or when the team is debating… | Use when revenue has plateaued, when growth is decelerating despite investment, or when the team is debating where to push next. Built around growth… |

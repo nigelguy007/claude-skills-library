@@ -336,8 +336,8 @@ def extract_frames(args: argparse.Namespace) -> dict[str, Any]:
                 "-an",
                 "-vf",
                 build_video_filter(args),
-                "-fps_mode",
-                "passthrough",
+                "-vsync",
+                "0",
                 str(raw / "frame_%05d.png"),
             ]
         )
